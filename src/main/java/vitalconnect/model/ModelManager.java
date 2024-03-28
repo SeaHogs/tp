@@ -9,6 +9,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -133,6 +134,14 @@ public class ModelManager implements Model {
         appointments.remove(appointment);
     }
 
+    @Override
+    public List<Appointment> getConflictingAppointments(Appointment newAppointment) {
+        return getFilteredAppointmentList().stream()
+                .filter(existingAppointment ->
+                        newAppointment.getDateTime().isBefore(existingAppointment.getEndDateTime())
+                                && newAppointment.getEndDateTime().isAfter(existingAppointment.getDateTime()))
+                .collect(Collectors.toList());
+    }
     @Override
     public void setClinic(ReadOnlyClinic clinic) {
         this.clinic.resetData(clinic);

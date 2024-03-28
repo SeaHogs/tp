@@ -183,6 +183,11 @@ public class ListAptCommandTest {
         }
 
         @Override
+        public List<Appointment> getConflictingAppointments(Appointment appointment) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Appointment> getFilteredAppointmentList() {
             throw new AssertionError("This method should not be called.");
         }

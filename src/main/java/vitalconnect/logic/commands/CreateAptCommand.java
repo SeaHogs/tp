@@ -4,6 +4,7 @@ import static vitalconnect.logic.Messages.MESSAGE_PERSON_NOT_FOUND;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import vitalconnect.logic.commands.exceptions.CommandException;
 import vitalconnect.model.Appointment;
@@ -71,11 +72,15 @@ public class CreateAptCommand extends Command {
         if (person == null) {
             throw new CommandException(MESSAGE_PERSON_NOT_FOUND);
         }
-
         Name name = person.getIdentificationInformation().getName();
         this.patientName = name.toString();
         String patientIc = nric.toString();
         Appointment appointment = new Appointment(patientName, patientIc, dateTime, endDateTime);
+        List<Appointment> conflictingAppointments = model.getConflictingAppointments(appointment);
+        if (!conflictingAppointments.isEmpty()) {
+            String conflictMessage = buildConflictMessage(conflictingAppointments);
+            throw new CommandException("Appointment time conflicts detected:\n" + conflictMessage);
+        }
         model.addAppointment(appointment);
 
         return new CommandResult(String.format("Created an appointment successfully!\n"
@@ -85,6 +90,23 @@ public class CreateAptCommand extends Command {
           false, false, CommandResult.Type.SHOW_APPOINTMENTS);
     }
 
+    /**
+     * Builds a message listing all conflicting appointments.
+     *
+     * @param appointments List of conflicting appointments.
+     * @return A string detailing the conflicting appointments.
+     */
+    private String buildConflictMessage(List<Appointment> appointments) {
+        StringBuilder message = new StringBuilder();
+        for (Appointment appointment : appointments) {
+            message.append(String.format("Appointment with %s (%s) from %s to %s\n",
+                    appointment.getPatientName(),
+                    appointment.getPatientIc(),
+                    appointment.getDateTime().format(DateTimeFormatter.ofPattern("d MMM yyyy HH:mm")),
+                    appointment.getEndDateTime().format(DateTimeFormatter.ofPattern("d MMM yyyy HH:mm"))));
+        }
+        return message.toString();
+    }
     /**
      * Returns the NRIC of the patient associated with this appointment.
      *

@@ -105,6 +105,13 @@ public interface Model {
     void addAppointment(Appointment appointment);
     void setAppointments(List<Appointment> appointments);
 
+    /**
+     * Checks if the given appointment conflicts with any existing appointments.
+     *
+     * @param appointment The appointment to check.
+     * @return true if there is a conflict, false otherwise.
+     */
+    List<Appointment> getConflictingAppointments(Appointment appointment);
     ObservableList<Appointment> getFilteredAppointmentList();
     void deleteAppointment(Appointment appointment);
     Person findPersonByNric(Nric nric);
