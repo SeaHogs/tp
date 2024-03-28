@@ -9,18 +9,22 @@ import java.time.LocalDateTime;
 public class Appointment {
     private String patientName;
     private String patientIc;
-    private LocalDateTime dateTime;
+    private LocalDateTime startDateTime;
+    private LocalDateTime endDateTime;
 
     /**
      * Constructs an {@code Appointment} with the specified patient name and date/time.
      *
      * @param patientName The name of the patient for the appointment.
-     * @param dateTime The date and time of the appointment.
+     * @param startDateTime The date and time of the appointment.
+     * @param endDateTime The time duration of the appointment.
      */
-    public Appointment(String patientName, String patientIc, LocalDateTime dateTime) {
+    public Appointment(String patientName, String patientIc, LocalDateTime startDateTime,
+                       LocalDateTime endDateTime) {
         this.patientIc = patientIc;
         this.patientName = patientName;
-        this.dateTime = dateTime;
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
     }
 
     /**
@@ -47,7 +51,16 @@ public class Appointment {
      * @return The date and time of the appointment.
      */
     public LocalDateTime getDateTime() {
-        return dateTime;
+        return startDateTime;
+    }
+
+    /**
+     * Returns the end time of the appointment.
+     *
+     * @return The date and time of the appointment.
+     */
+    public LocalDateTime getEndDateTime() {
+        return endDateTime;
     }
 
     /**
@@ -59,7 +72,7 @@ public class Appointment {
     @Override
     public String toString() {
 
-        return "Appointment with " + patientName + " on " + dateTime;
+        return "Appointment with " + patientName + " on " + startDateTime + " to " + " on " + endDateTime;
     }
 
     /**
@@ -83,7 +96,8 @@ public class Appointment {
         Appointment otherApt = (Appointment) that;
         return patientName.equals(otherApt.patientName)
                 && patientIc.equals(otherApt.patientIc)
-                && dateTime.equals(otherApt.dateTime);
+                && startDateTime.equals(otherApt.startDateTime)
+                && endDateTime.equals(otherApt.endDateTime);
     }
 
 }

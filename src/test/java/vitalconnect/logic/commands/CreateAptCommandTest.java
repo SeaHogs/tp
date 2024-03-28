@@ -39,7 +39,8 @@ public class CreateAptCommandTest {
         ModelStub modelStub = new ModelStubWithoutPerson();
         Nric patientIc = new Nric("S4848058F");
         LocalDateTime dateTimeStr = ParserUtil.parseTime("02/02/2024 1330");
-        CreateAptCommand createAptCommand = new CreateAptCommand(patientIc, dateTimeStr);
+        int duration = 2;
+        CreateAptCommand createAptCommand = new CreateAptCommand(patientIc, dateTimeStr, duration);
 
         assertThrows(CommandException.class,
             MESSAGE_PERSON_NOT_FOUND, () -> createAptCommand.execute(modelStub));

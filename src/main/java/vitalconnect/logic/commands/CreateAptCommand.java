@@ -21,25 +21,31 @@ public class CreateAptCommand extends Command {
 
     public static final String COMMAND_WORD = "adda";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds an appointment for a person in the address book. "
-            + "Parameters: ic/ NRIC time/ DATE TIME\n"
+            + ": Adds an appointment for a patient in the patient list. "
+            + "Parameters: ic/ NRIC time/ DATE TIME d/ DURATION\n"
             + "Example: " + COMMAND_WORD + " "
-            + "ic/S1234567D time/ 02/02/2024 1330\n"
-            + "Note: Ensure the date and time are in dd/MM/yyyy HHmm format.";
+            + "ic/S1234567D time/ 02/02/2024 1330 d/2"
+            + "Note: Ensure the date and time are in dd/MM/yyyy HHmm format and duration should be larger than 0.";
 
     private final Nric nric;
     private final LocalDateTime dateTime;
+    private final LocalDateTime endDateTime;
     private String patientName = null;
+    private final int duration;
+
 
     /**
      * Constructs a {@code CreateAptCommand} to schedule an appointment.
      *
      * @param nric The NRIC of the patient for whom the appointment is being created.
      * @param dateTime The date and time of the appointment, in DD/MM/YYYY HHMM format.
+     * @param duration The time duration of the appointment.
      */
-    public CreateAptCommand(Nric nric, LocalDateTime dateTime) {
+    public CreateAptCommand(Nric nric, LocalDateTime dateTime, int duration) {
         this.nric = nric;
         this.dateTime = dateTime;
+        this.duration = duration;
+        this.endDateTime = dateTime.plusMinutes(15L * duration);
     }
 
 
@@ -69,11 +75,13 @@ public class CreateAptCommand extends Command {
         Name name = person.getIdentificationInformation().getName();
         this.patientName = name.toString();
         String patientIc = nric.toString();
-        Appointment appointment = new Appointment(patientName, patientIc, dateTime);
+        Appointment appointment = new Appointment(patientName, patientIc, dateTime, endDateTime);
         model.addAppointment(appointment);
 
-        return new CommandResult(String.format("Created an appointment successfully!\nName: %s\nNRIC: %s\nTime: %s",
-          patientName, patientIc, dateTime.format(DateTimeFormatter.ofPattern("d MMM yyyy HH:mm"))),
+        return new CommandResult(String.format("Created an appointment successfully!\n"
+                        + "Name: %s\nNRIC: %s\nStart time: %s\nEnd time: %s",
+          patientName, patientIc, dateTime.format(DateTimeFormatter.ofPattern("d MMM yyyy HH:mm")),
+                endDateTime.format(DateTimeFormatter.ofPattern("d MMM yyyy HH:mm"))),
           false, false, CommandResult.Type.SHOW_APPOINTMENTS);
     }
 
@@ -101,5 +109,8 @@ public class CreateAptCommand extends Command {
      */
     public LocalDateTime getDateTimeStr() {
         return dateTime;
+    }
+    public LocalDateTime getEndTimeStr() {
+        return endDateTime;
     }
 }

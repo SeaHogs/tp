@@ -31,6 +31,8 @@ public class JsonSerializableAppointmentTest {
     }
 
 
+
+
     @Test
     public void toModelType_invalidAppointmentFile_throwsIllegalValueException() throws Exception {
         JsonSerializableAppointment dataFromFile = JsonUtil.readJsonFile(INVALID_APPOINTMENT_FILE,

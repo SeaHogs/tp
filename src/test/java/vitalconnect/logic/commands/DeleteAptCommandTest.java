@@ -33,10 +33,11 @@ public class DeleteAptCommandTest {
     public void execute_validIndexAppointmentDeletedSuccessfully() throws Exception {
         ModelStubWithAppointments modelStub = new ModelStubWithAppointments();
         LocalDateTime dateTime = LocalDateTime.now();
-        Appointment appointment = new Appointment("John Doe", "S1234567D", dateTime);
+        LocalDateTime endTime = LocalDateTime.now().plusMinutes(30);
+        Appointment appointment = new Appointment("John Doe", "S1234567D", dateTime, endTime);
         modelStub.addAppointment(appointment);
 
-        Index appointmentIndex = Index.fromOneBased(1); // Assuming this is the index of the appointment to be deleted
+        Index appointmentIndex = Index.fromOneBased(1);
         DeleteAptCommand deleteAptCommand = new DeleteAptCommand(appointmentIndex);
 
         CommandResult commandResult = deleteAptCommand.execute(modelStub);
@@ -50,7 +51,9 @@ public class DeleteAptCommandTest {
     public void execute_emptyList_throwsCommandException() {
         ModelStubWithAppointments modelStub = new ModelStubWithAppointments();
         LocalDateTime dateTime = LocalDateTime.now();
-        Appointment existingAppointment = new Appointment("John Doe", "S1234567D", dateTime);
+        LocalDateTime endTime = LocalDateTime.now().plusMinutes(30);
+        Appointment existingAppointment = new Appointment("John Doe", "S1234567D",
+                dateTime, endTime);
         modelStub.addAppointment(existingAppointment);
 
         Index invalidIndex = Index.fromOneBased(999);
