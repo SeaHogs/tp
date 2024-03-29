@@ -38,11 +38,48 @@ public class CreateAptCommandTest {
     public void execute_icNotExist_throwsCommandException() throws ParseException {
         ModelStub modelStub = new ModelStubWithoutPerson();
         Nric patientIc = new Nric("S4848058F");
-        LocalDateTime dateTimeStr = ParserUtil.parseTime("02/02/2024 1330");
-        CreateAptCommand createAptCommand = new CreateAptCommand(patientIc, dateTimeStr);
+        LocalDateTime dateTimeStr = ParserUtil.parseTime("02/06/2026 1330");
+        int duration = 2;
+        CreateAptCommand createAptCommand = new CreateAptCommand(patientIc, dateTimeStr, duration);
 
         assertThrows(CommandException.class,
             MESSAGE_PERSON_NOT_FOUND, () -> createAptCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_invalidDuration_throwsCommandException() throws ParseException {
+        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        Nric patientIc = new Nric("S1234567D");
+        LocalDateTime dateTime = ParserUtil.parseTime("02/02/2024 1330");
+        int duration = 0; // invalid duration
+        CreateAptCommand createAptCommand = new CreateAptCommand(patientIc, dateTime, duration);
+
+        assertThrows(CommandException.class, () -> createAptCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_conflictingAppointment_throwsCommandException() throws ParseException {
+        ModelStub modelStub = new ModelStubWithConflictingAppointment();
+        Nric patientIc = new Nric("S1234567D");
+        LocalDateTime dateTimeStr = ParserUtil.parseTime("02/02/2024 1330");
+        int duration = 2;
+        CreateAptCommand createAptCommand = new CreateAptCommand(patientIc, dateTimeStr, duration);
+
+        assertThrows(CommandException.class, () -> createAptCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_appointmentInPast_throwsCommandException() {
+        ModelStub modelStub = new ModelStubAcceptingPersonAdded();
+        Nric patientIc = new Nric("S1234567D");
+        // Set a date and time in the past
+        LocalDateTime pastDateTime = LocalDateTime.now().minusDays(1);
+        int duration = 2; // duration in units (each unit represents 15 minutes)
+
+        CreateAptCommand createAptCommand = new CreateAptCommand(patientIc, pastDateTime, duration);
+
+        assertThrows(CommandException.class,
+                "Appointment time cannot be in the past.", () -> createAptCommand.execute(modelStub));
     }
 
 
@@ -69,7 +106,6 @@ public class CreateAptCommandTest {
                         && appointment.getDateTime().equals(dateTime)));
     }
 */
-
 
     private class ModelStub implements Model {
         @Override
@@ -171,6 +207,11 @@ public class CreateAptCommandTest {
         }
 
         @Override
+        public List<Appointment> getConflictingAppointments(Appointment appointment) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Appointment> getFilteredAppointmentList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -233,6 +274,15 @@ public class CreateAptCommandTest {
         @Override
         public void addAppointment(Appointment appointment) {
             appointmentsAdded.add(appointment);
+        }
+    }
+
+    private class ModelStubWithConflictingAppointment extends ModelStubAcceptingPersonAdded {
+        @Override
+        public List<Appointment> getConflictingAppointments(Appointment appointment) {
+            ArrayList<Appointment> conflictingAppointments = new ArrayList<>();
+            conflictingAppointments.add(appointment); // Simulate a conflict
+            return conflictingAppointments;
         }
     }
 }

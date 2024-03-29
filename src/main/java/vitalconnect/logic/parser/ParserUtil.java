@@ -40,6 +40,25 @@ public class ParserUtil {
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
 
+
+    /**
+     * Parses a {@code String duration} into an integer representing the duration of an appointment.
+     * The duration is expected to be a positive integer, representing the number of time intervals
+     * (with each interval being 15 minutes) for the appointment.
+     *
+     * @param duration The string input representing the duration in time intervals.
+     * @return An integer representing the parsed duration in time intervals.
+     * @throws ParseException if the given {@code duration} is invalid, not a positive integer.
+     */
+    public static int parseDuration(String duration) throws ParseException {
+        String trimmedDuration = duration.trim();
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedDuration)) {
+            throw new ParseException("Invalid duration format. Duration must be a positive integer.");
+        }
+        return Integer.parseInt(trimmedDuration);
+    }
+
+
     /**
      * Parses a {@code String name} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.

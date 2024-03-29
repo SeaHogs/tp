@@ -37,9 +37,10 @@ public class ListAptCommandTest {
     @Test
     public void execute_appointmentsInList_showsAppointments() {
         ModelStubWithAppointments modelStub = new ModelStubWithAppointments();
-        modelStub.addAppointment(new Appointment("John Doe", "S1234567D", LocalDateTime.now()));
-        modelStub.addAppointment(new Appointment("Jane Doe", "S1234567D",
+        modelStub.addAppointment(new Appointment("John Doe", "S1234567D", LocalDateTime.now(),
                 LocalDateTime.now().plusDays(1)));
+        modelStub.addAppointment(new Appointment("Jane Doe", "S1234567D",
+                LocalDateTime.now().plusDays(1), LocalDateTime.now().plusDays(2)));
         ListAptCommand listAptCommand = new ListAptCommand();
 
         CommandResult commandResult = listAptCommand.execute(modelStub);
@@ -178,6 +179,11 @@ public class ListAptCommandTest {
 
         @Override
         public void setAppointments(List<Appointment> appointments) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<Appointment> getConflictingAppointments(Appointment appointment) {
             throw new AssertionError("This method should not be called.");
         }
 

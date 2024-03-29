@@ -29,8 +29,6 @@ public class JsonSerializableAppointmentTest {
         List<Appointment> typicalAppointments = TypicalAppointment.getTypicalAppointments();
         assertEquals(appointmentsFromFile, typicalAppointments);
     }
-
-
     @Test
     public void toModelType_invalidAppointmentFile_throwsIllegalValueException() throws Exception {
         JsonSerializableAppointment dataFromFile = JsonUtil.readJsonFile(INVALID_APPOINTMENT_FILE,

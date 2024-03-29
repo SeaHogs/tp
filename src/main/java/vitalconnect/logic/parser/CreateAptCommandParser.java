@@ -1,6 +1,7 @@
 package vitalconnect.logic.parser;
 
 import static vitalconnect.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static vitalconnect.logic.parser.CliSyntax.PREFIX_DURATION;
 import static vitalconnect.logic.parser.CliSyntax.PREFIX_NRIC;
 import static vitalconnect.logic.parser.CliSyntax.PREFIX_TIME;
 
@@ -36,16 +37,18 @@ public class CreateAptCommandParser {
      */
     public CreateAptCommand parse(String userInput) throws ParseException {
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(userInput, PREFIX_NRIC, PREFIX_TIME);
+            ArgumentTokenizer.tokenize(userInput, PREFIX_NRIC, PREFIX_TIME, PREFIX_DURATION);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NRIC)
             || !arePrefixesPresent(argMultimap, PREFIX_TIME)
+            || !arePrefixesPresent(argMultimap, PREFIX_DURATION)
             || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateAptCommand.MESSAGE_USAGE));
         }
 
         Nric ic = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).get());
         LocalDateTime dateTimeStr = null;
+        int duration = ParserUtil.parseDuration(argMultimap.getValue(PREFIX_DURATION).get());
         if (argMultimap.getValue(PREFIX_TIME).isPresent()) {
             dateTimeStr = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).get());
         }
@@ -53,7 +56,7 @@ public class CreateAptCommandParser {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateAptCommand.MESSAGE_USAGE));
         }
 
-        return new CreateAptCommand(ic, dateTimeStr);
+        return new CreateAptCommand(ic, dateTimeStr, duration);
     }
 
     /**

@@ -110,13 +110,18 @@ public class ClinicParserTest {
     public void parseCommand_createApt() throws Exception {
         String getPatientIc = "S1234567D";
         String dateTimeStr = "02/02/2024 1330";
-        String inputCommand = CreateAptCommand.COMMAND_WORD + " ic/" + getPatientIc + " time/" + dateTimeStr;
+        String duration = "2";
+        String inputCommand = CreateAptCommand.COMMAND_WORD + " ic/" + getPatientIc
+                + " s/" + dateTimeStr + " d/" + duration;
+
         CreateAptCommand expectedCommand =
-            new CreateAptCommand(new Nric(getPatientIc), ParserUtil.parseTime(dateTimeStr));
+            new CreateAptCommand(new Nric(getPatientIc), ParserUtil.parseTime(dateTimeStr),
+                    ParserUtil.parseDuration(duration));
         CreateAptCommand parsedCommand = (CreateAptCommand) parser.parseCommand(inputCommand);
 
         assertEquals(expectedCommand.getPatientIc(), parsedCommand.getPatientIc());
         assertEquals(expectedCommand.getDateTimeStr(), parsedCommand.getDateTimeStr());
+        assertEquals(expectedCommand.getEndTimeStr(), parsedCommand.getEndTimeStr());
     }
 
     @Test

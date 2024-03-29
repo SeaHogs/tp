@@ -31,6 +31,8 @@ public class AppointmentCard extends UiPart<Region> {
     private Label id;
     @FXML
     private Label time;
+    @FXML
+    private Label endTime;
 
     /**
      * Creates an {@code AppointmentCard} with the given {@code Appointment} and index to display.
@@ -48,6 +50,7 @@ public class AppointmentCard extends UiPart<Region> {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM yyyy HH:mm");
         time.setText(appointment.getDateTime().format(formatter));
+        endTime.setText(appointment.getEndDateTime().format(formatter));
     }
     public Label getName() {
         return this.name;
@@ -60,6 +63,9 @@ public class AppointmentCard extends UiPart<Region> {
     }
     public Label getTime() {
         return this.time;
+    }
+    public Label getEndTime() {
+        return this.endTime;
     }
 }
 

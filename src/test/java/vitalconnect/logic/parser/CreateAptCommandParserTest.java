@@ -20,13 +20,16 @@ public class CreateAptCommandParserTest {
     public void parse_validArgs_returnsCreateAptCommand() throws Exception {
         String getPatientIc = "S1234567D";
         String dateTimeStr = "02/02/2024 1330";
+        String duration = "2";
 
-        String userInput = " ic/" + getPatientIc + " time/" + dateTimeStr;
+        String userInput = " ic/" + getPatientIc + " s/" + dateTimeStr + " d/" + duration;
         CreateAptCommand expectedCommand =
-            new CreateAptCommand(new Nric(getPatientIc), ParserUtil.parseTime(dateTimeStr));
+            new CreateAptCommand(new Nric(getPatientIc), ParserUtil.parseTime(dateTimeStr),
+                    ParserUtil.parseDuration(duration));
 
         assertEquals(parser.parse(userInput).getPatientIc(), expectedCommand.getPatientIc());
         assertEquals(parser.parse(userInput).getDateTimeStr(), expectedCommand.getDateTimeStr());
+        assertEquals(parser.parse(userInput).getEndTimeStr(), expectedCommand.getEndTimeStr());
     }
 
     @Test

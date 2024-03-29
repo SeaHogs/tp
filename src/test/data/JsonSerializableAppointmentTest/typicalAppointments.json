@@ -3,37 +3,44 @@
     {
       "patientName": "Alice Pauline",
       "patientIc": "S1234567D",
-      "dateTime": "14/03/2023 1530"
+      "dateTime": "14/03/2023 1530",
+      "endTime": "14/03/2023 1630"
     },
     {
       "patientName": "Benson Meier",
       "patientIc": "S1234568B",
-      "dateTime": "15/03/2023 1000"
+      "dateTime": "15/03/2023 1000",
+      "endTime": "15/03/2023 1015"
     },
     {
       "patientName": "Carl Kurz",
       "patientIc": "T1234567J",
-      "dateTime": "16/04/2023 0900"
+      "dateTime": "16/04/2023 0900",
+      "endTime": "16/04/2023 0915"
     },
     {
       "patientName": "Daniel Meier",
       "patientIc": "F1234567N",
-      "dateTime": "17/04/2023 1445"
+      "dateTime": "17/04/2023 1445",
+      "endTime": "17/04/2023 1545"
     },
     {
       "patientName": "Elle Meyer",
       "patientIc": "G1234567X",
-      "dateTime": "18/05/2023 1630"
+      "dateTime": "18/05/2023 1630",
+      "endTime": "18/05/2023 1645"
     },
     {
       "patientName": "Fiona Kunz",
       "patientIc": "M1234567K",
-      "dateTime": "19/06/2023 1015"
+      "dateTime": "19/06/2023 1015",
+      "endTime": "19/06/2023 1030"
     },
     {
       "patientName": "George Best",
       "patientIc": "F1234560R",
-      "dateTime": "20/07/2023 1130"
+      "dateTime": "20/07/2023 1130",
+      "endTime": "20/07/2023 1145"
     }
   ]
 }

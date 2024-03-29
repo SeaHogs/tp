@@ -29,6 +29,7 @@
             </HBox>
             <Label fx:id="ic" styleClass="cell_small_label" text="\$ic" />
             <Label fx:id="time" styleClass="cell_small_label" text="\$time" />
+            <Label fx:id="endTime" styleClass="cell_small_label" text="\$endTime" />
         </VBox>
     </GridPane>
 </HBox>
