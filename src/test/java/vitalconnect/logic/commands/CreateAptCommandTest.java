@@ -38,7 +38,7 @@ public class CreateAptCommandTest {
     public void execute_icNotExist_throwsCommandException() throws ParseException {
         ModelStub modelStub = new ModelStubWithoutPerson();
         Nric patientIc = new Nric("S4848058F");
-        LocalDateTime dateTimeStr = ParserUtil.parseTime("02/06/2026q 1330");
+        LocalDateTime dateTimeStr = ParserUtil.parseTime("02/06/2026 1330");
         int duration = 2;
         CreateAptCommand createAptCommand = new CreateAptCommand(patientIc, dateTimeStr, duration);
 
