@@ -279,12 +279,19 @@ Examples:
 
 ![adda command](images/commandsPictures/addaCommand.png)
 
-Adds an appointment for a patient to the appointment list.
+Adds an appointment for an exist patient to the appointment list.
 
-Format: `adda NRIC /time DD/MM/YYYY HHMM`
+Format: `adda ic/NRIC s/START TIME d/DURATION`
+
+* The patient(ic) should already exist in the patient list.
+* The start time should be in the format: DD/MM/YYYY HHmm.
+* The start time should not be earlier than now time.
+* The time length of one unit of duration equals 15 minutes.
+* The input for duration should be larger than 0.
 
 Examples:
-* `adda S1234567D /time 02/02/2024 1300` will add an appointment for the patient with NRIC `S1234567D` on 2nd February 2024 at 1:00 PM.
+* `adda ic/S1234567D s/ 02/02/2024 1300 d/2` 
+* will add an appointment for the patient with NRIC `S1234567D` start from 2nd February 2024 at 1:00 PM and end at 1:30 PM.
 
 [<span style="font-size: small;">Back to Top</span>](#top)
 
@@ -293,12 +300,14 @@ Examples:
 ![deletea command](images/commandsPictures/deleteaCommand.png)
 
 Delete an exist appointment from the appointment list by providing the index of the appointment
-in the list and the name of the patient.
+in the list.
 
-Format: `deletea INDEX /name NAME`
+Format: `deletea INDEX`
+
+* The index should not be out of range nor negative.
 
 Examples:
-* `deletea 1 /name Amy`
+* `deletea 1`
 
 [<span style="font-size: small;">Back to Top</span>](#top)
 

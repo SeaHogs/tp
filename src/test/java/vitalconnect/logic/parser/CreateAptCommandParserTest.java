@@ -22,7 +22,7 @@ public class CreateAptCommandParserTest {
         String dateTimeStr = "02/02/2024 1330";
         String duration = "2";
 
-        String userInput = " ic/" + getPatientIc + " time/" + dateTimeStr + " d/" + duration;
+        String userInput = " ic/" + getPatientIc + " s/" + dateTimeStr + " d/" + duration;
         CreateAptCommand expectedCommand =
             new CreateAptCommand(new Nric(getPatientIc), ParserUtil.parseTime(dateTimeStr),
                     ParserUtil.parseDuration(duration));

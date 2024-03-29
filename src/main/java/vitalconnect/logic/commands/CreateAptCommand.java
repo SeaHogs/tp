@@ -22,10 +22,12 @@ public class CreateAptCommand extends Command {
 
     public static final String COMMAND_WORD = "adda";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds an appointment for a patient in the patient list. "
-            + "Parameters: ic/ NRIC time/ DATE TIME d/ DURATION\n"
+            + ": Adds an appointment for a patient in the patient list.\n "
+            + "Format: " + COMMAND_WORD + " ic/ NRIC s/ START TIME d/ DURATION\n"
+            + "(One unit of duration represent 15 minutes.)\n"
             + "Example: " + COMMAND_WORD + " "
-            + "ic/S1234567D time/ 02/02/2024 1330 d/2"
+            + "ic/S1234567D time/ 02/02/2024 1330 d/2\n"
+            + "It means creating an appointment for S1234567D start on 2024 Feb. 2 13:30 and end at 14:00.\n"
             + "Note: Ensure the date and time are in dd/MM/yyyy HHmm format and duration should be larger than 0.";
 
     private final Nric nric;
@@ -33,6 +35,7 @@ public class CreateAptCommand extends Command {
     private final LocalDateTime endDateTime;
     private String patientName = null;
     private final int duration;
+    private final int unit = 15;
 
 
     /**
@@ -46,7 +49,7 @@ public class CreateAptCommand extends Command {
         this.nric = nric;
         this.dateTime = dateTime;
         this.duration = duration;
-        this.endDateTime = dateTime.plusMinutes(15L * duration);
+        this.endDateTime = dateTime.plusMinutes(unit * duration);
     }
 
 
@@ -66,8 +69,9 @@ public class CreateAptCommand extends Command {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        // Check if a person with the exact name exists
-        // if person not exist, throw error
+        if (dateTime.isBefore(LocalDateTime.now())) {
+            throw new CommandException("Appointment time cannot be in the past.");
+        }
         Person person = model.findPersonByNric(nric);
         if (person == null) {
             throw new CommandException(MESSAGE_PERSON_NOT_FOUND);
@@ -82,7 +86,6 @@ public class CreateAptCommand extends Command {
             throw new CommandException("Appointment time conflicts detected:\n" + conflictMessage);
         }
         model.addAppointment(appointment);
-
         return new CommandResult(String.format("Created an appointment successfully!\n"
                         + "Name: %s\nNRIC: %s\nStart time: %s\nEnd time: %s",
           patientName, patientIc, dateTime.format(DateTimeFormatter.ofPattern("d MMM yyyy HH:mm")),

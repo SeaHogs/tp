@@ -38,7 +38,7 @@ public class CreateAptCommandTest {
     public void execute_icNotExist_throwsCommandException() throws ParseException {
         ModelStub modelStub = new ModelStubWithoutPerson();
         Nric patientIc = new Nric("S4848058F");
-        LocalDateTime dateTimeStr = ParserUtil.parseTime("02/02/2024 1330");
+        LocalDateTime dateTimeStr = ParserUtil.parseTime("02/06/2026q 1330");
         int duration = 2;
         CreateAptCommand createAptCommand = new CreateAptCommand(patientIc, dateTimeStr, duration);
 
@@ -66,6 +66,20 @@ public class CreateAptCommandTest {
         CreateAptCommand createAptCommand = new CreateAptCommand(patientIc, dateTimeStr, duration);
 
         assertThrows(CommandException.class, () -> createAptCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_appointmentInPast_throwsCommandException() {
+        ModelStub modelStub = new ModelStubAcceptingPersonAdded();
+        Nric patientIc = new Nric("S1234567D");
+        // Set a date and time in the past
+        LocalDateTime pastDateTime = LocalDateTime.now().minusDays(1);
+        int duration = 2; // duration in units (each unit represents 15 minutes)
+
+        CreateAptCommand createAptCommand = new CreateAptCommand(patientIc, pastDateTime, duration);
+
+        assertThrows(CommandException.class,
+                "Appointment time cannot be in the past.", () -> createAptCommand.execute(modelStub));
     }
 
 

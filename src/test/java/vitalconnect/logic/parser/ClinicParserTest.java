@@ -112,7 +112,7 @@ public class ClinicParserTest {
         String dateTimeStr = "02/02/2024 1330";
         String duration = "2";
         String inputCommand = CreateAptCommand.COMMAND_WORD + " ic/" + getPatientIc
-                + " time/" + dateTimeStr + " d/" + duration;
+                + " s/" + dateTimeStr + " d/" + duration;
 
         CreateAptCommand expectedCommand =
             new CreateAptCommand(new Nric(getPatientIc), ParserUtil.parseTime(dateTimeStr),
