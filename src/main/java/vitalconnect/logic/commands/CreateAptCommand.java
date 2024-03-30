@@ -1,6 +1,7 @@
 package vitalconnect.logic.commands;
 
 import static vitalconnect.logic.Messages.MESSAGE_PERSON_NOT_FOUND;
+import static vitalconnect.logic.parser.CliSyntax.DURATION_UNIT;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -35,7 +36,7 @@ public class CreateAptCommand extends Command {
     private final LocalDateTime endDateTime;
     private String patientName = null;
     private final int duration;
-    private final int unit = 15;
+    private final int unit = DURATION_UNIT;
 
 
     /**
@@ -79,7 +80,7 @@ public class CreateAptCommand extends Command {
         Name name = person.getIdentificationInformation().getName();
         this.patientName = name.toString();
         String patientIc = nric.toString();
-        Appointment appointment = new Appointment(patientName, patientIc, dateTime, endDateTime);
+        Appointment appointment = new Appointment(patientName, patientIc, dateTime, endDateTime, duration);
         List<Appointment> conflictingAppointments = model.getConflictingAppointments(appointment);
         if (!conflictingAppointments.isEmpty()) {
             String conflictMessage = buildConflictMessage(conflictingAppointments);

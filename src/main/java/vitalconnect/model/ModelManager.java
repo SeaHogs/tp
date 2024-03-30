@@ -16,6 +16,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import vitalconnect.commons.core.GuiSettings;
 import vitalconnect.commons.core.LogsCenter;
+import vitalconnect.commons.core.index.Index;
 import vitalconnect.model.person.Person;
 import vitalconnect.model.person.contactinformation.ContactInformation;
 import vitalconnect.model.person.identificationinformation.Nric;
@@ -121,6 +122,7 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Appointment> getFilteredAppointmentList() {
+        FXCollections.sort(appointments, Comparator.comparing(Appointment::getDateTime));
         return appointments;
     }
 
@@ -216,6 +218,7 @@ public class ModelManager implements Model {
      * @param nric Nric of the person to be updated
      * @param contactInformation New contact information of the person
      */
+    @Override
     public void updatePersonContactInformation(Nric nric, ContactInformation contactInformation) {
         Person person = clinic.findPersonByNric(nric);
         Person personToUpdate = person.copyPerson();
@@ -223,10 +226,6 @@ public class ModelManager implements Model {
         setPerson(person, personToUpdate);
     }
 
-    /**
-     * @param nric
-     * @param medicalInformation
-     */
     @Override
     public void updatePersonMedicalInformation(Nric nric, MedicalInformation medicalInformation) {
         Person person = clinic.findPersonByNric(nric);
@@ -234,6 +233,12 @@ public class ModelManager implements Model {
         personToUpdate.setMedicalInformation(medicalInformation);
         setPerson(person, personToUpdate);
 
+    }
+
+    @Override
+    public void updateAppointment(Index index, Appointment appointmentToSave) {
+        appointments.set(index.getZeroBased(), appointmentToSave);
+        FXCollections.sort(appointments, Comparator.comparing(Appointment::getDateTime));
     }
 
     public void setCurrentPredicate(Predicate<Person> predicate) {

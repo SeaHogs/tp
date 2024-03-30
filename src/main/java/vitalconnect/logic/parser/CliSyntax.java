@@ -18,5 +18,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_OVERWRITETAG = new Prefix("-o");
     public static final Prefix PREFIX_APPENDTAG = new Prefix("at/");
     public static final Prefix PREFIX_DURATION = new Prefix("d/");
+    public static final int DURATION_UNIT = 15;
 
 }

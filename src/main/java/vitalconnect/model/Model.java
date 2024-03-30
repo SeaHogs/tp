@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import vitalconnect.commons.core.GuiSettings;
+import vitalconnect.commons.core.index.Index;
 import vitalconnect.model.person.Person;
 import vitalconnect.model.person.contactinformation.ContactInformation;
 import vitalconnect.model.person.identificationinformation.Nric;
@@ -118,4 +119,5 @@ public interface Model {
     void updatePersonContactInformation(Nric nric, ContactInformation contactInformation);
 
     void updatePersonMedicalInformation(Nric nric, MedicalInformation medicalInformation);
+    void updateAppointment(Index index, Appointment appointment);
 }
