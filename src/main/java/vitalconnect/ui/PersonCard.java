@@ -87,6 +87,7 @@ public class PersonCard extends UiPart<Region> {
         if (!mi.isEmpty() && !mi.getMedicalHistoryTag().isEmpty()) {
             medicalHistory.setVisible(true);
             medicalHistory.setText("Medical History: ");
+            System.out.println(mi.getMedicalHistoryTag());
             mi.getMedicalHistoryTag().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> medicalHistoryTags.getChildren().add(new Label(tag.tagName)));

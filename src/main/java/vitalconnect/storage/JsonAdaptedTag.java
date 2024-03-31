@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 import vitalconnect.commons.exceptions.IllegalValueException;
 import vitalconnect.model.person.medicalinformation.AllergyTag;
+import vitalconnect.model.person.medicalinformation.MedicalHistoryTag;
 
 /**
  * Jackson-friendly version of {@link AllergyTag}.
@@ -28,6 +29,10 @@ class JsonAdaptedTag {
         tagName = source.tagName;
     }
 
+    public JsonAdaptedTag(MedicalHistoryTag medicalHistoryTag) {
+        tagName = medicalHistoryTag.tagName;
+    }
+
     @JsonValue
     public String getTagName() {
         return tagName;
@@ -43,6 +48,13 @@ class JsonAdaptedTag {
             throw new IllegalValueException(AllergyTag.MESSAGE_CONSTRAINTS);
         }
         return new AllergyTag(tagName);
+    }
+
+    public MedicalHistoryTag toModelTypeMedicalHistory() throws IllegalValueException {
+        if (!MedicalHistoryTag.isValidTagName(tagName)) {
+            throw new IllegalValueException(MedicalHistoryTag.MESSAGE_CONSTRAINTS);
+        }
+        return new MedicalHistoryTag(tagName);
     }
 
 }

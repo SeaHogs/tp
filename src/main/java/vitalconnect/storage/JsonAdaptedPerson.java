@@ -20,6 +20,7 @@ import vitalconnect.model.person.identificationinformation.Name;
 import vitalconnect.model.person.identificationinformation.Nric;
 import vitalconnect.model.person.medicalinformation.AllergyTag;
 import vitalconnect.model.person.medicalinformation.Height;
+import vitalconnect.model.person.medicalinformation.MedicalHistoryTag;
 import vitalconnect.model.person.medicalinformation.MedicalInformation;
 import vitalconnect.model.person.medicalinformation.Weight;
 
@@ -39,6 +40,7 @@ class JsonAdaptedPerson {
     private String weight;
 
     private final List<JsonAdaptedTag> allergyTags = new ArrayList<>();
+    private final List<JsonAdaptedTag> medicalHistoryTags = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -48,7 +50,8 @@ class JsonAdaptedPerson {
                              @JsonProperty("email") String email, @JsonProperty("phone") String phone,
                              @JsonProperty("address") String address, @JsonProperty("height") String height,
                              @JsonProperty("weight") String weight,
-                             @JsonProperty("tags") List<JsonAdaptedTag> allergyTags) {
+                             @JsonProperty("tags") List<JsonAdaptedTag> allergyTags,
+                             @JsonProperty("medicalHistoryTags") List<JsonAdaptedTag> medicalHistoryTags) {
         this.name = name;
         this.nric = nric;
         this.email = email;
@@ -58,6 +61,9 @@ class JsonAdaptedPerson {
         this.weight = weight;
         if (allergyTags != null) {
             this.allergyTags.addAll(allergyTags);
+        }
+        if (medicalHistoryTags != null) {
+            this.medicalHistoryTags.addAll(medicalHistoryTags);
         }
     }
 
@@ -75,6 +81,9 @@ class JsonAdaptedPerson {
         allergyTags.addAll(source.getMedicalInformation().getAllergyTag().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList()));
+        medicalHistoryTags.addAll(source.getMedicalInformation().getMedicalHistoryTag().stream()
+            .map(JsonAdaptedTag::new)
+            .collect(Collectors.toList()));
     }
 
     /**
@@ -84,8 +93,12 @@ class JsonAdaptedPerson {
      */
     public Person toModelType() throws IllegalValueException {
         final List<AllergyTag> personAllergyTags = new ArrayList<>();
+        final List<MedicalHistoryTag> personMedicalHistoryTags = new ArrayList<>();
         for (JsonAdaptedTag tag : allergyTags) {
             personAllergyTags.add(tag.toModelType());
+        }
+        for (JsonAdaptedTag tag : medicalHistoryTags) {
+            personMedicalHistoryTags.add(tag.toModelTypeMedicalHistory());
         }
 
         if (name == null) {
@@ -146,8 +159,9 @@ class JsonAdaptedPerson {
         }
         final Weight modelWeight = new Weight(weight);
         final Set<AllergyTag> modelAllergyTags = new HashSet<>(personAllergyTags);
+        final Set<MedicalHistoryTag> modelMedicalHistoryTags = new HashSet<>(personMedicalHistoryTags);
         final MedicalInformation medicalInformation = new MedicalInformation(modelHeight,
-                modelWeight, modelAllergyTags);
+                modelWeight, modelAllergyTags, modelMedicalHistoryTags);
 
         return new Person(new IdentificationInformation(modelName, modelNric), contactInformation, medicalInformation);
     }
