@@ -19,6 +19,7 @@ public class JsonAdaptedAppointment {
     private final String patientIc;
     private final String dateTime;
     private final String endTime;
+    private int duration = 0;
 
     /**
      * Constructs a {@code JsonAdaptedAppointment} with the given appointment details.
@@ -27,7 +28,8 @@ public class JsonAdaptedAppointment {
     public JsonAdaptedAppointment(@JsonProperty("patientName") String patientName,
                                   @JsonProperty("patientIc") String patientIc,
                                   @JsonProperty("dateTime") String dateTime,
-                                  @JsonProperty("endTime") String endTime) {
+                                  @JsonProperty("endTime") String endTime,
+                                  @JsonProperty("duration") int duration) {
         if (patientName == null || patientIc == null || dateTime == null || endTime == null) {
             throw new IllegalArgumentException("Missing fields in Appointment data.");
         }
@@ -35,6 +37,7 @@ public class JsonAdaptedAppointment {
         this.patientIc = patientIc;
         this.dateTime = dateTime;
         this.endTime = endTime;
+        this.duration = duration;
     }
 
     /**
@@ -45,6 +48,7 @@ public class JsonAdaptedAppointment {
         patientIc = source.getPatientIc();
         dateTime = source.getDateTime().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
         endTime = source.getEndDateTime().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+        duration = source.getDuration();
     }
 
     /**
@@ -66,7 +70,7 @@ public class JsonAdaptedAppointment {
             throw new IllegalValueException("Incorrect format for appointment dateTime. Expected dd/MM/yyyy HHmm.");
         }
 
-        return new Appointment(patientName, patientIc, localDateTime, localEndDateTime);
+        return new Appointment(patientName, patientIc, localDateTime, localEndDateTime, duration);
     }
 }
 

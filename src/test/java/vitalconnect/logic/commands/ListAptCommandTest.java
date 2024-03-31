@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import vitalconnect.commons.core.GuiSettings;
+import vitalconnect.commons.core.index.Index;
 import vitalconnect.model.Appointment;
 import vitalconnect.model.Model;
 import vitalconnect.model.ReadOnlyClinic;
@@ -38,9 +39,9 @@ public class ListAptCommandTest {
     public void execute_appointmentsInList_showsAppointments() {
         ModelStubWithAppointments modelStub = new ModelStubWithAppointments();
         modelStub.addAppointment(new Appointment("John Doe", "S1234567D", LocalDateTime.now(),
-                LocalDateTime.now().plusDays(1)));
+                LocalDateTime.now().plusDays(1), 1));
         modelStub.addAppointment(new Appointment("Jane Doe", "S1234567D",
-                LocalDateTime.now().plusDays(1), LocalDateTime.now().plusDays(2)));
+                LocalDateTime.now().plusDays(1), LocalDateTime.now().plusDays(2), 1));
         ListAptCommand listAptCommand = new ListAptCommand();
 
         CommandResult commandResult = listAptCommand.execute(modelStub);
@@ -188,6 +189,11 @@ public class ListAptCommandTest {
         }
 
         @Override
+        public List<Appointment> getConflictingAppointmentsForExistingApt(Index index, Appointment appointment) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Appointment> getFilteredAppointmentList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -205,7 +211,7 @@ public class ListAptCommandTest {
 
         @Override
         public void updatePersonContactInformation(Nric nric, ContactInformation contactInformation) {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         /**
@@ -214,6 +220,11 @@ public class ListAptCommandTest {
          */
         @Override
         public void updatePersonMedicalInformation(Nric nric, MedicalInformation medicalInformation) {
+
+        }
+
+        @Override
+        public void updateAppointment(Index index, Appointment appointment) {
 
         }
     }

@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import vitalconnect.commons.core.GuiSettings;
+import vitalconnect.commons.core.index.Index;
 import vitalconnect.logic.Messages;
 import vitalconnect.logic.commands.exceptions.CommandException;
 import vitalconnect.model.Appointment;
@@ -183,6 +184,11 @@ public class DeleteContactCommandTest {
         }
 
         @Override
+        public List<Appointment> getConflictingAppointmentsForExistingApt(Index index, Appointment appointment) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Appointment> getFilteredAppointmentList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -209,6 +215,11 @@ public class DeleteContactCommandTest {
          */
         @Override
         public void updatePersonMedicalInformation(Nric nric, MedicalInformation medicalInformation) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateAppointment(Index index, Appointment appointment) {
             throw new AssertionError("This method should not be called.");
         }
 

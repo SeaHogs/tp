@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import vitalconnect.commons.core.GuiSettings;
+import vitalconnect.commons.core.index.Index;
 import vitalconnect.model.person.Person;
 import vitalconnect.model.person.contactinformation.ContactInformation;
 import vitalconnect.model.person.identificationinformation.Nric;
@@ -112,10 +113,12 @@ public interface Model {
      * @return true if there is a conflict, false otherwise.
      */
     List<Appointment> getConflictingAppointments(Appointment appointment);
+    List<Appointment> getConflictingAppointmentsForExistingApt(Index index, Appointment appointment);
     ObservableList<Appointment> getFilteredAppointmentList();
     void deleteAppointment(Appointment appointment);
     Person findPersonByNric(Nric nric);
     void updatePersonContactInformation(Nric nric, ContactInformation contactInformation);
 
     void updatePersonMedicalInformation(Nric nric, MedicalInformation medicalInformation);
+    void updateAppointment(Index index, Appointment appointment);
 }

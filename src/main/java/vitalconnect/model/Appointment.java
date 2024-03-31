@@ -11,6 +11,7 @@ public class Appointment {
     private String patientIc;
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
+    private int duration;
 
     /**
      * Constructs an {@code Appointment} with the specified patient name and date/time.
@@ -20,11 +21,12 @@ public class Appointment {
      * @param endDateTime The time duration of the appointment.
      */
     public Appointment(String patientName, String patientIc, LocalDateTime startDateTime,
-                       LocalDateTime endDateTime) {
+                       LocalDateTime endDateTime, int duration) {
         this.patientIc = patientIc;
         this.patientName = patientName;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
+        this.duration = duration;
     }
 
     /**
@@ -61,6 +63,27 @@ public class Appointment {
      */
     public LocalDateTime getEndDateTime() {
         return endDateTime;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.startDateTime = dateTime;
+    }
+
+    public void setEndDateTime(LocalDateTime endDateTime) {
+        this.endDateTime = endDateTime;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public Appointment getCopy() {
+        return new Appointment(getPatientName(), getPatientIc(),
+                getDateTime(), getEndDateTime(), getDuration());
     }
 
     /**

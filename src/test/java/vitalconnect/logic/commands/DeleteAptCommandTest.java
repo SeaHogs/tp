@@ -34,7 +34,7 @@ public class DeleteAptCommandTest {
         ModelStubWithAppointments modelStub = new ModelStubWithAppointments();
         LocalDateTime dateTime = LocalDateTime.now();
         LocalDateTime endTime = LocalDateTime.now().plusMinutes(30);
-        Appointment appointment = new Appointment("John Doe", "S1234567D", dateTime, endTime);
+        Appointment appointment = new Appointment("John Doe", "S1234567D", dateTime, endTime, 1);
         modelStub.addAppointment(appointment);
 
         Index appointmentIndex = Index.fromOneBased(1);
@@ -53,7 +53,7 @@ public class DeleteAptCommandTest {
         LocalDateTime dateTime = LocalDateTime.now();
         LocalDateTime endTime = LocalDateTime.now().plusMinutes(30);
         Appointment existingAppointment = new Appointment("John Doe", "S1234567D",
-                dateTime, endTime);
+                dateTime, endTime, 1);
         modelStub.addAppointment(existingAppointment);
 
         Index invalidIndex = Index.fromOneBased(999);
@@ -211,6 +211,11 @@ public class DeleteAptCommandTest {
         }
 
         @Override
+        public List<Appointment> getConflictingAppointmentsForExistingApt(Index index, Appointment appointment) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Appointment> getFilteredAppointmentList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -228,7 +233,7 @@ public class DeleteAptCommandTest {
 
         @Override
         public void updatePersonContactInformation(Nric nric, ContactInformation contactInformation) {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         /**
@@ -238,6 +243,10 @@ public class DeleteAptCommandTest {
         @Override
         public void updatePersonMedicalInformation(Nric nric, MedicalInformation medicalInformation) {
 
+        }
+
+        @Override
+        public void updateAppointment(Index index, Appointment appointment) {
         }
 
     }

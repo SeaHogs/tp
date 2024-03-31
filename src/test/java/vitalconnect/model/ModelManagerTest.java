@@ -110,11 +110,11 @@ public class ModelManagerTest {
         ModelManager modelManager = new ModelManager();
         LocalDateTime now = LocalDateTime.now();
         Appointment firstAppointment = new Appointment("Alice", "S1234567D", now.plusDays(1),
-                now.plusDays(2));
+                now.plusDays(2), 2);
         Appointment secondAppointment = new Appointment("Bob", "S1234568D", now.plusDays(2),
-                now.plusDays(3));
+                now.plusDays(3), 3);
         Appointment thirdAppointment = new Appointment("Charlie", "S1234569D", now,
-                now.plusDays(1));
+                now.plusDays(1), 1);
 
         modelManager.addAppointment(firstAppointment);
         modelManager.addAppointment(secondAppointment);
@@ -133,7 +133,7 @@ public class ModelManagerTest {
         assertTrue(modelManager.getFilteredAppointmentList().isEmpty());
 
         Appointment appointment = new Appointment("Alice", "S1234567D", LocalDateTime.now(),
-                LocalDateTime.now().plusDays(2));
+                LocalDateTime.now().plusDays(2), 1);
         modelManager.addAppointment(appointment);
 
         assertEquals(1, modelManager.getFilteredAppointmentList().size());
@@ -144,7 +144,7 @@ public class ModelManagerTest {
     public void deleteAppointment_appointmentDeleted() {
         ModelManager modelManager = new ModelManager();
         Appointment appointment = new Appointment("Alice",
-                "S1234567D", LocalDateTime.now(), LocalDateTime.now().plusDays(1));
+                "S1234567D", LocalDateTime.now(), LocalDateTime.now().plusDays(1), 1);
         modelManager.addAppointment(appointment);
 
         assertEquals(1, modelManager.getFilteredAppointmentList().size());
