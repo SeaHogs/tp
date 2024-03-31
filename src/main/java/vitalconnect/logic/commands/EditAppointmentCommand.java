@@ -5,6 +5,7 @@ import static vitalconnect.logic.parser.CliSyntax.PREFIX_DURATION;
 import static vitalconnect.logic.parser.CliSyntax.PREFIX_TIME;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import vitalconnect.commons.core.index.Index;
@@ -25,7 +26,7 @@ public class EditAppointmentCommand extends Command {
         + "[" + PREFIX_DURATION + "DURATION" + "] "
         + "(One unit of duration represent 15 minutes.)\n"
         + "Example: " + COMMAND_WORD + " "
-        + "1 time/ 02/02/2024 1330 d/2\n"
+        + "1 s/ 02/02/2024 1330 d/2\n"
         + "It means changing the appointment number 1 to 2024 Feb. 2 13:30 and end at 14:00.\n"
         + "Note: Ensure the date and time are in dd/MM/yyyy HHmm format and duration should be larger than 0.";
 
@@ -57,7 +58,7 @@ public class EditAppointmentCommand extends Command {
               + "appointment is out of range.");
         }
 
-        Appointment appointmentToEdit = lastShownList.get(index.getZeroBased());
+        Appointment appointmentToEdit = lastShownList.get(index.getZeroBased()).getCopy();
         if (dateTime != null && duration > 0) {
             // both updated
             checkAppointmentTime(dateTime);
@@ -82,6 +83,10 @@ public class EditAppointmentCommand extends Command {
             appointmentToEdit.setDuration(duration);
         }
 
+        String conflictMessage = isConflict(appointmentToEdit, model);
+        if (!conflictMessage.equals("")) {
+            throw new CommandException("Appointment time conflicts detected:\n" + conflictMessage);
+        }
         model.updateAppointment(index, appointmentToEdit);
         return new CommandResult(MESSAGE_SUCCESS + appointmentToEdit.toString(),
           false, false, CommandResult.Type.SHOW_APPOINTMENTS);
@@ -91,5 +96,33 @@ public class EditAppointmentCommand extends Command {
         if (dateTime.isBefore(LocalDateTime.now())) {
             throw new CommandException("Appointment time cannot be in the past.");
         }
+    }
+
+    private String isConflict(Appointment appointment, Model model) throws CommandException {
+        List<Appointment> conflictingAppointments = model.getConflictingAppointmentsForExistingApt(index, appointment);
+        String conflictMessage = "";
+        if (!conflictingAppointments.isEmpty()) {
+            conflictMessage = buildConflictMessage(conflictingAppointments);
+            return conflictMessage;
+        }
+        return conflictMessage;
+    }
+
+    /**
+     * Builds a message listing all conflicting appointments.
+     *
+     * @param appointments List of conflicting appointments.
+     * @return A string detailing the conflicting appointments.
+     */
+    private String buildConflictMessage(List<Appointment> appointments) {
+        StringBuilder message = new StringBuilder();
+        for (Appointment appointment : appointments) {
+            message.append(String.format("Appointment with %s (%s) from %s to %s\n",
+                appointment.getPatientName(),
+                appointment.getPatientIc(),
+                appointment.getDateTime().format(DateTimeFormatter.ofPattern("d MMM yyyy HH:mm")),
+                appointment.getEndDateTime().format(DateTimeFormatter.ofPattern("d MMM yyyy HH:mm"))));
+        }
+        return message.toString();
     }
 }

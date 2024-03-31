@@ -295,6 +295,21 @@ Examples:
 
 [<span style="font-size: small;">Back to Top</span>](#top)
 
+### Editing an appointment : `edita`
+
+Edits the start time and duration of an appointment of an existing person.
+
+Format: `edita INDEX s/START TIME d/DURATION`
+
+* The index should not be out of range nor negative.
+* The start time should be in the format: DD/MM/YYYY HHmm.
+* The start time should not be earlier than now time.
+* The time length of one unit of duration equals 15 minutes.
+* The input for duration should be larger than 0.
+* The edited appointment should not overlap with other appointments.
+
+[<span style="font-size: small;">Back to Top</span>](#top)
+
 ### Deleting an appointment : `deletea`
 
 ![deletea command](images/commandsPictures/deleteaCommand.png)
@@ -421,9 +436,10 @@ _Details coming soon ..._
 | **Addm**    | `addm ic/NRIC h/HEIGHT w/WEIGHT [t/ALLERGY]…​` e.g., `addm ic/S1234567D h/163 w/50 t/insulin t/iodine`                                  |
 | **Listm**   | `listm`                                                                                                                                 |
 | **Deletem** | `deletem ic/NRIC` e.g., `deletec ic/S1234567D`                                                                                          |
-| **Adda**    | `adda NRIC /time DD/MM/YYYY HHMM` e.g., `adda S1234567D /time 02/02/2024 1300`                                                          |
+| **Adda**    | `adda NRIC s/DD/MM/YYYY HHMM d/DURATION` e.g., `adda S1234567D s/ 02/02/2024 1300 d/2`                                                  |
+| **Edita**   | `edita INDEX [s/DD/MM/YYYY HHMM] [d/DURATION]` e.g., `edita 1 s/ 02/02/2024 1300 d/4`                                                   |
 | **Lista**   | `lista`                                                                                                                                 |
-| **Deletea** | `deletea INDEX /name NAME` e.g., `deletea 1 /name Amy`                                                                                  |
+| **Deletea** | `deletea INDEX` e.g., `deletea 1`                                                                                                       |
 | **Help**    | `help`                                                                                                                                  |
 
 [<span style="font-size: small;">Back to Top</span>](#top)

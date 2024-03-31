@@ -113,6 +113,7 @@ public interface Model {
      * @return true if there is a conflict, false otherwise.
      */
     List<Appointment> getConflictingAppointments(Appointment appointment);
+    List<Appointment> getConflictingAppointmentsForExistingApt(Index index, Appointment appointment);
     ObservableList<Appointment> getFilteredAppointmentList();
     void deleteAppointment(Appointment appointment);
     Person findPersonByNric(Nric nric);

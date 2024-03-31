@@ -81,6 +81,11 @@ public class Appointment {
         this.duration = duration;
     }
 
+    public Appointment getCopy() {
+        return new Appointment(getPatientName(), getPatientIc(),
+                getDateTime(), getEndDateTime(), getDuration());
+    }
+
     /**
      * Returns a string representation of the appointment, including the patient's name
      * and the date and time of the appointment.

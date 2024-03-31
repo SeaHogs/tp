@@ -189,6 +189,11 @@ public class ListAptCommandTest {
         }
 
         @Override
+        public List<Appointment> getConflictingAppointmentsForExistingApt(Index index, Appointment appointment) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Appointment> getFilteredAppointmentList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -206,7 +211,7 @@ public class ListAptCommandTest {
 
         @Override
         public void updatePersonContactInformation(Nric nric, ContactInformation contactInformation) {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         /**

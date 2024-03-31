@@ -184,6 +184,11 @@ public class DeleteContactCommandTest {
         }
 
         @Override
+        public List<Appointment> getConflictingAppointmentsForExistingApt(Index index, Appointment appointment) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Appointment> getFilteredAppointmentList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -215,7 +220,7 @@ public class DeleteContactCommandTest {
 
         @Override
         public void updateAppointment(Index index, Appointment appointment) {
-
+            throw new AssertionError("This method should not be called.");
         }
 
     }

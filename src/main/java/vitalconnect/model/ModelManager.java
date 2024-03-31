@@ -144,6 +144,17 @@ public class ModelManager implements Model {
                                 && newAppointment.getEndDateTime().isAfter(existingAppointment.getDateTime()))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<Appointment> getConflictingAppointmentsForExistingApt(Index index, Appointment newAppointment) {
+        ArrayList<Appointment> appointments = new ArrayList<>(getFilteredAppointmentList());
+        appointments.remove(index.getZeroBased());
+        return appointments.stream()
+          .filter(existingAppointment ->
+            newAppointment.getDateTime().isBefore(existingAppointment.getEndDateTime())
+              && newAppointment.getEndDateTime().isAfter(existingAppointment.getDateTime()))
+          .collect(Collectors.toList());
+    }
     @Override
     public void setClinic(ReadOnlyClinic clinic) {
         this.clinic.resetData(clinic);
