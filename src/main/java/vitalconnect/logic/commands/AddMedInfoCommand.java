@@ -13,6 +13,7 @@ import vitalconnect.logic.commands.exceptions.CommandException;
 import vitalconnect.model.Model;
 import vitalconnect.model.person.Person;
 import vitalconnect.model.person.identificationinformation.Nric;
+import vitalconnect.model.person.medicalinformation.MedicalHistoryTag;
 import vitalconnect.model.person.medicalinformation.MedicalInformation;
 
 /**
@@ -20,7 +21,7 @@ import vitalconnect.model.person.medicalinformation.MedicalInformation;
  */
 public class AddMedInfoCommand extends Command {
     public static final String COMMAND_WORD = "addm";
-    public static final String MESSAGE_SUCCESS = "Medical information added successfully";
+    public static String MESSAGE_SUCCESS = "Medical information added successfully";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds the medical information of a person.\n"
             + "Parameters: "
@@ -44,6 +45,11 @@ public class AddMedInfoCommand extends Command {
         requireNonNull(medicalInformation);
         this.nric = nric;
         this.medicalInformation = medicalInformation;
+        if (medicalInformation.getMedicalHistoryTag().contains(new MedicalHistoryTag("asthma"))) {
+            MESSAGE_SUCCESS = "Medical information added successfully. \n"
+                    + "Please note that the person has asthma, \n" +
+                    "a screening test is required.";
+        }
     }
 
     @Override
@@ -71,6 +77,7 @@ public class AddMedInfoCommand extends Command {
                 && nric.equals(((AddMedInfoCommand) other).nric)
                 && medicalInformation.equals(((AddMedInfoCommand) other).medicalInformation));
     }
+
 
     @Override
     public String toString() {
