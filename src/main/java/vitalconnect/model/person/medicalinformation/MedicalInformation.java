@@ -66,7 +66,7 @@ public class MedicalInformation {
     }
 
     public boolean isEmpty() {
-        return height.isEmpty() && weight.isEmpty() && allergyTag.isEmpty();
+        return height.isEmpty() && weight.isEmpty() && allergyTag.isEmpty() && medicalHistoryTag.isEmpty();
     }
 
     /**
