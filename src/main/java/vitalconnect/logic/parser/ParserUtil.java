@@ -18,6 +18,7 @@ import vitalconnect.model.person.identificationinformation.Name;
 import vitalconnect.model.person.identificationinformation.Nric;
 import vitalconnect.model.person.medicalinformation.AllergyTag;
 import vitalconnect.model.person.medicalinformation.Height;
+import vitalconnect.model.person.medicalinformation.MedicalHistoryTag;
 import vitalconnect.model.person.medicalinformation.Weight;
 
 /**
@@ -176,6 +177,33 @@ public class ParserUtil {
             allergyTagSet.add(parseTag(tagName));
         }
         return allergyTagSet;
+    }
+
+    /**
+     * Parses a {@code String medicalHistoryTag} into a {@code MedicalHistoryTag}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code medicalHistoryTag} is invalid.
+     */
+    public static MedicalHistoryTag parseMedTag(String tag) throws ParseException {
+        requireNonNull(tag);
+        String trimmedTag = tag.trim();
+        if (!MedicalHistoryTag.isValidTagName(trimmedTag)) {
+            throw new ParseException(MedicalHistoryTag.MESSAGE_CONSTRAINTS);
+        }
+        return new MedicalHistoryTag(trimmedTag);
+    }
+
+    /**
+     * Parses {@code Collection<String> tags} into a {@code Set<MedicalHistoryTag>}.
+     */
+    public static Set<MedicalHistoryTag> parseMedTags(Collection<String> tags) throws ParseException {
+        requireNonNull(tags);
+        final Set<MedicalHistoryTag> medicalHistoryTagSet = new HashSet<>();
+        for (String tagName : tags) {
+            medicalHistoryTagSet.add(parseMedTag(tagName));
+        }
+        return medicalHistoryTagSet;
     }
 
     /**

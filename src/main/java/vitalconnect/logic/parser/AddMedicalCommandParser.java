@@ -3,6 +3,7 @@ package vitalconnect.logic.parser;
 import static vitalconnect.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static vitalconnect.logic.parser.CliSyntax.PREFIX_ALLERGYTAG;
 import static vitalconnect.logic.parser.CliSyntax.PREFIX_HEIGHT;
+import static vitalconnect.logic.parser.CliSyntax.PREFIX_MEDICALHISTORYTAG;
 import static vitalconnect.logic.parser.CliSyntax.PREFIX_NRIC;
 import static vitalconnect.logic.parser.CliSyntax.PREFIX_WEIGHT;
 
@@ -14,6 +15,7 @@ import vitalconnect.logic.parser.exceptions.ParseException;
 import vitalconnect.model.person.identificationinformation.Nric;
 import vitalconnect.model.person.medicalinformation.AllergyTag;
 import vitalconnect.model.person.medicalinformation.Height;
+import vitalconnect.model.person.medicalinformation.MedicalHistoryTag;
 import vitalconnect.model.person.medicalinformation.MedicalInformation;
 import vitalconnect.model.person.medicalinformation.Weight;
 
@@ -24,7 +26,8 @@ public class AddMedicalCommandParser implements Parser<AddMedInfoCommand> {
     @Override
     public AddMedInfoCommand parse(String userInput) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(userInput, PREFIX_NRIC, PREFIX_HEIGHT, PREFIX_WEIGHT, PREFIX_ALLERGYTAG);
+                ArgumentTokenizer.tokenize(userInput, PREFIX_NRIC, PREFIX_HEIGHT, PREFIX_WEIGHT,
+                        PREFIX_ALLERGYTAG, PREFIX_MEDICALHISTORYTAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NRIC, PREFIX_HEIGHT, PREFIX_WEIGHT)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -35,13 +38,15 @@ public class AddMedicalCommandParser implements Parser<AddMedInfoCommand> {
         Height height = ParserUtil.parseHeight(argMultimap.getValue(PREFIX_HEIGHT).get());
         Weight weight = ParserUtil.parseWeight(argMultimap.getValue(PREFIX_WEIGHT).get());
         Set<AllergyTag> allergyTags = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_ALLERGYTAG));
+        Set<MedicalHistoryTag> medicalHistoryTags = ParserUtil.parseMedTags(argMultimap
+                .getAllValues(PREFIX_MEDICALHISTORYTAG));
         Nric nric = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).get());
 
         if (height.isEmpty() && weight.isEmpty() && Nric.isValidNric(nric.toString())) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMedInfoCommand.MESSAGE_USAGE));
         }
 
-        MedicalInformation medicalInformation = new MedicalInformation(height, weight, allergyTags);
+        MedicalInformation medicalInformation = new MedicalInformation(height, weight, allergyTags, medicalHistoryTags);
 
         return new AddMedInfoCommand(nric, medicalInformation);
     }

@@ -11,6 +11,22 @@ public class MedicalInformation {
     private Height height;
     private Weight weight;
     private Set<AllergyTag> allergyTag;
+    private Set<MedicalHistoryTag> medicalHistoryTag;
+
+    /**
+     * Constructs a MedicalInformation object with the specified height, weight, and set of allergy tags.
+     *
+     * @param height      the height of the person
+     * @param weight      the weight of the person
+     * @param allergyTag  the set of allergy tags associated with the person
+     */
+    public MedicalInformation(Height height, Weight weight,
+                              Set<AllergyTag> allergyTag, Set<MedicalHistoryTag> medicalHistoryTag) {
+        this.height = height;
+        this.weight = weight;
+        this.allergyTag = allergyTag;
+        this.medicalHistoryTag = medicalHistoryTag;
+    }
 
     /**
      * Constructs a MedicalInformation object with the specified height, weight, and set of allergy tags.
@@ -23,6 +39,7 @@ public class MedicalInformation {
         this.height = height;
         this.weight = weight;
         this.allergyTag = allergyTag;
+        this.medicalHistoryTag = new HashSet<>();
     }
 
     /**
@@ -36,6 +53,7 @@ public class MedicalInformation {
         this.height = height;
         this.weight = weight;
         this.allergyTag = new HashSet<>();
+        this.medicalHistoryTag = new HashSet<>();
     }
 
     /**
@@ -76,6 +94,10 @@ public class MedicalInformation {
      */
     public Set<AllergyTag> getAllergyTag() {
         return Collections.unmodifiableSet(allergyTag);
+    }
+
+    public Set<MedicalHistoryTag> getMedicalHistoryTag() {
+        return Collections.unmodifiableSet(medicalHistoryTag);
     }
 
     public void setHeight(Height height) {

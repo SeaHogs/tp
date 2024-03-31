@@ -39,11 +39,15 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
     @FXML
+    private FlowPane medicalHistoryTags;
+    @FXML
     private Label contactInformation;
     @FXML
     private Label medicalInformation;
     @FXML
     private Label allergy;
+    @FXML
+    private Label medicalHistory;
 
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
@@ -78,6 +82,17 @@ public class PersonCard extends UiPart<Region> {
         } else {
             allergy.setVisible(false);
             allergy.setText("");
+        }
+
+        if (!mi.isEmpty() && !mi.getMedicalHistoryTag().isEmpty()) {
+            medicalHistory.setVisible(true);
+            medicalHistory.setText("Medical History: ");
+            mi.getMedicalHistoryTag().stream()
+                .sorted(Comparator.comparing(tag -> tag.tagName))
+                .forEach(tag -> medicalHistoryTags.getChildren().add(new Label(tag.tagName)));
+        } else {
+            medicalHistory.setVisible(false);
+            medicalHistory.setText("");
         }
     }
 }
