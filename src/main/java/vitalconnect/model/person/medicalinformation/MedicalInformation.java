@@ -102,8 +102,8 @@ public class MedicalInformation {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(" Height: ").append(getHeight()).append("cm")
-               .append("\n Weight: ").append(getWeight()).append("kg");
+        builder.append("Height: ").append(getHeight()).append("cm")
+               .append("  Weight: ").append(getWeight()).append("kg");
         return builder.toString();
     }
 

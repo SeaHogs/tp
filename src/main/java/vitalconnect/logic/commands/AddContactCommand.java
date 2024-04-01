@@ -1,7 +1,7 @@
 package vitalconnect.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static vitalconnect.logic.Messages.MESSAGE_PERSON_ALREADY_EXIST;
+import static vitalconnect.logic.Messages.MESSAGE_CONTACT_INFO_ALREADY_EXIST;
 import static vitalconnect.logic.Messages.MESSAGE_PERSON_NOT_FOUND;
 import static vitalconnect.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static vitalconnect.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -56,7 +56,7 @@ public class AddContactCommand extends Command {
         // if person already has contact information, throw error
         ContactInformation ci = p.getContactInformation();
         if (!ci.isEmptyContact()) {
-            throw new CommandException(MESSAGE_PERSON_ALREADY_EXIST);
+            throw new CommandException(MESSAGE_CONTACT_INFO_ALREADY_EXIST);
         }
         // add the contact information to the person
         model.updatePersonContactInformation(nric, contactInformation);
