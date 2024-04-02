@@ -11,8 +11,11 @@ public class Phone {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Phone numbers should only contain numbers, and it should be at least 3 digits long";
-    public static final String VALIDATION_REGEX = "\\d{3,}";
+            "Phone numbers should only contain numbers, and it should be 3 to 15 digits long.\n"
+                    + "It should not be empty.";
+    public static final String MESSAGE_CONSTRAINTS_EDIT =
+            "Phone numbers should only contain numbers, and it should be 3 to 15 digits long. ";
+    public static final String VALIDATION_REGEX = "\\b\\d{3,15}\\b";
     public final String value;
 
     /**
@@ -22,7 +25,7 @@ public class Phone {
      */
     public Phone(String phone) {
         requireNonNull(phone);
-        checkArgument(isValidPhone(phone), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidEditPhone(phone), MESSAGE_CONSTRAINTS);
         value = phone;
     }
 
@@ -38,6 +41,13 @@ public class Phone {
      * Returns true if a given string is a valid phone number.
      */
     public static boolean isValidPhone(String test) {
+        return test.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * Returns true if a given string is a valid phone number.
+     */
+    public static boolean isValidEditPhone(String test) {
         return test.matches(VALIDATION_REGEX) || test.equals("");
     }
 

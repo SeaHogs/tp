@@ -8,14 +8,19 @@ import static vitalconnect.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
  */
 public class Address {
+    public static final int MAX_LENGTH = 50;
 
-    public static final String MESSAGE_CONSTRAINTS = "Addresses can take any values, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS =
+        "Addresses can take any values, and it should not be blank.\n"
+          + "Max length is " + MAX_LENGTH + " characters containing spaces.";
+    public static final String MESSAGE_CONSTRAINTS_EDIT =
+        "Max length is " + MAX_LENGTH + " characters containing spaces.";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "^[^/]*$";
+    public static final String VALIDATION_REGEX = "[^\\s].*";
 
     public final String value;
 
@@ -26,7 +31,7 @@ public class Address {
      */
     public Address(String address) {
         requireNonNull(address);
-        checkArgument(isValidAddress(address), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidEditAddress(address), MESSAGE_CONSTRAINTS);
         value = address;
     }
 
@@ -42,7 +47,14 @@ public class Address {
      * Returns true if a given string is a valid email.
      */
     public static boolean isValidAddress(String test) {
-        return test.matches(VALIDATION_REGEX) || test.equals("");
+        return test.matches(VALIDATION_REGEX) && test.length() <= MAX_LENGTH;
+    }
+
+    /**
+     * Returns true if a given string is a valid email.
+     */
+    public static boolean isValidEditAddress(String test) {
+        return (test.matches(VALIDATION_REGEX) || test.equals("")) && test.length() <= MAX_LENGTH;
     }
 
     @Override

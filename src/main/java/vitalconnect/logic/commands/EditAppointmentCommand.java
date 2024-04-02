@@ -88,7 +88,8 @@ public class EditAppointmentCommand extends Command {
             throw new CommandException("Appointment time conflicts detected:\n" + conflictMessage);
         }
         model.updateAppointment(index, appointmentToEdit);
-        return new CommandResult(MESSAGE_SUCCESS + appointmentToEdit.toString(),
+        return new CommandResult(MESSAGE_SUCCESS + "index: " + index.getOneBased()
+          + "\nUpdated appointment detail:\n" + appointmentToEdit.toString(),
           false, false, CommandResult.Type.SHOW_APPOINTMENTS);
     }
 

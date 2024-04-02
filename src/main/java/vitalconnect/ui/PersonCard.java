@@ -53,9 +53,12 @@ public class PersonCard extends UiPart<Region> {
         this.person = person;
         ContactInformation ci = person.getContactInformation();
         MedicalInformation mi = person.getMedicalInformation();
-        String contactInformationText = "";
         if (!ci.isEmptyContact()) {
-            contactInformationText = ci.toString();
+            contactInformation.setVisible(true);
+            contactInformation.setText(ci.toString());
+        } else {
+            contactInformation.setVisible(false);
+            contactInformation.setText("");
         }
         String medicalInformationText = "";
         if (!mi.isEmpty()) {
@@ -65,7 +68,7 @@ public class PersonCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(person.getIdentificationInformation().getName().fullName);
         nric.setText(person.getIdentificationInformation().getNric().nric);
-        contactInformation.setText(contactInformationText);
+
         medicalInformation.setText(medicalInformationText);
 
         // Set allergy label visibility based on medical information and allergy tags

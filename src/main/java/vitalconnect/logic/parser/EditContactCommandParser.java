@@ -35,13 +35,13 @@ public class EditContactCommandParser implements Parser<EditContactCommand> {
         Email email = null;
         Address address = null;
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
-            phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
+            phone = ParserUtil.parseEditPhone(argMultimap.getValue(PREFIX_PHONE).get());
         }
         if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
-            email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
+            email = ParserUtil.parseEditEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         }
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-            address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+            address = ParserUtil.parseEditAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         }
 
         // Check if at least one of the fields is present

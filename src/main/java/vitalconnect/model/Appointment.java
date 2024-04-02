@@ -1,6 +1,7 @@
 package vitalconnect.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents an appointment with a patient. Each appointment has a patient name
@@ -94,8 +95,10 @@ public class Appointment {
      */
     @Override
     public String toString() {
-
-        return "Appointment with " + patientName + " on " + startDateTime + " to " + " on " + endDateTime;
+        // Define a formatter
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        return "Appointment with " + patientName + " from "
+            + formatter.format(startDateTime) + " to " + formatter.format(endDateTime);
     }
 
     /**
