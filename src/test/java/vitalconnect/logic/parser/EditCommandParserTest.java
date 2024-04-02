@@ -1,10 +1,10 @@
 package vitalconnect.logic.parser;
 
 import static vitalconnect.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static vitalconnect.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static vitalconnect.logic.commands.CommandTestUtil.NRIC_DESC_BOB;
 import static vitalconnect.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static vitalconnect.logic.commands.CommandTestUtil.VALID_NRIC_AMY;
+import static vitalconnect.logic.parser.CliSyntax.PREFIX_NAME;
+import static vitalconnect.logic.parser.CliSyntax.PREFIX_NRIC;
 import static vitalconnect.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static vitalconnect.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -34,9 +34,9 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_allFieldsSpecified_success() {
-        String userInput = NRIC_DESC_BOB + NAME_DESC_BOB;
+        String userInput = " " + PREFIX_NRIC + VALID_NRIC_AMY + " " + PREFIX_NAME + VALID_NAME_AMY;
 
-        EditCommand expectedCommand = new EditCommand(new IdentificationInformation(NRIC_DESC_BOB, NAME_DESC_BOB));
+        EditCommand expectedCommand = new EditCommand(new IdentificationInformation(VALID_NAME_AMY, VALID_NRIC_AMY));
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 

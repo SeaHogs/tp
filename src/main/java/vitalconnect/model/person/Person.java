@@ -65,7 +65,7 @@ public class Person {
     public void setIdentificationInformation(IdentificationInformation identificationInformation) {
         this.identificationInformation = identificationInformation;
     }
-    
+
     public IdentificationInformation getIdentificationInformation() {
         return this.identificationInformation;
     }

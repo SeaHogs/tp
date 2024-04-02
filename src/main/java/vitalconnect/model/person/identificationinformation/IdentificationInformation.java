@@ -1,7 +1,5 @@
 package vitalconnect.model.person.identificationinformation;
 
-import vitalconnect.model.person.Person;
-
 /**
  * Represents a Person's identification information
  * Guarantees: immutable; is valid as declared in {@link #isValidIdentificationInformation(String, String)}

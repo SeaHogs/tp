@@ -27,7 +27,6 @@ public class EditCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NRIC + "S1234567D "
             + PREFIX_NAME + "John Smith ";
-    ;
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -48,12 +47,12 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        
+
         Person p = model.findPersonByNric(info);
         if (p == null) {
             throw new CommandException(MESSAGE_PERSON_NOT_FOUND);
         }
-        
+
         Person editedPerson = p.copyPerson();
         editedPerson.setIdentificationInformation(info);
 
@@ -61,7 +60,7 @@ public class EditCommand extends Command {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));
     }
-    
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
