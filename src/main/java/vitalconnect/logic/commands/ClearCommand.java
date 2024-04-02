@@ -20,4 +20,9 @@ public class ClearCommand extends Command {
         model.setClinic(new Clinic());
         return new CommandResult(MESSAGE_SUCCESS);
     }
+    
+    @Override
+    public String undo() {
+        return null;
+    }
 }

@@ -17,4 +17,8 @@ public class ExitCommand extends Command {
                 false, true, CommandResult.Type.SHOW_PERSONS);
     }
 
+    @Override
+    public String undo() {
+        return null;
+    }
 }

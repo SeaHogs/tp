@@ -126,4 +126,9 @@ public class EditAppointmentCommand extends Command {
         }
         return message.toString();
     }
+    
+    @Override
+    public String undo() {
+        return null;
+    }
 }

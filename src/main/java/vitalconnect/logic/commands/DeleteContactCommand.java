@@ -63,4 +63,9 @@ public class DeleteContactCommand extends Command {
         }
         return nric.equals(((DeleteContactCommand) other).nric);
     }
+    
+    @Override
+    public String undo() {
+        return null;
+    }
 }

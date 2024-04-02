@@ -78,4 +78,9 @@ public class DeleteAptCommand extends Command {
     public Index getIndex() {
         return index;
     }
+    
+    @Override
+    public String undo() {
+        return null;
+    }
 }

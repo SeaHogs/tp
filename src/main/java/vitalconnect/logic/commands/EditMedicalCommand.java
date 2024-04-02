@@ -97,4 +97,9 @@ public class EditMedicalCommand extends Command {
 
         return new CommandResult(MESSAGE_SUCCESS);
     }
+    
+    @Override
+    public String undo() {
+        return null;
+    }
 }

@@ -184,4 +184,9 @@ public class EditCommand extends Command {
                     .toString();
         }
     }
+    
+    @Override
+    public String undo() {
+        return null;
+    }
 }

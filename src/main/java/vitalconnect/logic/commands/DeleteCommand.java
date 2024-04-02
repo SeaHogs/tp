@@ -66,4 +66,9 @@ public class DeleteCommand extends Command {
                 .add("targetIndex", targetIndex)
                 .toString();
     }
+    
+    @Override
+    public String undo() {
+        return null;
+    }
 }

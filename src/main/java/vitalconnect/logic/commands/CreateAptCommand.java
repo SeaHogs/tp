@@ -139,4 +139,9 @@ public class CreateAptCommand extends Command {
     public LocalDateTime getEndTimeStr() {
         return endDateTime;
     }
+    
+    @Override
+    public String undo() {
+        return null;
+    }
 }

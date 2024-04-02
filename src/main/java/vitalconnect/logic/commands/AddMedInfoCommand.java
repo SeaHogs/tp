@@ -76,4 +76,9 @@ public class AddMedInfoCommand extends Command {
     public String toString() {
         return "addMedInfo" + nric + medicalInformation;
     }
+    
+    @Override
+    public String undo() {
+        return null;
+    }
 }

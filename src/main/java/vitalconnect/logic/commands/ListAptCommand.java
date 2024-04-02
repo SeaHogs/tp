@@ -41,5 +41,10 @@ public class ListAptCommand extends Command {
         return new CommandResult(MESSAGE_SUCCESS,
                 false, false, CommandResult.Type.SHOW_APPOINTMENTS);
     }
+    
+    @Override
+    public String undo() {
+        return null;
+    }
 }
 

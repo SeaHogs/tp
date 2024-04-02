@@ -19,4 +19,9 @@ public class HelpCommand extends Command {
         return new CommandResult(SHOWING_HELP_MESSAGE,
                 true, false, CommandResult.Type.SHOW_PERSONS);
     }
+    
+    @Override
+    public String undo() {
+        return null;
+    }
 }

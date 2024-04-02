@@ -55,4 +55,9 @@ public class FindCommand extends Command {
                 .add("predicate", predicate)
                 .toString();
     }
+    
+    @Override
+    public String undo() {
+        return null;
+    }
 }

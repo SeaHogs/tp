@@ -77,4 +77,9 @@ public class AddContactCommand extends Command {
     public String toString() {
         return "addContact" + nric + contactInformation;
     }
+    
+    @Override
+    public String undo() {
+        return null;
+    }
 }

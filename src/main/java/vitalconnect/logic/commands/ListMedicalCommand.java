@@ -23,4 +23,9 @@ public class ListMedicalCommand extends Command {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_MEDICAL);
         return new CommandResult(MESSAGE_SUCCESS);
     }
+    
+    @Override
+    public String undo() {
+        return null;
+    }
 }

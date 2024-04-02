@@ -83,6 +83,9 @@ public class EditContactCommand extends Command {
         model.updateFilteredPersonList(model.getCurrentPredicate());
         return new CommandResult(MESSAGE_SUCCESS);
     }
-
-
+    
+    @Override
+    public String undo() {
+        return null;
+    }
 }

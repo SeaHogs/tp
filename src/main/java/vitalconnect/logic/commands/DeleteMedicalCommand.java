@@ -61,4 +61,9 @@ public class DeleteMedicalCommand extends Command {
         }
         return nric.equals(((DeleteMedicalCommand) other).nric);
     }
+    
+    @Override
+    public String undo() {
+        return null;
+    }
 }
