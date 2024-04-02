@@ -9,7 +9,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import vitalconnect.model.person.Person;
 import vitalconnect.model.person.contactinformation.ContactInformation;
-import vitalconnect.model.person.contactinformation.Phone;
 import vitalconnect.model.person.medicalinformation.MedicalInformation;
 
 /**

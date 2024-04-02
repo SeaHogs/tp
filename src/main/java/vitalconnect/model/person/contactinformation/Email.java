@@ -1,6 +1,7 @@
 package vitalconnect.model.person.contactinformation;
 
 import static java.util.Objects.requireNonNull;
+import static vitalconnect.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Person's email in the clinic.
@@ -51,6 +52,7 @@ public class Email {
      */
     public Email(String email) {
         requireNonNull(email);
+        checkArgument(isValidEditEmail(email), MESSAGE_CONSTRAINTS);
         value = email;
     }
 

@@ -1,6 +1,7 @@
 package vitalconnect.model.person.contactinformation;
 
 import static java.util.Objects.requireNonNull;
+import static vitalconnect.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Person's phone number in the clinic.
@@ -24,6 +25,7 @@ public class Phone {
      */
     public Phone(String phone) {
         requireNonNull(phone);
+        checkArgument(isValidEditPhone(phone), MESSAGE_CONSTRAINTS);
         value = phone;
     }
 

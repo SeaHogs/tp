@@ -54,7 +54,7 @@ public class AddContactCommandTest {
         AddContactCommand addContactCommand = new AddContactCommand(personInList
             .getIdentificationInformation().getNric(), contactInformation);
 
-        assertThrows(CommandException.class, Messages.MESSAGE_PERSON_ALREADY_EXIST, () ->
+        assertThrows(CommandException.class, Messages.MESSAGE_CONTACT_INFO_ALREADY_EXIST, () ->
             addContactCommand.execute(model));
     }
 

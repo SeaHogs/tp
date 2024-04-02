@@ -55,7 +55,7 @@ public class CommandTestUtil {
     public static final String INVALID_NRIC_DESC = " " + PREFIX_NRIC + "911a"; // check Nric.java for validity
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "1";
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "abc";
-    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS + " def/abc";
+    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS + " ";
     public static final String INVALID_TAG_DESC = " " + PREFIX_ALLERGYTAG + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
