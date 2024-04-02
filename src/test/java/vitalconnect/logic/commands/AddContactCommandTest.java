@@ -28,6 +28,7 @@ import vitalconnect.model.person.contactinformation.Address;
 import vitalconnect.model.person.contactinformation.ContactInformation;
 import vitalconnect.model.person.contactinformation.Email;
 import vitalconnect.model.person.contactinformation.Phone;
+import vitalconnect.model.person.identificationinformation.IdentificationInformation;
 import vitalconnect.model.person.identificationinformation.Nric;
 import vitalconnect.model.person.medicalinformation.MedicalInformation;
 import vitalconnect.testutil.PersonBuilder;
@@ -203,6 +204,11 @@ public class AddContactCommandTest {
 
         @Override
         public Person findPersonByNric(Nric nric) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Person findPersonByNric(IdentificationInformation info) {
             throw new AssertionError("This method should not be called.");
         }
 
