@@ -35,7 +35,7 @@ public class UndoCommand extends Command {
             }
         }
 
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, result.isShowHelp(), result.isExit(), result.getType());
     }
     
     @Override

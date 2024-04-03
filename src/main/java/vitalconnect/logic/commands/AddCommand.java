@@ -76,6 +76,7 @@ public class AddCommand extends Command {
     @Override
     public CommandResult undo(Model model) throws CommandException {
         model.deletePerson(toAdd);
-        return new CommandResult(String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(toAdd)));
+        return new CommandResult(String.format("Undo the addition successfully"),
+        false, false, CommandResult.Type.SHOW_PERSONS);
     }
 }

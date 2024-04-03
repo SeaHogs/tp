@@ -28,7 +28,7 @@ public class CreateAptCommand extends Command {
             + "Format: " + COMMAND_WORD + " ic/ NRIC s/ START TIME d/ DURATION\n"
             + "(One unit of duration represent 15 minutes.)\n"
             + "Example: " + COMMAND_WORD + " "
-            + "ic/S1234567D time/ 02/02/2024 1330 d/2\n"
+            + "ic/S1234567D s/ 02/02/2024 1330 d/2\n"
             + "It means creating an appointment for S1234567D start on 2024 Feb. 2 13:30 and end at 14:00.\n"
             + "Note: Ensure the date and time are in dd/MM/yyyy HHmm format and duration should be larger than 0.";
 
@@ -145,9 +145,7 @@ public class CreateAptCommand extends Command {
     @Override
     public CommandResult undo(Model model) throws CommandException {
         List<Appointment> lastShownList = model.getFilteredAppointmentList();
-
         DeleteAptCommand cmd = new DeleteAptCommand(Index.fromOneBased(lastShownList.size()));
-
         return cmd.execute(model);
     }
 }

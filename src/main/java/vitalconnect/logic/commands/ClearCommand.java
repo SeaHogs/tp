@@ -28,6 +28,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult undo(Model model) throws CommandException {
         model.setClinic(deletedClinic);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(String.format("Undo the clear successfully"),
+        false, false, CommandResult.Type.SHOW_PERSONS);
     }
 }
