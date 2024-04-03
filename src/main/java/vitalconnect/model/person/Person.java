@@ -62,9 +62,14 @@ public class Person {
         this.medicalInformation = medicalInformation;
     }
 
+    public void setIdentificationInformation(IdentificationInformation identificationInformation) {
+        this.identificationInformation = identificationInformation;
+    }
+
     public IdentificationInformation getIdentificationInformation() {
         return this.identificationInformation;
     }
+
     public void setContactInformation(ContactInformation contactInformation) {
         this.contactInformation = contactInformation;
     }

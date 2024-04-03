@@ -27,6 +27,7 @@ import vitalconnect.model.ReadOnlyClinic;
 import vitalconnect.model.ReadOnlyUserPrefs;
 import vitalconnect.model.person.Person;
 import vitalconnect.model.person.contactinformation.ContactInformation;
+import vitalconnect.model.person.identificationinformation.IdentificationInformation;
 import vitalconnect.model.person.identificationinformation.Nric;
 import vitalconnect.model.person.medicalinformation.MedicalInformation;
 import vitalconnect.testutil.PersonBuilder;
@@ -217,6 +218,11 @@ public class AddCommandTest {
 
         @Override
         public Person findPersonByNric(Nric nric) {
+            return null;
+        }
+
+        @Override
+        public Person findPersonByNric(IdentificationInformation info) {
             return null;
         }
 

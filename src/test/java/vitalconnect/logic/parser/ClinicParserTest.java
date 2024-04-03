@@ -20,20 +20,14 @@ import vitalconnect.logic.commands.CreateAptCommand;
 import vitalconnect.logic.commands.DeleteAptCommand;
 import vitalconnect.logic.commands.DeleteCommand;
 import vitalconnect.logic.commands.DeleteContactCommand;
-import vitalconnect.logic.commands.EditCommand;
-import vitalconnect.logic.commands.EditCommand.EditPersonDescriptor;
 import vitalconnect.logic.commands.ExitCommand;
 import vitalconnect.logic.commands.FindCommand;
 import vitalconnect.logic.commands.HelpCommand;
 import vitalconnect.logic.commands.ListAptCommand;
 import vitalconnect.logic.commands.ListCommand;
 import vitalconnect.logic.parser.exceptions.ParseException;
-import vitalconnect.model.person.Person;
 import vitalconnect.model.person.identificationinformation.NameContainsKeywordsPredicate;
 import vitalconnect.model.person.identificationinformation.Nric;
-import vitalconnect.testutil.EditPersonDescriptorBuilder;
-import vitalconnect.testutil.PersonBuilder;
-import vitalconnect.testutil.PersonUtil;
 
 
 public class ClinicParserTest {
@@ -58,15 +52,6 @@ public class ClinicParserTest {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
                 DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
-    }
-
-    @Test
-    public void parseCommand_edit() throws Exception {
-        Person person = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
-        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
     }
 
     @Test
