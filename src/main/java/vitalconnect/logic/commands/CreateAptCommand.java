@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import vitalconnect.commons.core.index.Index;
 import vitalconnect.logic.commands.exceptions.CommandException;
 import vitalconnect.model.Appointment;
 import vitalconnect.model.Model;
@@ -140,8 +141,13 @@ public class CreateAptCommand extends Command {
         return endDateTime;
     }
     
+
     @Override
     public CommandResult undo(Model model) throws CommandException {
-        return null;
+        List<Appointment> lastShownList = model.getFilteredAppointmentList();
+
+        DeleteAptCommand cmd = new DeleteAptCommand(Index.fromOneBased(lastShownList.size()));
+
+        return cmd.execute(model);
     }
 }
