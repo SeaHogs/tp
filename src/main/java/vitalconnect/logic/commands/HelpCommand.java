@@ -1,5 +1,6 @@
 package vitalconnect.logic.commands;
 
+import vitalconnect.logic.commands.exceptions.CommandException;
 import vitalconnect.model.Model;
 
 /**
@@ -21,7 +22,7 @@ public class HelpCommand extends Command {
     }
     
     @Override
-    public String undo() {
+    public CommandResult undo(Model model) throws CommandException {
         return null;
     }
 }

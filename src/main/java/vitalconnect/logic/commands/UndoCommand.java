@@ -21,15 +21,15 @@ public class UndoCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        String s = null;
-        while (s == null) {
+        CommandResult result = null;
+        while (result == null) {
             Command command = CommandHistoryManager.getInstance().popCommandToHistory();
             if (command == null) {
                 throw new CommandException(MESSAGE_NOTHING_TO_UNDO);
             }
 
             try {
-                s = command.undo();
+                result = command.undo(model);
             } catch (Exception e) {
                 throw e;
             }
@@ -39,7 +39,7 @@ public class UndoCommand extends Command {
     }
     
     @Override
-    public String undo() {
+    public CommandResult undo(Model model) throws CommandException {
         return null;
     }
 }

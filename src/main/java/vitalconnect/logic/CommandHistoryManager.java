@@ -40,6 +40,10 @@ public class CommandHistoryManager {
      * @return the latest command or null if there are no commands.
      */
     public Command popCommandToHistory() {
+        if (commandHistory == null) {
+            return null;
+        }
+        
         if (commandHistory.size() == 0) {
             return null;
         }

@@ -141,7 +141,7 @@ public class CreateAptCommand extends Command {
     }
     
     @Override
-    public String undo() {
+    public CommandResult undo(Model model) throws CommandException {
         return null;
     }
 }

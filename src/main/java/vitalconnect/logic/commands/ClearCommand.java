@@ -2,6 +2,7 @@ package vitalconnect.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import vitalconnect.logic.commands.exceptions.CommandException;
 import vitalconnect.model.Clinic;
 import vitalconnect.model.Model;
 
@@ -22,7 +23,7 @@ public class ClearCommand extends Command {
     }
     
     @Override
-    public String undo() {
+    public CommandResult undo(Model model) throws CommandException {
         return null;
     }
 }

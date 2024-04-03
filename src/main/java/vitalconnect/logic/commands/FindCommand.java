@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import vitalconnect.commons.util.ToStringBuilder;
 import vitalconnect.logic.Messages;
+import vitalconnect.logic.commands.exceptions.CommandException;
 import vitalconnect.model.Model;
 import vitalconnect.model.person.identificationinformation.NameContainsKeywordsPredicate;
 
@@ -57,7 +58,7 @@ public class FindCommand extends Command {
     }
     
     @Override
-    public String undo() {
+    public CommandResult undo(Model model) throws CommandException {
         return null;
     }
 }

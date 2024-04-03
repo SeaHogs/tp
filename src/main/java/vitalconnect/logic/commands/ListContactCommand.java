@@ -3,6 +3,7 @@ package vitalconnect.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static vitalconnect.model.Model.PREDICATE_SHOW_ALL_CONTACT;
 
+import vitalconnect.logic.commands.exceptions.CommandException;
 import vitalconnect.model.Model;
 
 /**
@@ -22,7 +23,7 @@ public class ListContactCommand extends Command {
     }
     
     @Override
-    public String undo() {
+    public CommandResult undo(Model model) throws CommandException {
         return null;
     }
 }

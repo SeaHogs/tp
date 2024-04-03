@@ -72,9 +72,9 @@ public class AddCommand extends Command {
                 .add("toAdd", toAdd)
                 .toString();
     }
-    
+
     @Override
-    public String undo() {
+    public CommandResult undo(Model model) throws CommandException {
         return null;
     }
 }
