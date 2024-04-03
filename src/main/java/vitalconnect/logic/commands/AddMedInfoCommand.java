@@ -79,6 +79,7 @@ public class AddMedInfoCommand extends Command {
 
     @Override
     public CommandResult undo(Model model) throws CommandException {
-        return null;
+        DeleteMedicalCommand cmd = new DeleteMedicalCommand(nric);
+        return cmd.execute(model);
     }
 }
