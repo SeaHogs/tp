@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import vitalconnect.commons.util.ToStringBuilder;
 import vitalconnect.model.person.Person;
 import vitalconnect.model.person.UniquePersonList;
+import vitalconnect.model.person.identificationinformation.IdentificationInformation;
 import vitalconnect.model.person.identificationinformation.Nric;
 
 /**
@@ -130,12 +131,25 @@ public class Clinic implements ReadOnlyClinic {
     }
 
     /**
-     * Returns true if a person with the same name as {@code name} exists in the clinic.
+     * Returns true if a person with the same nric as {@code nric} exists in the clinic.
      */
     public Person findPersonByNric(Nric nric) {
         requireNonNull(nric);
         for (Person p : persons) {
             if (p.getIdentificationInformation().getNric().nric.equalsIgnoreCase(nric.toString())) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Returns true if a person with the same nric as {@code nric} exists in the clinic.
+     */
+    public Person findPersonByNric(IdentificationInformation info) {
+        requireNonNull(info);
+        for (Person p : persons) {
+            if (p.getIdentificationInformation().isSamePerson(info)) {
                 return p;
             }
         }

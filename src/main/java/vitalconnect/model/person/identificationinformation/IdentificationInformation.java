@@ -1,6 +1,5 @@
 package vitalconnect.model.person.identificationinformation;
 
-
 /**
  * Represents a Person's identification information
  * Guarantees: immutable; is valid as declared in {@link #isValidIdentificationInformation(String, String)}
@@ -33,6 +32,17 @@ public class IdentificationInformation {
     }
 
     /**
+     * Constructs a {@code IdentificationInformation}.
+     *
+     * @param name A valid name.
+     * @param nric A valid nric.
+     */
+    public IdentificationInformation(IdentificationInformation info) {
+        this.name = info.name;
+        this.nric = info.nric;
+    }
+
+    /**
      * Returns true if a given info is a valid IdentificationInformation.
      */
     public static boolean isValidIdentificationInformation(String nameTest, String nricTest) {
@@ -45,6 +55,18 @@ public class IdentificationInformation {
 
     public Nric getNric() {
         return nric;
+    }
+
+    /**
+     * Returns true if both infos have the same nric.
+     * This defines a weaker notion of equality between two identification infos.
+     */
+    public boolean isSamePerson(IdentificationInformation otherInfo) {
+        if (otherInfo == this) {
+            return true;
+        }
+
+        return otherInfo != null && otherInfo.getNric().equals(getNric());
     }
 
     @Override

@@ -9,6 +9,7 @@ import vitalconnect.commons.core.GuiSettings;
 import vitalconnect.commons.core.index.Index;
 import vitalconnect.model.person.Person;
 import vitalconnect.model.person.contactinformation.ContactInformation;
+import vitalconnect.model.person.identificationinformation.IdentificationInformation;
 import vitalconnect.model.person.identificationinformation.Nric;
 import vitalconnect.model.person.medicalinformation.MedicalInformation;
 
@@ -116,6 +117,7 @@ public interface Model {
     List<Appointment> getConflictingAppointmentsForExistingApt(Index index, Appointment appointment);
     ObservableList<Appointment> getFilteredAppointmentList();
     void deleteAppointment(Appointment appointment);
+    Person findPersonByNric(IdentificationInformation nric);
     Person findPersonByNric(Nric nric);
     void updatePersonContactInformation(Nric nric, ContactInformation contactInformation);
 
