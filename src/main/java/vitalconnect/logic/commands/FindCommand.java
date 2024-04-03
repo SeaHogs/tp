@@ -56,7 +56,7 @@ public class FindCommand extends Command {
                 .add("predicate", predicate)
                 .toString();
     }
-    
+
     @Override
     public CommandResult undo(Model model) throws CommandException {
         return null;

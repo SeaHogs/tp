@@ -10,9 +10,6 @@ import vitalconnect.logic.Messages;
 import vitalconnect.logic.commands.exceptions.CommandException;
 import vitalconnect.model.Model;
 import vitalconnect.model.person.Person;
-import vitalconnect.storage.StorageManager;
-import vitalconnect.ui.UiManager;
-
 /**
  * Deletes a person identified using it's displayed index from the clinic.
  */
@@ -70,7 +67,7 @@ public class DeleteCommand extends Command {
                 .add("targetIndex", targetIndex)
                 .toString();
     }
-    
+
     @Override
     public CommandResult undo(Model model) throws CommandException {
         AddCommand cmd = new AddCommand(deletedPerson);

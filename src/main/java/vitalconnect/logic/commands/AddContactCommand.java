@@ -9,7 +9,6 @@ import static vitalconnect.logic.parser.CliSyntax.PREFIX_NRIC;
 import static vitalconnect.logic.parser.CliSyntax.PREFIX_PHONE;
 import static vitalconnect.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import vitalconnect.logic.Messages;
 import vitalconnect.logic.commands.exceptions.CommandException;
 import vitalconnect.model.Model;
 import vitalconnect.model.person.Person;

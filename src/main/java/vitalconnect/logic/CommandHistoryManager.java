@@ -43,7 +43,7 @@ public class CommandHistoryManager {
         if (commandHistory == null) {
             return null;
         }
-        
+
         if (commandHistory.size() == 0) {
             return null;
         }

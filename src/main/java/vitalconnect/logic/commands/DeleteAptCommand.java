@@ -83,7 +83,9 @@ public class DeleteAptCommand extends Command {
 
     @Override
     public CommandResult undo(Model model) throws CommandException {
-        CreateAptCommand cmd = new CreateAptCommand(new Nric(deletedApt.getPatientIc()), deletedApt.getDateTime(), deletedApt.getDuration());
+        CreateAptCommand cmd = new CreateAptCommand(new Nric(deletedApt.getPatientIc()),
+                                                    deletedApt.getDateTime(),
+                                                    deletedApt.getDuration());
         return cmd.execute(model);
     }
 }

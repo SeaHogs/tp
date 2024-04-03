@@ -4,8 +4,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import vitalconnect.model.person.contactinformation.ContactInformation;
-
 /**
  * Represents the medical information of a person, including height, weight, and allergies.
  */
@@ -52,7 +50,7 @@ public class MedicalInformation {
     public boolean isEmpty() {
         return height.isEmpty() && weight.isEmpty() && allergyTag.isEmpty();
     }
-    
+
     public MedicalInformation getCopy() {
         if (allergyTag.isEmpty()) {
             return new MedicalInformation(height, weight);

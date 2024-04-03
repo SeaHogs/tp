@@ -76,7 +76,7 @@ public class EditMedicalCommand extends Command {
         if (medicalInformation.isEmpty()) {
             throw new CommandException(MESSAGE_MEDICAL_INFO_NOT_FOUND);
         }
-        
+
         if (height != null) {
             medicalInformation.setHeight(height);
         }
@@ -100,10 +100,14 @@ public class EditMedicalCommand extends Command {
 
         return new CommandResult(MESSAGE_SUCCESS);
     }
-    
+
     @Override
     public CommandResult undo(Model model) throws CommandException {
-        EditMedicalCommand cmd = new EditMedicalCommand(nric, editedInfo.getHeight(), editedInfo.getWeight(), true, editedInfo.getAllergyTag());
+        EditMedicalCommand cmd = new EditMedicalCommand(nric,
+                                                        editedInfo.getHeight(),
+                                                        editedInfo.getWeight(),
+                                                        true,
+                                                        editedInfo.getAllergyTag());
         return cmd.execute(model);
     }
 }

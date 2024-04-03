@@ -24,7 +24,7 @@ public class ClearCommand extends Command {
         model.setClinic(new Clinic());
         return new CommandResult(MESSAGE_SUCCESS);
     }
-    
+
     @Override
     public CommandResult undo(Model model) throws CommandException {
         model.setClinic(deletedClinic);

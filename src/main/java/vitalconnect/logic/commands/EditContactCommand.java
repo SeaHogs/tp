@@ -66,7 +66,7 @@ public class EditContactCommand extends Command {
         // fetch current person contact information, update fields.
         ContactInformation ci = p.getContactInformation();
         editedInfo = ci.getCopy();
-        
+
         // check if current person has contanct information
         if (ci.isEmptyContact()) {
             throw new CommandException(MESSAGE_CONTACT_INFO_NOT_FOUND);
@@ -87,10 +87,13 @@ public class EditContactCommand extends Command {
         model.updateFilteredPersonList(model.getCurrentPredicate());
         return new CommandResult(MESSAGE_SUCCESS);
     }
-    
+
     @Override
     public CommandResult undo(Model model) throws CommandException {
-        EditContactCommand cmd = new EditContactCommand(nric, editedInfo.getEmail(), editedInfo.getPhone(), editedInfo.getAddress());
+        EditContactCommand cmd = new EditContactCommand(nric,
+                                                        editedInfo.getEmail(),
+                                                        editedInfo.getPhone(),
+                                                        editedInfo.getAddress());
         return cmd.execute(model);
     }
 }

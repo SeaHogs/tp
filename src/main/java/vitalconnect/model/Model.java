@@ -67,7 +67,7 @@ public interface Model {
 
     /** Returns the Clinic */
     ReadOnlyClinic getClinic();
-    
+
     /** Returns a copy of the Clinic */
     ReadOnlyClinic getClinicCopy();
 

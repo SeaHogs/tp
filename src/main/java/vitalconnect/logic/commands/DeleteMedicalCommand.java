@@ -8,7 +8,6 @@ import static vitalconnect.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import vitalconnect.logic.commands.exceptions.CommandException;
 import vitalconnect.model.Model;
 import vitalconnect.model.person.Person;
-import vitalconnect.model.person.contactinformation.ContactInformation;
 import vitalconnect.model.person.identificationinformation.Nric;
 import vitalconnect.model.person.medicalinformation.Height;
 import vitalconnect.model.person.medicalinformation.MedicalInformation;
@@ -65,10 +64,10 @@ public class DeleteMedicalCommand extends Command {
         }
         return nric.equals(((DeleteMedicalCommand) other).nric);
     }
-    
+
     @Override
     public CommandResult undo(Model model) throws CommandException {
         AddMedInfoCommand cmd = new AddMedInfoCommand(nric, deletedInfo);
-        return cmd.execute(model);   
+        return cmd.execute(model);
     }
 }

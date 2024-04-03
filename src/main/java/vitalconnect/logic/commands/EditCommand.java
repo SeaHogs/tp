@@ -184,7 +184,7 @@ public class EditCommand extends Command {
                     .toString();
         }
     }
-    
+
     @Override
     public CommandResult undo(Model model) throws CommandException {
         return null;

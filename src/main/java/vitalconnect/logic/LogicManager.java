@@ -59,7 +59,7 @@ public class LogicManager implements Logic {
             throw new CommandException(String.format(FILE_OPS_ERROR_FORMAT, ioe.getMessage()), ioe);
         }
 
-        CommandHistoryManager.getInstance().pushCommandToHistory(command);        
+        CommandHistoryManager.getInstance().pushCommandToHistory(command);
 
         return commandResult;
     }

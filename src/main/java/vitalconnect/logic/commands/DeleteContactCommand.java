@@ -67,10 +67,10 @@ public class DeleteContactCommand extends Command {
         }
         return nric.equals(((DeleteContactCommand) other).nric);
     }
-    
+
     @Override
     public CommandResult undo(Model model) throws CommandException {
         AddContactCommand cmd = new AddContactCommand(nric, deletedInfo);
-        return cmd.execute(model);   
+        return cmd.execute(model);
     }
 }

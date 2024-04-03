@@ -37,7 +37,7 @@ public class UndoCommand extends Command {
 
         return new CommandResult(MESSAGE_SUCCESS, result.isShowHelp(), result.isExit(), result.getType());
     }
-    
+
     @Override
     public CommandResult undo(Model model) throws CommandException {
         return null;

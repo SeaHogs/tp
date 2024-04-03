@@ -42,7 +42,7 @@ public class ContactInformation {
         this.phone = phone;
         this.address = address;
     }
-    
+
     public ContactInformation getCopy() {
         return new ContactInformation(email.value, phone.value, address.value);
     }

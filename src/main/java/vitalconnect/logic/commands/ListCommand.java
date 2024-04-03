@@ -23,7 +23,7 @@ public class ListCommand extends Command {
         model.updateFilteredPersonList(model.getCurrentPredicate());
         return new CommandResult(MESSAGE_SUCCESS);
     }
-    
+
     @Override
     public CommandResult undo(Model model) throws CommandException {
         return null;

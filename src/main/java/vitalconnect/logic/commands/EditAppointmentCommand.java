@@ -131,7 +131,7 @@ public class EditAppointmentCommand extends Command {
         }
         return message.toString();
     }
-    
+
     @Override
     public CommandResult undo(Model model) throws CommandException {
         model.deleteAppointment(aptReference);
