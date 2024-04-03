@@ -18,7 +18,8 @@ public class CommandResult {
      */
     public enum Type {
         SHOW_PERSONS,
-        SHOW_APPOINTMENTS
+        SHOW_APPOINTMENTS,
+        SHOW_FOUNDAPT
     }
 
     /** Feedback message to be shown to the user. */

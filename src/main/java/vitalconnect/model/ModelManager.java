@@ -33,6 +33,8 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final ObservableList<Appointment> appointments;
+    private ObservableList<Appointment> foundApt;
+    //private final FilteredList<Appointment> filteredAppointments;
     private Predicate<Person> currentPredicate;
 
 
@@ -48,6 +50,8 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.clinic.getPersonList());
         this.appointments = FXCollections.observableArrayList();
+        this.foundApt = FXCollections.observableArrayList();
+        //this.filteredAppointments = new FilteredList<>(this.clinic.getAppointmentList());
         this.currentPredicate = PREDICATE_SHOW_ALL_PERSONS;
 
         if (loadedAppointments != null) {
@@ -105,6 +109,11 @@ public class ModelManager implements Model {
         appointments.add(appointment);
         FXCollections.sort(appointments, Comparator.comparing(Appointment::getDateTime));
     }
+    /*@Override
+    public void addAppointment(Appointment appointment) {
+        requireNonNull(appointment);
+        clinic.addAppointment(appointment);
+    }*/
 
     /**
      * Replaces the current list of appointments with the provided list.
@@ -115,6 +124,10 @@ public class ModelManager implements Model {
     public void setAppointments(List<Appointment> appointments) {
         this.appointments.setAll(appointments);
     }
+    /*@Override
+    public void setAppointments(List<Appointment> appointments) {
+        clinic.setAppointments(appointments);
+    }*/
     /**
      * Returns an unmodifiable view of the list of appointments.
      *
@@ -135,6 +148,11 @@ public class ModelManager implements Model {
     public void deleteAppointment(Appointment appointment) {
         appointments.remove(appointment);
     }
+    /*@Override
+    public void deleteAppointment(Appointment appointment) {
+        requireNonNull(appointment);
+        clinic.removeAppointment(appointment);
+    }*/
 
     @Override
     public List<Appointment> getConflictingAppointments(Appointment newAppointment) {
@@ -146,6 +164,20 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Appointment> getFoundAppointmentList() {
+        FXCollections.sort(foundApt, Comparator.comparing(Appointment::getDateTime));
+        return foundApt;
+    }
+    @Override
+    public ObservableList<Appointment> findAppointmentsByNric(Nric nric) {
+        requireNonNull(nric);
+        List<Appointment> foundAppointments = appointments.stream()
+                .filter(appointment -> appointment.getPatientIc().equals(nric.toString()))
+                .collect(Collectors.toList());
+        foundApt = FXCollections.observableArrayList(foundAppointments);
+        return foundApt;
+    }
+    @Override
     public List<Appointment> getConflictingAppointmentsForExistingApt(Index index, Appointment newAppointment) {
         ArrayList<Appointment> appointments = new ArrayList<>(getFilteredAppointmentList());
         appointments.remove(index.getZeroBased());
@@ -155,6 +187,12 @@ public class ModelManager implements Model {
               && newAppointment.getEndDateTime().isAfter(existingAppointment.getDateTime()))
           .collect(Collectors.toList());
     }
+
+    /*@Override
+    public void updateFilteredAppointmentList(Predicate<Appointment> predicate) {
+        requireNonNull(predicate);
+        filteredAppointments.setPredicate(predicate);
+    }*/
     @Override
     public void setClinic(ReadOnlyClinic clinic) {
         this.clinic.resetData(clinic);

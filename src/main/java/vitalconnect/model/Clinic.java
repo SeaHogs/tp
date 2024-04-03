@@ -2,8 +2,10 @@ package vitalconnect.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Collections;
 import java.util.List;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import vitalconnect.commons.util.ToStringBuilder;
 import vitalconnect.model.person.Person;
@@ -17,6 +19,7 @@ import vitalconnect.model.person.identificationinformation.Nric;
 public class Clinic implements ReadOnlyClinic {
 
     private final UniquePersonList persons;
+    private final ObservableList<Appointment> appointments = FXCollections.observableArrayList();
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -39,8 +42,27 @@ public class Clinic implements ReadOnlyClinic {
         resetData(toBeCopied);
     }
 
-    //// list overwrite operations
 
+    /*public void setAppointments(List<Appointment> appointments) {
+        this.appointments.clear(); // Clear existing appointments
+        this.appointments.addAll(appointments); // Add all from the provided list
+    }
+
+
+    public ObservableList<Appointment> getAppointmentList() {
+        return appointments;
+    }
+    public void addAppointment(Appointment appointment) {
+        appointments.add(appointment);
+    }
+
+    public void removeAppointment(Appointment appointment) {
+        appointments.remove(appointment);
+    }
+
+    public List<Appointment> getAppointments() {
+        return Collections.unmodifiableList(appointments);
+    }*/
     /**
      * Replaces the contents of the person list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
