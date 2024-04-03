@@ -207,6 +207,45 @@
     -fx-background-color: #010b4d;
 }
 
+.even-index {
+    -fx-background-color: #e1f4fc !important;
+}
+
+.odd-index {
+    -fx-background-color: #c8ebfa !important;
+}
+
+.person-pane-padding {
+    -fx-padding: 6px;
+}
+
+.person-pane-top-padding {
+    -fx-padding: 6px 0px 0px 0px;
+}
+
+.transparent-pane> .split-pane-divider  {
+    -fx-background-color: transparent;
+}
+
+.person-pane {
+    -fx-max-height: Infinity; /* Allow the VBox to grow vertically */
+    -fx-min-height: 0; /* Allow the VBox to shrink vertically */
+    -fx-background-insets: 0; /* Remove background insets */
+    -fx-border-insets: 0; /* Remove border insets */
+    -fx-overflow-y: scroll; /* Enable vertical scrolling */
+}
+
+.label-allergy {
+    -fx-font-weight: bold;
+}
+
+.split-pane:horizontal > .split-pane-divider {
+   -fx-background-color: transparent;
+}
+.split-pane:vertical > .split-pane-divider {
+   -fx-background-color: transparent;
+}
+
 /*
  * Metro style Push Button
  * Author: Pedro Duque Vieira
