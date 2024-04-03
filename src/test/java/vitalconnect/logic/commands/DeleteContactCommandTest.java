@@ -114,6 +114,11 @@ public class DeleteContactCommandTest {
         }
 
         @Override
+        public ReadOnlyClinic getClinicCopy() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setClinicFilePath(Path clinicFilePath) {
             throw new AssertionError("This method should not be called.");
         }
