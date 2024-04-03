@@ -86,13 +86,13 @@ public class ContactInformation {
     public String toString() {
         String result = "";
         if (!phone.isEmpty()) {
-            result += "phone: " + phone + "\n";
+            result += "PHONE: " + phone + "\n";
         }
         if (!email.isEmpty()) {
-            result += "email: " + email + "\n";
+            result += "EMAIL: " + email + "\n";
         }
         if (!address.isEmpty()) {
-            result += "address: " + address + "\n";
+            result += "ADDRESS: " + address + "\n";
         }
         return result;
     }
