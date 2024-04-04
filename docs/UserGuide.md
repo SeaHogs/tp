@@ -323,32 +323,62 @@ Examples:
 
 Adds an appointment for an exist patient to the appointment list.
 
-Format: `adda ic/NRIC s/START TIME d/DURATION`
+Format: `adda ic/NRIC s/START_TIME d/DURATION`
 
+__`ic/NRIC`: Patient's NRIC__
 * The patient(ic) should already exist in the patient list.
-* The start time should be in the format: DD/MM/YYYY HHmm.
-* The start time should not be earlier than now time.
-* The time length of one unit of duration equals 15 minutes.
+
+
+__`s/START_TIME`: Start time of the appointment__
+* The start time should be in the format: __DD/MM/YYYY HHmm__.
+* The start time should __not be earlier__ than now time.
+* The appointment time period should not overlap with other appointments.
+
+__`d/DURATION`: the time length of the appointment__
+
+__The input should be the number of duration unit:__
+* The time length of one unit of duration equals __15 minutes__.
 * The input for duration should be larger than 0.
 
 Examples:
-* `adda ic/S1234567D s/ 02/02/2024 1300 d/2` 
-* will add an appointment for the patient with NRIC `S1234567D` start from 2nd February 2024 at 1:00 PM and end at 1:30 PM.
+* `adda ic/S1234567D s/02/06/2024 1300 d/2` 
+* This will add an appointment for the patient with NRIC `S1234567D` start from 2nd June 2024 at 1:00 PM and end at 1:30 PM.
 
 [<span style="font-size: small;">Back to Top</span>](#top)
 
 ### Editing an appointment : `edita`
 
-Edits the start time and duration of an appointment of an existing person.
+Edits the start time and/or duration of an appointment of an existing person.
 
-Format: `edita INDEX s/START TIME d/DURATION`
+__Format:__ `edita INDEX [s/START_TIME] [d/DURATION]`
 
+Edit both start time and duration: `edita INDEX s/START_TIME d/DURATION`
+
+Edit only the start time: `edita INDEX s/START_TIME` 
+
+Edit only the time duration: `edita INDEX d/DURATION` 
+
+__`INDEX`: Index of the to be edited appointment in the appointment list__
 * The index should not be out of range nor negative.
-* The start time should be in the format: DD/MM/YYYY HHmm.
-* The start time should not be earlier than now time.
-* The time length of one unit of duration equals 15 minutes.
+
+__`s/START_TIME`: Start time of the appointment__
+* The start time should be in the format: __DD/MM/YYYY HHmm__.
+* The start time should __not be earlier__ than now time.
+* The edited  appointment time period should not overlap with other appointments.
+
+__`d/DURATION`: the time length of the appointment__
+
+__The input should be the number of duration unit:__
+* The time length of one unit of duration equals __15 minutes__.
 * The input for duration should be larger than 0.
-* The edited appointment should not overlap with other appointments.
+
+Examples:
+* `edita 1 s/02/02/2025 1300 d/4`
+  * This change the time of the appointment of index 1 to Feb 2 2025 at 1pm and end at 2pm.
+* `edita 1 s/02/02/2025 1300`
+    * Only change the appointment start time to Feb 2 2025 at 1pm, the time duration remains the same.
+* `edita 1 d/4`
+    * Only change the time length of the appointment to one hour, the start time remains the same.
 
 [<span style="font-size: small;">Back to Top</span>](#top)
 
@@ -378,6 +408,19 @@ Format: `lista`
 
 [<span style="font-size: small;">Back to Top</span>](#top)
 
+### Finding appointments for a patient : `finda`
+
+Find and list out all the appointment of a specific patient in the appointment list.
+
+Format: `finda ic/NRIC`
+
+* The patient(ic) must exist in the patient list.
+
+Examples:
+* `finda ic/S1234567D`
+
+[<span style="font-size: small;">Back to Top</span>](#top)
+
 ## Other Features
 
 ### Undoing the previous command : `undo`
@@ -391,6 +434,8 @@ Format: `undo`
 Clears all entries from the clinic.
 
 ![clear command](images/commandsPictures/clearCommand.png)
+
+
 
 Format: `clear`
 
@@ -459,6 +504,7 @@ _Details coming soon ..._
 | **Edita**   | `edita INDEX [s/DD/MM/YYYY HHMM] [d/DURATION]` e.g., `edita 1 s/ 02/02/2024 1300 d/4`                                                   |
 | **Lista**   | `lista`                                                                                                                                 |
 | **Deletea** | `deletea INDEX` e.g., `deletea 1`                                                                                                       |
+| **Finda**   | `finda ic/NRIC` e.g., `finda ic/S1234567D`                                                                                              |
 | **Help**    | `help`                                                                                                                                  |
 
 [<span style="font-size: small;">Back to Top</span>](#top)
