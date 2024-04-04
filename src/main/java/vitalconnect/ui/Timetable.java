@@ -2,6 +2,7 @@ package vitalconnect.ui;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -10,14 +11,11 @@ import com.calendarfx.model.Calendar;
 import com.calendarfx.model.CalendarSource;
 import com.calendarfx.model.Entry;
 import com.calendarfx.view.CalendarView;
-import com.calendarfx.view.page.DayPage;
 
 import javafx.application.Platform;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.layout.Region;
 import vitalconnect.model.Appointment;
 
@@ -39,6 +37,47 @@ public class Timetable extends UiPart<Region> {
         this.appointmentList = appointmentList;
         calendarView = new CalendarView();
         setUpCalendarView();
+
+        // A listener to update the calendar view when the appointment list changes
+        appointmentList.addListener((ListChangeListener<Appointment>) change -> {
+            while (change.next()) {
+                if (change.wasAdded()) {
+                    for (Appointment addedAppointment : change.getAddedSubList()) {
+                        // Add the newly added appointment to the calendar
+                        addAppointmentToCalendar(addedAppointment);
+                    }
+                } else if (change.wasRemoved()) {
+                    for (Appointment removedAppointment : change.getRemoved()) {
+                        // Remove the removed appointment from the calendar
+                        removeAppointmentFromCalendar(removedAppointment);
+                    }
+                } else if (change.wasUpdated()) {
+                    // Handle updates if needed
+                    // For simplicity, we will remove and re-add the updated appointment
+                    for (Appointment updatedAppointment : change.getList()) {
+                        removeAppointmentFromCalendar(updatedAppointment);
+                        addAppointmentToCalendar(updatedAppointment);
+                    }
+                }
+            }
+        });
+    }
+
+    private void addAppointmentToCalendar(Appointment appointment) {
+        Entry<String> entry = new Entry<>(appointment.getPatientName() + " " + appointment.getPatientIc());
+        entry.changeStartDate(appointment.getDateTime().toLocalDate());
+        entry.changeEndDate(appointment.getDateTime().toLocalDate());
+        entry.changeStartTime(appointment.getDateTime().toLocalTime());
+        entry.changeEndTime(appointment.getDateTime().toLocalTime().plusHours(1));
+        calendarView.getCalendarSources().get(0).getCalendars().get(0).addEntries(entry);
+    }
+
+    private void removeAppointmentFromCalendar(Appointment appointment) {
+        // Remove the appointment entry from the calendar
+        calendarView.getCalendarSources().get(0).getCalendars().get(0)
+                .findEntries(appointment.getPatientName() + " " + appointment.getPatientIc())
+                .removeIf(Entry entry -> entry..isEqual(appointment.getDateTime().toLocalDate()) &&
+                        entry.getStartTime().equals(appointment.getDateTime().toLocalTime()));
     }
 
     /**
@@ -113,11 +152,7 @@ public class Timetable extends UiPart<Region> {
     }
 
     private void addEntriesToCalendar(Calendar appointmentOfTheDay) {
-        //get today's appointments
-        List<Appointment> filteredAppointments = appointmentList.stream()
-                .filter(appointment -> Objects.equals(appointment
-                        .getDateTime().toLocalDate(), LocalDate.now()))
-                .collect(Collectors.toList());
+        List<Appointment> filteredAppointments = new ArrayList<>(appointmentList);
 
         for (Appointment app : filteredAppointments) {
             Entry<String> entry = new Entry<>(app.getPatientName() + " " + app.getPatientIc());
