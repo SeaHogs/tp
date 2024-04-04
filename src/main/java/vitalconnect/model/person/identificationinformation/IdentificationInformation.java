@@ -57,6 +57,10 @@ public class IdentificationInformation {
         return nric;
     }
 
+    public IdentificationInformation getCopy() {
+        return new IdentificationInformation(new Name(name.fullName), new Nric(nric.nric));
+    }
+
     /**
      * Returns true if both infos have the same nric.
      * This defines a weaker notion of equality between two identification infos.

@@ -190,6 +190,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ReadOnlyClinic getClinicCopy() {
+        ReadOnlyClinic copy = new Clinic(clinic);
+        return copy;
+    }
+
+    @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
         return clinic.hasPerson(person);

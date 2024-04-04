@@ -43,6 +43,10 @@ public class ContactInformation {
         this.address = address;
     }
 
+    public ContactInformation getCopy() {
+        return new ContactInformation(email.value, phone.value, address.value);
+    }
+
     public Email getEmail() {
         return email;
     }

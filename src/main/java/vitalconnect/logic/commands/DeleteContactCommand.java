@@ -30,6 +30,8 @@ public class DeleteContactCommand extends Command {
         + PREFIX_NRIC + "S1234567D ";
 
     private final Nric nric;
+    private ContactInformation deletedInfo;
+
     /**
      * Creates an AddCommand to add the specified {@code ContactInformation}
      */
@@ -47,9 +49,11 @@ public class DeleteContactCommand extends Command {
             throw new CommandException(MESSAGE_PERSON_NOT_FOUND);
         }
         // Erase the current contact information
+        deletedInfo = personToEdit.getContactInformation();
         ContactInformation contactInformation = new ContactInformation(new Email(""), new Phone(""), new Address(""));
         model.updatePersonContactInformation(nric, contactInformation);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
@@ -62,5 +66,11 @@ public class DeleteContactCommand extends Command {
             return false;
         }
         return nric.equals(((DeleteContactCommand) other).nric);
+    }
+
+    @Override
+    public CommandResult undo(Model model) throws CommandException {
+        AddContactCommand cmd = new AddContactCommand(nric, deletedInfo);
+        return cmd.execute(model);
     }
 }
