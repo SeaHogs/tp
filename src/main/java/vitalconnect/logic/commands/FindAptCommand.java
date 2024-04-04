@@ -14,53 +14,8 @@ import vitalconnect.model.person.identificationinformation.Nric;
 
 /**
  * Finds and lists all appointments in VitalConnect whose NRIC matches the argument keyword.
- * Keyword matching is case insensitive.
+ * Keyword matching is case-sensitive.
  */
-/*public class FindAptCommand extends Command {
-
-    public static final String COMMAND_WORD = "finda";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all appointments for the patient whose NRIC "
-            + "matches the specified NRIC (case-insensitive) and displays them as a list.\n"
-            + "Parameters: ic/NRIC\n"
-            + "Example: " + COMMAND_WORD + " ic/S1234567D";
-
-    private final AptWithNricPredicate predicate;
-
-    public FindAptCommand(AptWithNricPredicate predicate) {
-        this.predicate = predicate;
-    }
-
-    @Override
-    public CommandResult execute(Model model) {
-        requireNonNull(model);
-        model.updateFilteredAppointmentList(predicate);
-        return new CommandResult(
-                String.format(Messages.MESSAGE_APPOINTMENTS_LISTED_OVERVIEW,
-                        model.getFilteredAppointmentList().size()));
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        if (!(other instanceof FindAptCommand)) {
-            return false;
-        }
-
-        FindAptCommand otherCommand = (FindAptCommand) other;
-        return predicate.equals(otherCommand.predicate);
-    }
-
-    @Override
-    public String toString() {
-        return "FindAptCommand{"
-                + "predicate=" + predicate
-                + '}';
-    }
-}*/
-
 public class FindAptCommand extends Command {
 
     public static final String COMMAND_WORD = "finda";
@@ -90,7 +45,9 @@ public class FindAptCommand extends Command {
         }
         // Assuming you have a method to format the appointments list into a string
         result = formatAppointmentsList(appointments);
-        return new CommandResult(String.format("Here is the appointment for the patient: \n" + "%s", result),
+        return new CommandResult(String.format("Here is the appointment for the patient: \n" + "%s\n"
+                + "Notice: You cannot delete an appointment by using the index of this list, you should delete an "
+                + "appointment by providing its index in the list of all appointment.", result),
                 false, false, CommandResult.Type.SHOW_FOUNDAPT);
     }
 

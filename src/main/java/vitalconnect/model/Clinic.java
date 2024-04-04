@@ -2,7 +2,6 @@ package vitalconnect.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Collections;
 import java.util.List;
 
 import javafx.collections.FXCollections;
@@ -42,28 +41,6 @@ public class Clinic implements ReadOnlyClinic {
         this();
         resetData(toBeCopied);
     }
-
-
-    /*public void setAppointments(List<Appointment> appointments) {
-        this.appointments.clear(); // Clear existing appointments
-        this.appointments.addAll(appointments); // Add all from the provided list
-    }
-
-
-    public ObservableList<Appointment> getAppointmentList() {
-        return appointments;
-    }
-    public void addAppointment(Appointment appointment) {
-        appointments.add(appointment);
-    }
-
-    public void removeAppointment(Appointment appointment) {
-        appointments.remove(appointment);
-    }
-
-    public List<Appointment> getAppointments() {
-        return Collections.unmodifiableList(appointments);
-    }*/
     /**
      * Replaces the contents of the person list with {@code persons}.
      * {@code persons} must not contain duplicate persons.

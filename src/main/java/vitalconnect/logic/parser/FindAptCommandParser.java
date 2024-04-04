@@ -10,7 +10,11 @@ import vitalconnect.logic.commands.FindAptCommand;
 import vitalconnect.logic.parser.exceptions.ParseException;
 //import vitalconnect.model.AptWithNricPredicate;
 import vitalconnect.model.person.identificationinformation.Nric;
-
+/**
+ * Parses input arguments to create a {@code FindAptCommand} for finding appointments.
+ * This parser is responsible for interpreting the user's input arguments
+ * and creating the corresponding {@code FindAptCommand} object.
+ */
 public class FindAptCommandParser implements Parser<FindAptCommand> {
 
     /**

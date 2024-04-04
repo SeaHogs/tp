@@ -116,8 +116,6 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-
-        // Initialize AppointmentListPanel but don't add it to the placeholder yet
         appointmentListPanel = new AppointmentListPanel(logic.getFilteredAppointmentList());
         foundAptListPanel = new AppointmentListPanel(logic.getFoundAppointmentList());
 
@@ -145,6 +143,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     public void showFoundAppointmentList() {
         personListPanelPlaceholder.getChildren().clear();
+        foundAptListPanel = new AppointmentListPanel(logic.getFoundAppointmentList());
         personListPanelPlaceholder.getChildren().add(foundAptListPanel.getRoot());
     }
 
