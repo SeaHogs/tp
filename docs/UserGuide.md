@@ -95,7 +95,7 @@ For first time users, you can first go through the steps listed under [Installat
 
    * `exit` : Exits the app.
 
-Refer to the [Commands]((https://ay2324s2-cs2103t-w08-2.github.io/tp/UserGuide.html#Commands) below for specific details for each of the commands.
+Refer to the [Commands](https://ay2324s2-cs2103t-w08-2.github.io/tp/UserGuide.html#Commands) below for specific details for each of the commands.
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
@@ -569,3 +569,6 @@ Action | Format, Examples
 **Undo** | `undo`
 **Clear** | `clear`
 **Exit** | `exit`
+
+
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
