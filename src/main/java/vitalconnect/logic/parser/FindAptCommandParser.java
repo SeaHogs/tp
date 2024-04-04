@@ -3,12 +3,10 @@ package vitalconnect.logic.parser;
 import static vitalconnect.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static vitalconnect.logic.parser.CliSyntax.PREFIX_NRIC;
 
-//import java.util.Arrays;
 import java.util.stream.Stream;
 
 import vitalconnect.logic.commands.FindAptCommand;
 import vitalconnect.logic.parser.exceptions.ParseException;
-//import vitalconnect.model.AptWithNricPredicate;
 import vitalconnect.model.person.identificationinformation.Nric;
 /**
  * Parses input arguments to create a {@code FindAptCommand} for finding appointments.

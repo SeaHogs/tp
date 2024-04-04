@@ -109,11 +109,6 @@ public class ModelManager implements Model {
         appointments.add(appointment);
         FXCollections.sort(appointments, Comparator.comparing(Appointment::getDateTime));
     }
-    /*@Override
-    public void addAppointment(Appointment appointment) {
-        requireNonNull(appointment);
-        clinic.addAppointment(appointment);
-    }*/
 
     /**
      * Replaces the current list of appointments with the provided list.
@@ -124,10 +119,7 @@ public class ModelManager implements Model {
     public void setAppointments(List<Appointment> appointments) {
         this.appointments.setAll(appointments);
     }
-    /*@Override
-    public void setAppointments(List<Appointment> appointments) {
-        clinic.setAppointments(appointments);
-    }*/
+
     /**
      * Returns an unmodifiable view of the list of appointments.
      *
@@ -148,11 +140,6 @@ public class ModelManager implements Model {
     public void deleteAppointment(Appointment appointment) {
         appointments.remove(appointment);
     }
-    /*@Override
-    public void deleteAppointment(Appointment appointment) {
-        requireNonNull(appointment);
-        clinic.removeAppointment(appointment);
-    }*/
 
     @Override
     public List<Appointment> getConflictingAppointments(Appointment newAppointment) {
@@ -192,11 +179,6 @@ public class ModelManager implements Model {
           .collect(Collectors.toList());
     }
 
-    /*@Override
-    public void updateFilteredAppointmentList(Predicate<Appointment> predicate) {
-        requireNonNull(predicate);
-        filteredAppointments.setPredicate(predicate);
-    }*/
     @Override
     public void setClinic(ReadOnlyClinic clinic) {
         this.clinic.resetData(clinic);

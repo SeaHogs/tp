@@ -4,8 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-//import vitalconnect.logic.Messages;
-//import vitalconnect.model.AptWithNricPredicate;
 import vitalconnect.logic.commands.exceptions.CommandException;
 import vitalconnect.model.Appointment;
 import vitalconnect.model.Model;
