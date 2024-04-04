@@ -31,18 +31,19 @@ public class FindAptCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        String result = "";
 
         if (!model.doesIcExist(nric.toString())) {
             throw new CommandException("OOPS! The patient does not exist in the patient list.");
         }
 
         List<Appointment> appointments = model.findAppointmentsByNric(nric);
-        if (appointments == null) {
-            result = "The patient does not have an appointment.";
+
+        if (appointments.size() < 1) {
+            return new CommandResult("The patient does not have an appointment.",
+                    false, false, CommandResult.Type.SHOW_FOUNDAPT);
         }
+        String result = formatAppointmentsList(appointments);
         // Assuming you have a method to format the appointments list into a string
-        result = formatAppointmentsList(appointments);
         return new CommandResult(String.format("Here is the appointment for the patient: \n" + "%s\n"
                 + "Notice: You cannot delete an appointment by using the index of this list, you should delete an "
                 + "appointment by providing its index in the list of all appointment.", result),

@@ -325,15 +325,24 @@ Adds an appointment for an exist patient to the appointment list.
 
 Format: `adda ic/NRIC s/START TIME d/DURATION`
 
+__`ic/NRIC`: Patient's NRIC__
 * The patient(ic) should already exist in the patient list.
-* The start time should be in the format: DD/MM/YYYY HHmm.
-* The start time should not be earlier than now time.
-* The time length of one unit of duration equals 15 minutes.
+
+
+__`s/START TIME`: Start time of the appointment__
+* The start time should be in the format: __DD/MM/YYYY HHmm__.
+* The start time should __not be earlier__ than now time.
+* The appointment time period should not overlap with other appointments.
+
+__`d/DURATION`: the time length of the appointment__
+
+__The input should be the number of duration unit:__
+* The time length of one unit of duration equals __15 minutes__.
 * The input for duration should be larger than 0.
 
 Examples:
-* `adda ic/S1234567D s/ 02/02/2024 1300 d/2` 
-* will add an appointment for the patient with NRIC `S1234567D` start from 2nd February 2024 at 1:00 PM and end at 1:30 PM.
+* `adda ic/S1234567D s/02/02/2024 1300 d/2` 
+* This will add an appointment for the patient with NRIC `S1234567D` start from 2nd February 2024 at 1:00 PM and end at 1:30 PM.
 
 [<span style="font-size: small;">Back to Top</span>](#top)
 
@@ -343,12 +352,19 @@ Edits the start time and duration of an appointment of an existing person.
 
 Format: `edita INDEX s/START TIME d/DURATION`
 
+__`INDEX`: Index of the to be edited appointment in the appointment list__
 * The index should not be out of range nor negative.
-* The start time should be in the format: DD/MM/YYYY HHmm.
-* The start time should not be earlier than now time.
-* The time length of one unit of duration equals 15 minutes.
+
+__`s/START TIME`: Start time of the appointment__
+* The start time should be in the format: __DD/MM/YYYY HHmm__.
+* The start time should __not be earlier__ than now time.
+* The edited  appointment time period should not overlap with other appointments.
+
+__`d/DURATION`: the time length of the appointment__
+
+__The input should be the number of duration unit:__
+* The time length of one unit of duration equals __15 minutes__.
 * The input for duration should be larger than 0.
-* The edited appointment should not overlap with other appointments.
 
 [<span style="font-size: small;">Back to Top</span>](#top)
 
@@ -375,6 +391,19 @@ Examples:
 List out all the appointments in the appointment list.
 
 Format: `lista`
+
+[<span style="font-size: small;">Back to Top</span>](#top)
+
+### Deleting an appointment : `finda`
+
+Find and list out all the appointment of a specific patient in the appointment list.
+
+Format: `finda ic/NRIC`
+
+* The patient(ic) must exist in the patient list.
+
+Examples:
+* `finda ic/S1234567D`
 
 [<span style="font-size: small;">Back to Top</span>](#top)
 
