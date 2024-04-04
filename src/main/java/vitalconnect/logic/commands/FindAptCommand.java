@@ -49,6 +49,11 @@ public class FindAptCommand extends Command {
                 false, false, CommandResult.Type.SHOW_FOUNDAPT);
     }
 
+    @Override
+    public CommandResult undo(Model model) throws CommandException {
+        return null;
+    }
+
     private String formatAppointmentsList(List<Appointment> appointments) {
         StringBuilder sb = new StringBuilder();
         for (Appointment appointment : appointments) {
