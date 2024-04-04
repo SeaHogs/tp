@@ -3,11 +3,13 @@ package vitalconnect.ui;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import vitalconnect.commons.core.GuiSettings;
@@ -36,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private AppointmentListPanel appointmentListPanel;
     private AppointmentListPanel foundAptListPanel;
+    private Timetable timetable;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -51,8 +54,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
     @FXML
     private StackPane appointmentListPanelPlaceholder;
+
+    @FXML
+    private StackPane calendarViewPlaceholder;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -127,6 +134,15 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        timetable = new Timetable(logic.getFilteredAppointmentList());
+        calendarViewPlaceholder.getChildren().add(timetable.getCalendarView());
+        calendarViewPlaceholder.addEventFilter(MouseEvent.MOUSE_DRAGGED , new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                event.consume();
+            }
+        });
     }
 
     /**
