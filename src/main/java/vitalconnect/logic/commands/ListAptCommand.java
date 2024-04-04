@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import vitalconnect.logic.commands.exceptions.CommandException;
 import vitalconnect.model.Appointment;
 import vitalconnect.model.Model;
 
@@ -40,6 +41,11 @@ public class ListAptCommand extends Command {
         }
         return new CommandResult(MESSAGE_SUCCESS,
                 false, false, CommandResult.Type.SHOW_APPOINTMENTS);
+    }
+
+    @Override
+    public CommandResult undo(Model model) throws CommandException {
+        return null;
     }
 }
 

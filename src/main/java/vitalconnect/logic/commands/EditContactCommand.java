@@ -39,6 +39,8 @@ public class EditContactCommand extends Command {
     private final Phone phone;
     private final Address address;
 
+    private ContactInformation editedInfo;
+
     /**
      * @param nric of the person in the filtered person list to edit
      * @param email details to edit the person with
@@ -63,6 +65,8 @@ public class EditContactCommand extends Command {
         }
         // fetch current person contact information, update fields.
         ContactInformation ci = p.getContactInformation();
+        editedInfo = ci.getCopy();
+
         // check if current person has contanct information
         if (ci.isEmptyContact()) {
             throw new CommandException(MESSAGE_CONTACT_INFO_NOT_FOUND);
@@ -84,5 +88,12 @@ public class EditContactCommand extends Command {
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
-
+    @Override
+    public CommandResult undo(Model model) throws CommandException {
+        EditContactCommand cmd = new EditContactCommand(nric,
+                                                        editedInfo.getEmail(),
+                                                        editedInfo.getPhone(),
+                                                        editedInfo.getAddress());
+        return cmd.execute(model);
+    }
 }

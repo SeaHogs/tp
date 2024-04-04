@@ -7,6 +7,7 @@ import vitalconnect.commons.core.index.Index;
 import vitalconnect.logic.commands.exceptions.CommandException;
 import vitalconnect.model.Appointment;
 import vitalconnect.model.Model;
+import vitalconnect.model.person.identificationinformation.Nric;
 
 
 /**
@@ -21,6 +22,7 @@ public class DeleteAptCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     private final Index index;
+    private Appointment deletedApt;
 
     /**
      * Constructs a {@code DeleteAptCommand} with the specified index and patient name.
@@ -59,7 +61,7 @@ public class DeleteAptCommand extends Command {
 
         Appointment appointmentToDelete = lastShownList.get(index.getZeroBased());
         String name = appointmentToDelete.getPatientName();
-
+        deletedApt = appointmentToDelete.getCopy();
         model.deleteAppointment(appointmentToDelete);
         return new CommandResult(String.format("Deleted the appointment successfully:\nName: %s\nTime: %s",
                 name,
@@ -77,5 +79,13 @@ public class DeleteAptCommand extends Command {
      */
     public Index getIndex() {
         return index;
+    }
+
+    @Override
+    public CommandResult undo(Model model) throws CommandException {
+        CreateAptCommand cmd = new CreateAptCommand(new Nric(deletedApt.getPatientIc()),
+                                                    deletedApt.getDateTime(),
+                                                    deletedApt.getDuration());
+        return cmd.execute(model);
     }
 }
