@@ -36,10 +36,6 @@
         </MenuBar>
 
         <SplitPane fx:id="mainSplitPane" VBox.vgrow="ALWAYS">
-          <StackPane fx:id="leftPane">
-            <!-- Left pane content goes here -->
-          </StackPane>
-
           <VBox fx:id="centerPane">
 
             <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">

@@ -15,6 +15,7 @@ import com.calendarfx.view.page.DayPage;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.layout.Region;
@@ -66,8 +67,17 @@ public class Timetable extends UiPart<Region> {
         calendarView.setShowDeveloperConsole(false);
         calendarView.setShowPageSwitcher(false);
         calendarView.getCalendarSources().setAll(myCalendarSource);
-        calendarView.getDayPage().setContextMenu(new ContextMenu());
+        calendarView.getDayPage().setContextMenu(null);
         calendarView.setEntryContextMenuCallback(param -> null);
+        calendarView.setEntryDetailsPopOverContentCallback(param -> {
+            Entry<?> entry = param.getEntry();
+            Label label = new Label("Appointment of:" + entry.getTitle() + "\n"
+                    + entry.getStartTime() + " - " + entry.getEndTime());
+            label.setWrapText(true);
+            label.setStyle("-fx-text-fill: darkblue;");
+            return label;
+        });
+
         try {
             customizeDayPageContextMenu();
             calendarView.setEntryFactory(param -> null);
@@ -111,31 +121,13 @@ public class Timetable extends UiPart<Region> {
                 .collect(Collectors.toList());
 
         for (Appointment app : filteredAppointments) {
-            Entry<String> entry = new Entry<>(app.getPatientName() + " " + app.getPatientIc() + "\nend time:"
-                    + app.getEndDateTime().toLocalTime());
+            Entry<String> entry = new Entry<>(app.getPatientName() + " " + app.getPatientIc());
             entry.changeStartDate(app.getDateTime().toLocalDate());
             entry.changeEndDate(app.getDateTime().toLocalDate());
             entry.changeStartTime(app.getDateTime().toLocalTime());
             entry.changeEndTime(app.getDateTime().toLocalTime().plusHours(1));
             appointmentOfTheDay.addEntries(entry);
         }
-    }
-
-    private void customizeDayPageContextMenu() {
-        // Get the DayPage instance from the calendar view
-        DayPage dayPage = calendarView.getDayPage();
-
-        // Create a custom context menu
-        ContextMenu customContextMenu = new ContextMenu();
-
-        // Add items you want to keep in the context menu
-        MenuItem item1 = new MenuItem("Custom Option 1");
-        MenuItem item2 = new MenuItem("Custom Option 2");
-        SeparatorMenuItem separator = new SeparatorMenuItem();
-        customContextMenu.getItems().addAll(item1, item2, separator);
-
-        // Set the custom context menu to the DayPage
-        dayPage.setContextMenu(customContextMenu);
     }
 
     protected CalendarView getCalendarView() {
