@@ -79,7 +79,7 @@ For first time users, you can first go through the steps listed under [Installat
 
    * `list` : Lists all patients.
 
-   * `add ic/S1234567D n/John Doe` : Adds a patient named `John Doe` to the Clinic.
+   * `add n/John Doe ic/S1234567D` : Adds a patient named `John Doe` with nric `S1234567D` to the Clinic.
 
    * `delete 3` : Deletes the 3rd patient shown in the current list.
 
@@ -119,6 +119,7 @@ Format: `help`
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
+## Patient Management
 ### Adding a patient : `add`
 
 Adds a patient to the clinic using their identification information.
@@ -154,7 +155,12 @@ Format: `delete INDEX`
 
 * Deletes the patient at the specified `INDEX`.
 * The index refers to the index number shown in the displayed patient list.
+* If the panel is currently not showing any patient list (e.g. showing appointment list), the default patient list is the general clinic patient list (which contains all the patients).
 * The index **must be a positive integer** 1, 2, 3, …​
+
+> [!CAUTION]
+> The deletion of a patient will result in the deletion of all the contact and medical information as well as all the appointments of the patient.
+> If accidentally delete a patient, can use `undo` command to recover the deleted patient.
 
 Examples:
 * `list` followed by `delete 2` deletes the 2nd patient in the clinic.
@@ -170,6 +176,8 @@ Format: `list`
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
+## Contact Management
+
 ### Adding contact information : `addc`
 
 Adds the contact information to a patient in the clinic.
@@ -182,14 +190,15 @@ Format: `addc ic/NRIC [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]`
 
 * The NRIC must be a NRIC of an already existing patient.
 * At least one of the optional fields must be provided.
-* Rules for phone number: At least 3 digits.
+* Phone number should be of 3 to 15 digits long.
 * Emails should be of the format local-part@domain and adhere to the following constraints:
-  1. The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (+_.-). The local-part may not start or end with any special characters.
+  1. The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (+_.-). The local-part may not start or end with any special characters, and the special characters should not be adjacent to each other.
   2. This is followed by a '@' and then a domain name. The domain name is made up of domain labels separated by periods.
      The domain name must:
       - end with a domain label at least 2 characters long
       - have each domain label start and end with alphanumeric characters
       - have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
+* Address has a max length of 50 characters, and it should not be empty upon adding.
 
 Examples:
 * `addc ic/S1234567D p/91234567`
@@ -209,14 +218,13 @@ Format: `editc ic/NRIC [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]`
   e.g `addc ic/S1234567D p/91234567 e/test@email.com`
 
 * At least one of the `optional fields` must be provided.
-* If want to delete an `optional field`, leave the `optional field` empty.
-* If the `optional field` already has a value, the value will be updated with the new value.
-* If the `optional field` does not previously hold a value, the new value will be added to the `optional field`.
+* To delete an `optional field`, leave the `VALUE` part empty.
+* If the `VALUE` part is not empty, the corresponding patient contact's field will either be updated or added with the new value.
+* If all three fields of contact information (phone, email, and address) become empty, the contact information of the patient will be considered deleted. If one want to add a new contact information, please use `addc` command.
 
 Examples:
 * `editc ic/S1234567D p/91234567` will result in the phone number of the patient with NRIC `S1234567D` being updated to `91234567`.
 * `editc ic/S1234567D a/` will result in the address of the patient with NRIC `S1234567D` being deleted.
-* Suppose that a patient only has their phone number under their contact information, `editc ic/S1234567D e/email@test.com` will result in the email field of the patient with the NRIC `S1234567D` being updated to `email@test.com`.
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
@@ -236,6 +244,8 @@ Examples:
 Lists all patients with contact information.
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
+
+## Medical Information Management
 
 ### Adding medical information : `addm`
 
@@ -262,36 +272,31 @@ Examples:
 
 ### Editing medical information : `editm`
 
-Edits the medical information of a patient in the clinic.
+Edit the medical information of an existing person.
 
-Format: `editm ic/NRIC h/HEIGHT w/WEIGHT -o at/ALLERGY…​`
+Format: `editm ic/NRIC [h/HEIGHT] [w/WEIGHT] [-o] [at/ALLERGY…​]`
 
-* The NRIC must be a NRIC of an already existing patient.
-* All fields are optional field but at least one should be present.
-* There should only be one field `-o`.
-* The order of `-o` and at does not matter, as long as `-o` exist in current command, 
-all allergyTags will be new tags overwriting the old tags.
+* At least one of the optional fields must be provided.
+* The overwrite notation `-o` should only appear once.
+* `-o` can be placed at any position in the command.
 
-**:information_source: Additional notes about the command format:**<br>
-* `-o` will set mode for this command to overwrite.
-* `at/ALLERGY` append this tag to existing tag.
-
-* Items in square brackets are optional.<br>
-  e.g `addm ic/S1234567D h/163 w/50`
-
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/ALLERGY]…​` can be used as ` ` (i.e. 0 times), `t/Amoxicillin`, `t/insulin t/iodine` etc.
-  e.g. `[t/ALLERGY]…​` can be used as ` ` (i.e. 0 times), `t/Amoxicillin`, `t/insulin t/iodine` etc.
+Prefix explanation:
+- `w/WEIGHT`, `h/HIGHT`: Change the current wight and height value to WEIGHT and HEIGHT.
+- `at/ALLERGY`: Append this tag to existing tag.
+- `-o`: Set mode for this command to overwrite, meaning all existing tag will be deleted and replaced by the new tags.
 
 Example:
-* `editm ic/G1234567J w/100, -o at/milk at/egg`
-This will change the weight of patient with ic G1234567J to 100 and oerwrite allergy tag to milk and egg.
+* `editm ic/S1234567D w/100 -o at/milk at/egg`
+
+This will change the weight of person with ic S1234567D to 100 and
+overwrite allergy tag to milk and egg.
+* Noted that command achieving same effect could be `editm ic/S1234567D w/100 at/milk at/egg -o` or `editm ic/S1234567D -o w/100 at/milk at/egg`.
 
 > [!CAUTION]
-> Use if prefix `-o` will delete all existing tag, including the added tag in current command before it. 
+> Use of prefix `-o` will delete all existing tag, including the added tag in current command before it.
 > Please use with cautious.
 
-[<span style="font-size: small;">Back to table of contents</span>](#toc)
+[<span style="font-size: small;">Back to Top</span>](#top)
 
 ### Deleting medical information : `deletem`
 
@@ -310,11 +315,13 @@ Lists all patients with medical information.
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
+## Appointment Management
+
 ### Adding an appointment : `adda`
 
 Adds an appointment for an exist patient to the appointment list.
 
-Format: `adda ic/NRIC s/START TIME d/DURATION`
+Format: `adda ic/NRIC s/START_TIME d/DURATION`
 
 * The NRIC must be a NRIC of an already existing patient.
 * The START TIME should be in the format: DD/MM/YYYY HHmm where DD is day, MM is month, YYYY is year, HH is hour and mm is minute.
@@ -323,23 +330,44 @@ Format: `adda ic/NRIC s/START TIME d/DURATION`
 * The input for DURATION should be larger than 0.
 
 Examples:
-* `adda ic/S1234567D s/ 02/02/2024 1300 d/2` 
-This example will add an appointment for the patient with NRIC `S1234567D` start from 2nd February 2024 at 1:00 PM and end at 1:30 PM.
+* `adda ic/S1234567D s/02/06/2024 1300 d/2` 
+* This will add an appointment for the patient with NRIC `S1234567D` start from 2nd June 2024 at 1:00 PM and end at 1:30 PM.
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
 ### Editing an appointment : `edita`
 
-Edits the start time and duration of an appointment of a patient.
+Edits the start time and/or duration of an appointment of an existing person.
 
-Format: `edita INDEX s/START TIME d/DURATION`
+__Format:__ `edita INDEX [s/START_TIME] [d/DURATION]`
 
+Edit both start time and duration: `edita INDEX s/START_TIME d/DURATION`
+
+Edit only the start time: `edita INDEX s/START_TIME` 
+
+Edit only the time duration: `edita INDEX d/DURATION` 
+
+__`INDEX`: Index of the to be edited appointment in the appointment list__
 * The index should not be out of range nor negative.
-* The start time should be in the format: DD/MM/YYYY HHmm.
-* The start time should not be earlier than now time.
-* The time length of one unit of duration equals 15 minutes.
+
+__`s/START_TIME`: Start time of the appointment__
+* The start time should be in the format: __DD/MM/YYYY HHmm__.
+* The start time should __not be earlier__ than now time.
+* The edited  appointment time period should not overlap with other appointments.
+
+__`d/DURATION`: the time length of the appointment__
+
+__The input should be the number of duration unit:__
+* The time length of one unit of duration equals __15 minutes__.
 * The input for duration should be larger than 0.
-* The edited appointment should not overlap with other appointments.
+
+Examples:
+* `edita 1 s/02/02/2025 1300 d/4`
+  * This change the time of the appointment of index 1 to Feb 2 2025 at 1pm and end at 2pm.
+* `edita 1 s/02/02/2025 1300`
+    * Only change the appointment start time to Feb 2 2025 at 1pm, the time duration remains the same.
+* `edita 1 d/4`
+    * Only change the time length of the appointment to one hour, the start time remains the same.
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
@@ -395,6 +423,27 @@ Format: `undo`
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
+### Finding appointments for a patient : `finda`
+
+Find and list out all the appointment of a specific patient in the appointment list.
+
+Format: `finda ic/NRIC`
+
+* The patient(ic) must exist in the patient list.
+
+Examples:
+* `finda ic/S1234567D`
+
+[<span style="font-size: small;">Back to Top</span>](#top)
+
+## Other Features
+
+### Undoing the previous command : `undo`
+
+Undoes the previous command that changes the data.
+
+Format: `undo`
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the clinic.
@@ -420,7 +469,6 @@ Clinic data are saved in the hard disk automatically after any command that chan
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 If you exit the program through other means, your data will still be saved. Refer to [here](https://se-education.org/addressbook-level3/UserGuide.html#saving-the-data) for more info.
-
 </div>
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
@@ -453,7 +501,6 @@ Furthermore, certain edits can cause the Clinic to behave in unexpected ways (e.
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command summary
-
 Action | Format, Examples
 --------|------------------
 **Help** | `help`
@@ -477,5 +524,3 @@ Action | Format, Examples
 **Undo** | `undo`
 **Clear** | `clear`
 **Exit** | `exit`
-
-[<span style="font-size: small;">Back to table of contents</span>](#toc)

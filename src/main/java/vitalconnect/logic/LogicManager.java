@@ -59,6 +59,8 @@ public class LogicManager implements Logic {
             throw new CommandException(String.format(FILE_OPS_ERROR_FORMAT, ioe.getMessage()), ioe);
         }
 
+        CommandHistoryManager.getInstance().pushCommandToHistory(command);
+
         return commandResult;
     }
 
@@ -72,6 +74,10 @@ public class LogicManager implements Logic {
         return model.getFilteredPersonList();
     }
 
+    @Override
+    public ObservableList<Appointment> getFoundAppointmentList() {
+        return model.getFoundAppointmentList();
+    }
     @Override
     public ObservableList<Appointment> getFilteredAppointmentList() {
         return model.getFilteredAppointmentList();

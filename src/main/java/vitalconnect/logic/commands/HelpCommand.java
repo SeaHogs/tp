@@ -1,5 +1,6 @@
 package vitalconnect.logic.commands;
 
+import vitalconnect.logic.commands.exceptions.CommandException;
 import vitalconnect.model.Model;
 
 /**
@@ -18,5 +19,10 @@ public class HelpCommand extends Command {
     public CommandResult execute(Model model) {
         return new CommandResult(SHOWING_HELP_MESSAGE,
                 true, false, CommandResult.Type.SHOW_PERSONS);
+    }
+
+    @Override
+    public CommandResult undo(Model model) throws CommandException {
+        return null;
     }
 }

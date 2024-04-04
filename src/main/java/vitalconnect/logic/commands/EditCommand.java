@@ -33,6 +33,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the clinic.";
 
     private final IdentificationInformation info;
+    private IdentificationInformation editedInfo;
 
     /**
      * @param index of the person in the filtered person list to edit
@@ -54,6 +55,7 @@ public class EditCommand extends Command {
         }
 
         Person editedPerson = p.copyPerson();
+        editedInfo = p.getIdentificationInformation().getCopy();
         editedPerson.setIdentificationInformation(info);
 
         model.setPerson(p, editedPerson);
@@ -81,5 +83,11 @@ public class EditCommand extends Command {
         return new ToStringBuilder(this)
                 .add("info", info)
                 .toString();
+    }
+
+    @Override
+    public CommandResult undo(Model model) throws CommandException {
+        EditCommand cmd = new EditCommand(editedInfo);
+        return cmd.execute(model);
     }
 }

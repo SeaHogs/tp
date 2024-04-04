@@ -51,6 +51,15 @@ public class MedicalInformation {
         return height.isEmpty() && weight.isEmpty() && allergyTag.isEmpty();
     }
 
+    public MedicalInformation getCopy() {
+        if (allergyTag.isEmpty()) {
+            return new MedicalInformation(height, weight);
+        } else {
+            return new MedicalInformation(height, weight, allergyTag);
+        }
+    }
+
+
     /**
      * Gets the height of the person.
      *

@@ -3,6 +3,7 @@ package vitalconnect.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static vitalconnect.model.Model.PREDICATE_SHOW_ALL_CONTACT;
 
+import vitalconnect.logic.commands.exceptions.CommandException;
 import vitalconnect.model.Model;
 
 /**
@@ -19,5 +20,10 @@ public class ListContactCommand extends Command {
         model.setCurrentPredicate(PREDICATE_SHOW_ALL_CONTACT);
         model.updateFilteredPersonList(model.getCurrentPredicate());
         return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+    @Override
+    public CommandResult undo(Model model) throws CommandException {
+        return null;
     }
 }

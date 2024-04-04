@@ -15,7 +15,7 @@ import vitalconnect.model.person.medicalinformation.Weight;
 
 
 /**
- * Deletes a person's contact from the clinic.
+ * Deletes a person's medical information from the clinic.
  */
 public class DeleteMedicalCommand extends Command {
     public static final String COMMAND_WORD = "deletem";
@@ -28,8 +28,10 @@ public class DeleteMedicalCommand extends Command {
             + PREFIX_NRIC + "S1234567D ";
 
     private final Nric nric;
+    private MedicalInformation deletedInfo;
+
     /**
-     * Creates an AddCommand to add the specified {@code ContactInformation}
+     * Creates an DeleteMedicalCommand to add the specified {@code ContactInformation}
      */
     public DeleteMedicalCommand(Nric nric) {
         requireNonNull(nric);
@@ -45,6 +47,7 @@ public class DeleteMedicalCommand extends Command {
             throw new CommandException(MESSAGE_PERSON_NOT_FOUND);
         }
 
+        deletedInfo = personToEdit.getMedicalInformation();
         MedicalInformation medicalInformation = new MedicalInformation(new Height(""), new Weight(""));
         model.updatePersonMedicalInformation(nric, medicalInformation);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -60,5 +63,11 @@ public class DeleteMedicalCommand extends Command {
             return false;
         }
         return nric.equals(((DeleteMedicalCommand) other).nric);
+    }
+
+    @Override
+    public CommandResult undo(Model model) throws CommandException {
+        AddMedInfoCommand cmd = new AddMedInfoCommand(nric, deletedInfo);
+        return cmd.execute(model);
     }
 }

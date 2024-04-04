@@ -46,6 +46,8 @@ public class EditMedicalCommand extends Command {
     private final boolean overwriteTag;
     private final Set<AllergyTag> appendTag;
 
+    private MedicalInformation editedInfo;
+
     /**
      * @param nric of the person in the filtered person list to edit
      * @param height details to edit the person with
@@ -70,6 +72,7 @@ public class EditMedicalCommand extends Command {
             throw new CommandException(MESSAGE_PERSON_NOT_FOUND);
         }
         MedicalInformation medicalInformation = p.getMedicalInformation();
+        editedInfo = medicalInformation.getCopy();
         if (medicalInformation.isEmpty()) {
             throw new CommandException(MESSAGE_MEDICAL_INFO_NOT_FOUND);
         }
@@ -96,5 +99,15 @@ public class EditMedicalCommand extends Command {
         model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
 
         return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+    @Override
+    public CommandResult undo(Model model) throws CommandException {
+        EditMedicalCommand cmd = new EditMedicalCommand(nric,
+                                                        editedInfo.getHeight(),
+                                                        editedInfo.getWeight(),
+                                                        true,
+                                                        editedInfo.getAllergyTag());
+        return cmd.execute(model);
     }
 }

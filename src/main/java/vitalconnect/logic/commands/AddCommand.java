@@ -72,4 +72,11 @@ public class AddCommand extends Command {
                 .add("toAdd", toAdd)
                 .toString();
     }
+
+    @Override
+    public CommandResult undo(Model model) throws CommandException {
+        model.deletePerson(toAdd);
+        return new CommandResult(String.format("Undo the addition successfully"),
+        false, false, CommandResult.Type.SHOW_PERSONS);
+    }
 }

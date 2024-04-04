@@ -65,6 +65,9 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml
     implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '3.6'
+
+    // https://mvnrepository.com/artifact/com.calendarfx/view
+    implementation group: 'com.calendarfx', name: 'view', version: '11.12.7'
 }
 
 run{

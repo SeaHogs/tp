@@ -36,6 +36,9 @@ public class EditAppointmentCommand extends Command {
     private final int duration;
     private final int unit = DURATION_UNIT;
 
+    private Appointment editedApt;
+    private Appointment aptReference;
+
     /**
      * Constructs a {@code EditAppointmentCommand} to edit an appointment.
      */
@@ -59,6 +62,7 @@ public class EditAppointmentCommand extends Command {
         }
 
         Appointment appointmentToEdit = lastShownList.get(index.getZeroBased()).getCopy();
+        editedApt = appointmentToEdit.getCopy();
         if (dateTime != null && duration > 0) {
             // both updated
             checkAppointmentTime(dateTime);
@@ -87,6 +91,7 @@ public class EditAppointmentCommand extends Command {
         if (!conflictMessage.equals("")) {
             throw new CommandException("Appointment time conflicts detected:\n" + conflictMessage);
         }
+        aptReference = appointmentToEdit;
         model.updateAppointment(index, appointmentToEdit);
         return new CommandResult(MESSAGE_SUCCESS + "index: " + index.getOneBased()
           + "\nUpdated appointment detail:\n" + appointmentToEdit.toString(),
@@ -125,5 +130,13 @@ public class EditAppointmentCommand extends Command {
                 appointment.getEndDateTime().format(DateTimeFormatter.ofPattern("d MMM yyyy HH:mm"))));
         }
         return message.toString();
+    }
+
+    @Override
+    public CommandResult undo(Model model) throws CommandException {
+        model.deleteAppointment(aptReference);
+        model.addAppointment(editedApt);
+        return new CommandResult(String.format("Undo the edit successfully"),
+        false, false, CommandResult.Type.SHOW_APPOINTMENTS);
     }
 }

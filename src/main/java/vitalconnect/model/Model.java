@@ -69,6 +69,9 @@ public interface Model {
     /** Returns the Clinic */
     ReadOnlyClinic getClinic();
 
+    /** Returns a copy of the Clinic */
+    ReadOnlyClinic getClinicCopy();
+
     /**
      * Returns true if a person with the same identity as {@code person} exists in the clinic.
      */
@@ -116,6 +119,9 @@ public interface Model {
     List<Appointment> getConflictingAppointments(Appointment appointment);
     List<Appointment> getConflictingAppointmentsForExistingApt(Index index, Appointment appointment);
     ObservableList<Appointment> getFilteredAppointmentList();
+    //void updateFilteredAppointmentList(Predicate<Appointment> predicate);
+    ObservableList<Appointment> getFoundAppointmentList();
+    List<Appointment> findAppointmentsByNric(Nric nric);
     void deleteAppointment(Appointment appointment);
     Person findPersonByNric(IdentificationInformation nric);
     Person findPersonByNric(Nric nric);

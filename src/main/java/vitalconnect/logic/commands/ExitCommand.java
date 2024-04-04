@@ -1,5 +1,6 @@
 package vitalconnect.logic.commands;
 
+import vitalconnect.logic.commands.exceptions.CommandException;
 import vitalconnect.model.Model;
 
 /**
@@ -17,4 +18,8 @@ public class ExitCommand extends Command {
                 false, true, CommandResult.Type.SHOW_PERSONS);
     }
 
+    @Override
+    public CommandResult undo(Model model) throws CommandException {
+        return null;
+    }
 }

@@ -77,4 +77,10 @@ public class AddContactCommand extends Command {
     public String toString() {
         return "addContact" + nric + contactInformation;
     }
+
+    @Override
+    public CommandResult undo(Model model) throws CommandException {
+        DeleteContactCommand cmd = new DeleteContactCommand(nric);
+        return cmd.execute(model);
+    }
 }
