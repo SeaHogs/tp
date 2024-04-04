@@ -4,21 +4,23 @@ title: User Guide
 ---
 ## Introduction
 
-Welcome to **vitalConnect**, your all-in-one desktop application for efficient clinic management, optimized for both Command Line Interface (CLI) and Graphical User Interface (GUI). Designed to streamline your clinic management tasks, VitalConnect offers the speed of a CLI with the convenience of a GUI, allowing you to effortlessly organize your patient and appointments with just a few keystrokes.
+Welcome to **vitalConnect**, your all-in-one desktop application for efficient clinic management, optimized for both Command Line Interface (CLI) and Graphical User Interface (GUI).
 
-If you are relatively good at typing, having the benefit of CLI of reducing time of dragging your mouse around, vitalConnect empowers you to manage your appointments swiftly and effectively. With its intuitive interface and robust features, you can add, delete, and search for appointments, track medical information, as well as check patient contact for communication with ease.
+Designed to streamline your clinic management tasks, VitalConnect offers the speed of a CLI with the convenience of a GUI, allowing you to effortlessly organize your patient and appointments with just a few keystrokes.With its intuitive interface and robust features, you can add, delete, and search for appointments, track medical information, as well as check patient contact for communication with ease.
 
 So, whether you're a busy professional juggling multiple appointments, vitalConnect is here to simplify your life. Let's dive in and explore how vitalConnect can revolutionize the way you manage your appointment and patient.
 
 --------------------------------------------------------------------------------------------------------------------
-
-<div style="page-break-after: always;"></div>
 
 ## Quick start
 
 For developers, you can head over to our Developer Guide [here](https://ay2324s2-cs2103t-w08-2.github.io/tp/DeveloperGuide.html) for the technical details.
 
 For first time users, you can first go through the steps listed under [Installation](https://ay2324s2-cs2103t-w08-2.github.io/tp/UserGuide.html#installation) and then check out the table of contents to experiment with whichever command that you are interested in.
+
+--------------------------------------------------------------------------------------------------------------------
+
+<div style="page-break-after: always;"></div>
 
 ## Table of Contents
 
@@ -64,6 +66,8 @@ For first time users, you can first go through the steps listed under [Installat
 
 --------------------------------------------------------------------------------------------------------------------
 
+<div style="page-break-after: always;"></div>
+
 ## Installation
 
 1. Ensure you have Java `11` or above installed in your Computer. You learn how to do so [here](https://www.java.com/en/download/help/download_options.html)
@@ -97,6 +101,8 @@ Refer to the [Commands](#CommandsCommands) below for specific details for each o
 
 --------------------------------------------------------------------------------------------------------------------
 
+<div style="page-break-after: always;"></div>
+
 ## Commands
 
 <div markdown="block" class="alert alert-info">
@@ -122,6 +128,8 @@ Shows a message explaning how to access the help page.
 Format: `help`
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
+
+<div style="page-break-after: always;"></div>
 
 ## Patient Management
 ### Adding a patient : `add`
@@ -151,6 +159,8 @@ Examples:
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
+<div style="page-break-after: always;"></div>
+
 ### Deleting a patient : `delete`
 
 Deletes the specified patient from the clinic.
@@ -179,6 +189,8 @@ Format: `list`
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
+<div style="page-break-after: always;"></div>
+
 ## Contact Management
 
 ### Adding contact information : `addc`
@@ -187,9 +199,11 @@ Adds the contact information to a patient in the clinic.
 
 Format: `addc ic/NRIC [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]`
 
+<div markdown="block" class="alert alert-info">
 **:information_source: Additional notes about the command format:**<br>
 Items in square brackets are optional.<br>
   e.g `addc ic/S1234567D p/91234567 e/test@email.com`
+</div>
 
 * The NRIC must be a NRIC of an already existing patient.
 * At least one of the optional fields must be provided.
@@ -210,15 +224,19 @@ Examples:
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
+<div style="page-break-after: always;"></div>
+
 ### Editing contact information : `editc`
 
 Edits the contact information of a patient in the clinic. It is also used to add or delete certain field of the contact information.
 
 Format: `editc ic/NRIC [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]`
 
+<div markdown="block" class="alert alert-info">
 **:information_source: Additional notes about the command format:**<br>
 Items in square brackets are optional.<br>
   e.g `addc ic/S1234567D p/91234567 e/test@email.com`
+</div>
 
 * At least one of the `optional fields` must be provided.
 * To delete an `optional field`, leave the `VALUE` part empty.
@@ -242,6 +260,8 @@ Examples:
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
+<div style="page-break-after: always;"></div>
+
 ### Listing contact information : `listc`
 
 Lists all patients with contact information.
@@ -258,18 +278,22 @@ Format: `addm ic/NRIC h/HEIGHT w/WEIGHT [t/ALLERGY]…​`
 
 * The NRIC must be a NRIC of an already existing patient.
 
+<div markdown="block" class="alert alert-info">
 **:information_source: Additional notes about the command format:**<br>
 Items in square brackets are optional.<br>
   e.g `addm ic/S1234567D h/163 w/50`
 Items with `…`​ after them can be used multiple times including zero times.<br>
   e.g. `[t/ALLERGY]…​` can be used as ` ` (i.e. 0 times), `t/Amoxicillin`, `t/insulin t/iodine` etc.
   e.g. `[t/ALLERGY]…​` can be used as ` ` (i.e. 0 times), `t/Amoxicillin`, `t/insulin t/iodine` etc.
+</div>
 
 Examples:
 * `addm ic/S1234567D h/163 w/50`
 * `addm ic/S1234567D h/163 w/50 t/insulin t/iodine`
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
+
+<div style="page-break-after: always;"></div>
 
 ### Editing medical information : `editm`
 
@@ -298,6 +322,8 @@ Use of prefix `-o` will delete all existing tag, including the added tag in curr
 
 [<span style="font-size: small;">Back to Top</span>](#top)
 
+<div style="page-break-after: always;"></div>
+
 ### Deleting medical information : `deletem`
 
 Deletes the medical information of a patient in the clinic.
@@ -314,6 +340,8 @@ Examples:
 Lists all patients with medical information.
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
+
+<div style="page-break-after: always;"></div>
 
 ## Appointment Management
 
@@ -334,6 +362,8 @@ Examples:
 * This will add an appointment for the patient with NRIC `S1234567D` start from 2nd June 2024 at 1:00 PM and end at 1:30 PM.
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
+
+<div style="page-break-after: always;"></div>
 
 ### Editing an appointment : `edita`
 
@@ -371,6 +401,8 @@ Examples:
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
+<div style="page-break-after: always;"></div>
+
 ### Deleting an appointment : `deletea`
 
 Deletes an exist appointment from the appointment list by providing the index of the appointment in the list.
@@ -394,6 +426,10 @@ Format: `lista`
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
+<div style="page-break-after: always;"></div>
+
+## Other Features
+
 ### Locating patients by name : `find`
 
 Finds patients whose names contain any of the given keywords.
@@ -412,17 +448,6 @@ Examples:
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
-### Undoing last command : `undo`
-
-Undoing the last command made.
-
-Format: `undo`
-
-* Commands such as `list` will not be considered as a command to undo and will undo the command before it if possible.
-* If the user adds a patient and then use the `list` command. Undo will undo the addition of the patient.
-
-[<span style="font-size: small;">Back to table of contents</span>](#toc)
-
 ### Locating appointments by patient : `finda`
 
 Find and list out all the appointment of a specific patient in the appointment list.
@@ -436,13 +461,18 @@ Examples:
 
 [<span style="font-size: small;">Back to Top</span>](#top)
 
-## Other Features
+<div style="page-break-after: always;"></div>
 
-### Undoing the previous command : `undo`
+### Undoing last command : `undo`
 
-Undoes the previous command that changes the data.
+Undoing the last command made.
 
 Format: `undo`
+
+* Commands such as `list` will not be considered as a command to undo and will undo the command before it if possible.
+* If the user adds a patient and then use the `list` command. Undo will undo the addition of the patient.
+
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
 
 ### Clearing all entries : `clear`
 
@@ -463,6 +493,8 @@ Format: `exit`
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
+<div style="page-break-after: always;"></div>
+
 ### Saving the data
 
 Clinic data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
@@ -482,6 +514,8 @@ If your changes to the data file makes its format invalid, Clinic will discard a
 Furthermore, certain edits can cause the Clinic to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
 
+<div style="page-break-after: always;"></div>
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
@@ -500,32 +534,9 @@ Furthermore, certain edits can cause the Clinic to behave in unexpected ways (e.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Command summary
+<div style="page-break-after: always;"></div>
 
-Action | Format, Examples
---------|------------------
-**Help** | `help`
-**Add** | `add ic/NRIC n/NAME` <br> e.g., `add ic/S1234567D n/James Doe`
-**Edit** | `edit ic/NRIC n/NAME` <br> e.g., `add ic/S1234567D n/John Doe`
-**Delete** | `delete INDEX` <br> e.g., `delete 3`
-**List** | `list`
-**Addc** | `addc ic/NRIC [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]` <br> e.g., `addc ic/S1234567D p/91234567 e/test@email.com a/123, Clementi Rd, 1234665`
-**Editc** | `editc ic/NRIC [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]` <br> e.g., `editc ic/S1234567D p/91234567 e/testing@email.com a/Blk 123 Street 4`
-**Deletec** | `deletec ic/NRIC` <br> e.g., `deletec ic/S1234567D`
-**Listc** | `listc`
-**Addm** | `addm ic/NRIC h/HEIGHT w/WEIGHT [t/ALLERGY]…​` <br> e.g., `addm ic/S1234567D h/163 w/50 t/insulin t/iodine`
-**Editm** | `editm ic/NRIC h/HEIGHT w/WEIGHT [t/ALLERGY]…` <br> e.g., `editm ic/S1234567D h/165 w/55 t/aspirin`
-**Deletem** | `deletem ic/NRIC` <br> e.g., `deletem ic/S1234567D`
-**Listm**   | `listm`
-**Adda** | `adda ic/NRIC s/DD/MM/YYYY HHMM d/DURATION` <br> e.g., `adda ic/S1234567D s/02/02/2024 1300 d/4`
-**Edita** | `edita INDEX s/DD/MM/YYYY HHMM d/DURATION` <br> e.g., `edita 1 s/02/02/2024 1400 d/4`
-**Deletea** | `deletea INDEX` <br> e.g., `deletea 1`
-**Lista**   | `lista`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find John Doe`
-**Finda** | `finda ic/NRIC`<br> e.g., `finda ic/S1234567D
-**Undo** | `undo`
-**Clear** | `clear`
-**Exit** | `exit`
+## Command summary
 
 Action | Format, Examples
 --------|------------------
