@@ -19,6 +19,7 @@ import vitalconnect.commons.core.LogsCenter;
 import vitalconnect.commons.core.index.Index;
 import vitalconnect.model.person.Person;
 import vitalconnect.model.person.contactinformation.ContactInformation;
+import vitalconnect.model.person.identificationinformation.IdentificationInformation;
 import vitalconnect.model.person.identificationinformation.Nric;
 import vitalconnect.model.person.medicalinformation.MedicalInformation;
 
@@ -228,6 +229,18 @@ public class ModelManager implements Model {
     public Person findPersonByNric(Nric nric) {
         requireNonNull(nric);
         return clinic.findPersonByNric(nric);
+    }
+
+    /**
+     * Finds and returns the person in the clinic whose identification info matches the specified identification info.
+     *
+     * @param info The identification info of the person to find.
+     * @return The person with the specified identification info or null if no such person exists in the clinic.
+     */
+    @Override
+    public Person findPersonByNric(IdentificationInformation info) {
+        requireNonNull(info);
+        return clinic.findPersonByNric(info);
     }
 
     /**

@@ -22,7 +22,6 @@ import vitalconnect.model.Clinic;
 import vitalconnect.model.Model;
 import vitalconnect.model.person.Person;
 import vitalconnect.model.person.identificationinformation.NameContainsKeywordsPredicate;
-import vitalconnect.testutil.EditPersonDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -60,16 +59,6 @@ public class CommandTestUtil {
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
-
-    public static final EditCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditCommand.EditPersonDescriptor DESC_BOB;
-
-    static {
-        DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withNric(VALID_NRIC_AMY).build();
-        DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withNric(VALID_NRIC_BOB).build();
-    }
 
     /**
      * Executes the given {@code command}, confirms that <br>

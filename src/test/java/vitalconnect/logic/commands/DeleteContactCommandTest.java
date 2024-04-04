@@ -27,6 +27,7 @@ import vitalconnect.model.ReadOnlyUserPrefs;
 import vitalconnect.model.UserPrefs;
 import vitalconnect.model.person.Person;
 import vitalconnect.model.person.contactinformation.ContactInformation;
+import vitalconnect.model.person.identificationinformation.IdentificationInformation;
 import vitalconnect.model.person.identificationinformation.Nric;
 import vitalconnect.model.person.medicalinformation.MedicalInformation;
 import vitalconnect.testutil.PersonBuilder;
@@ -207,6 +208,11 @@ public class DeleteContactCommandTest {
         @Override
         public Person findPersonByNric(Nric nric) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Person findPersonByNric(IdentificationInformation info) {
+            return null;
         }
 
         @Override

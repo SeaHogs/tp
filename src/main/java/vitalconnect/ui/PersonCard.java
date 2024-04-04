@@ -4,6 +4,7 @@ import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.SplitPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -44,7 +45,8 @@ public class PersonCard extends UiPart<Region> {
     private Label medicalInformation;
     @FXML
     private Label allergy;
-
+    @FXML
+    private SplitPane splitPane; // SplitPane to allow resizing of the card
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
      */
@@ -74,13 +76,20 @@ public class PersonCard extends UiPart<Region> {
         // Set allergy label visibility based on medical information and allergy tags
         if (!mi.isEmpty() && !mi.getAllergyTag().isEmpty()) {
             allergy.setVisible(true);
-            allergy.setText("Allergic to: ");
+            allergy.setText("Allergies:");
             mi.getAllergyTag().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         } else {
             allergy.setVisible(false);
             allergy.setText("");
+        }
+
+        // Apply conditional style based on index (odd or even)
+        if ((displayedIndex + 1) % 2 == 0) {
+            splitPane.getStyleClass().add("even-index");
+        } else {
+            splitPane.getStyleClass().add("odd-index");
         }
     }
 }
