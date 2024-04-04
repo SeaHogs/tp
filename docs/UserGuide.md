@@ -95,7 +95,7 @@ For first time users, you can first go through the steps listed under [Installat
 
    * `exit` : Exits the app.
 
-Refer to the [Commands](#CommandsCommands) below for specific details for each of the commands.
+Refer to the [Commands]((https://ay2324s2-cs2103t-w08-2.github.io/tp/UserGuide.html#Commands) below for specific details for each of the commands.
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
@@ -514,6 +514,8 @@ If your changes to the data file makes its format invalid, Clinic will discard a
 Furthermore, certain edits can cause the Clinic to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
 
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
+
 <div style="page-break-after: always;"></div>
 
 --------------------------------------------------------------------------------------------------------------------
@@ -522,6 +524,8 @@ Furthermore, certain edits can cause the Clinic to behave in unexpected ways (e.
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Clinic home folder.
+
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -532,9 +536,13 @@ Furthermore, certain edits can cause the Clinic to behave in unexpected ways (e.
 3. **Regarding the undo command**, the undo command does not undo the deleted appointments associated to a person
 4. **Regarding the appointments**, the deletion of patient data via 'delete' does not clear the data for the appointments.
 
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
+
 --------------------------------------------------------------------------------------------------------------------
 
 <div style="page-break-after: always;"></div>
+
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
 
 ## Command summary
 
