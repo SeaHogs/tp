@@ -79,7 +79,6 @@ public class Timetable extends UiPart<Region> {
         });
 
         try {
-            customizeDayPageContextMenu();
             calendarView.setEntryFactory(param -> null);
         } catch (Exception e) {
             e.printStackTrace();
