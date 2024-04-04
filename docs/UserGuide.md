@@ -8,8 +8,6 @@ Welcome to **vitalConnect**, your all-in-one desktop application for efficient c
 
 If you are relatively good at typing, having the benefit of CLI of reducing time of dragging your mouse around, vitalConnect empowers you to manage your appointments swiftly and effectively. With its intuitive interface and robust features, you can add, delete, and search for appointments, track medical information, as well as check patient contact for communication with ease.
 
-This user guide serves as your comprehensive manual for navigating vitalConnect's features and functionalities. From quick-start instructions to detailed command summaries, you'll find everything you need to maximize your productivity and streamline your management workflow.
-
 So, whether you're a busy professional juggling multiple appointments, vitalConnect is here to simplify your life. Let's dive in and explore how vitalConnect can revolutionize the way you manage your appointment and patient.
 
 --------------------------------------------------------------------------------------------------------------------
@@ -531,10 +529,24 @@ Action | Format, Examples
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-**Clear** | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**List** | `list`
 **Help** | `help`
+**Add** | `add ic/NRIC n/NAME` <br> e.g., `add ic/S1234567D n/James Doe`
+**Edit** | `edit ic/NRIC n/NAME` <br> e.g., `add ic/S1234567D n/John Doe`
+**Delete** | `delete INDEX`<br> e.g., `delete 3`
+**List** | `list`
+**Addc** | `list`
+**Editc** | `list`
+**Deletec** | `list`
+**Addm** | `list`
+**Editm** | `list`
+**Deletem** | `list`
+**Listm** | `listm
+**Adda** | `list`
+**Edita** | `list`
+**Deletea** | `list`
+**Lista** | `lista`
+**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find John Doe`
+**Finda** | `finda ic/NRIC`<br> e.g., `finda ic/S1234567D`
+**Undo** | `undo`
+**Clear** | `clear`
+**Exit** | `exit`
