@@ -17,7 +17,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[portfolio](team/javier.md)]
 
 * Role: Team lead
-* Responsibilities: <Will be reassigned on a later date>
+* Responsibilities: Team Lead, Documentation
 
 ### Ma Yuehan
 
@@ -27,7 +27,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[portfolio](team/mayuehan.md)]
 
 * Role: Developer
-* Responsibilities: Command implementation, documentation, Ui
+* Responsibilities: Ui
 
 ### Mu Zhaoyu
 
@@ -37,7 +37,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[portfolio](team/ella-e.md)]
 
 * Role: Developer
-* Responsibilities: Command implementation, documentation
+* Responsibilities: Testing
 
 ### Lai Yiwen
 
@@ -47,4 +47,4 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[portfolio](team/seahogs.md)]
 
 * Role: Developer
-* Responsibilities: Command implementation, documentation
+* Responsibilities: Code quality & Integration
