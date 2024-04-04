@@ -507,7 +507,7 @@ Action | Format, Examples
 **Help** | `help`
 **Add** | `add ic/NRIC n/NAME` <br> e.g., `add ic/S1234567D n/James Doe`
 **Edit** | `edit ic/NRIC n/NAME` <br> e.g., `add ic/S1234567D n/John Doe`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
+**Delete** | `delete INDEX` <br> e.g., `delete 3`
 **List** | `list`
 **Addc** | `addc ic/NRIC [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]` <br> e.g., `addc ic/S1234567D p/91234567 e/test@email.com a/123, Clementi Rd, 1234665`
 **Editc** | `editc ic/NRIC [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]` <br> e.g., `editc ic/S1234567D p/91234567 e/testing@email.com a/Blk 123 Street 4`
@@ -532,7 +532,7 @@ Action | Format, Examples
 **Help** | `help`
 **Add** | `add ic/NRIC n/NAME` <br> e.g., `add ic/S1234567D n/James Doe`
 **Edit** | `edit ic/NRIC n/NAME` <br> e.g., `add ic/S1234567D n/John Doe`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
+**Delete** | `delete INDEX` <br> e.g., `delete 3`
 **List** | `list`
 **Addc** | `list`
 **Editc** | `list`
@@ -540,7 +540,7 @@ Action | Format, Examples
 **Addm** | `list`
 **Editm** | `list`
 **Deletem** | `list`
-**Listm** | `listm
+**Listm** | `listm`
 **Adda** | `list`
 **Edita** | `list`
 **Deletea** | `list`
@@ -550,3 +550,13 @@ Action | Format, Examples
 **Undo** | `undo`
 **Clear** | `clear`
 **Exit** | `exit`
+
+Action | Format, Examples
+--------|------------------
+**Help** | `help`
+**Add** | `add ic/NRIC n/NAME` <br> e.g., `add ic/S1234567D n/James Doe`
+**Edit** | `edit ic/NRIC n/NAME` <br> e.g., `add ic/S1234567D n/John Doe`
+**Delete** | `delete INDEX` <br> e.g., `delete 3`
+**List** | `list`
+**Addc** | `list`
+**Editc** | `help`
