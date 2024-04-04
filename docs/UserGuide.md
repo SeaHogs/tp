@@ -348,9 +348,21 @@ Examples:
 
 ### Editing an appointment : `edita`
 
-Edits the start time and duration of an appointment of an existing person.
+Edits the start time and/or duration of an appointment of an existing person.
 
-Format: `edita INDEX s/START TIME d/DURATION`
+__Format:__ `edita INDEX [s/START TIME] [d/DURATION]`
+
+Edit both start time and duration:
+
+`edita INDEX s/START TIME d/DURATION`
+
+Edit only the start time:
+
+`edita INDEX s/START TIME` 
+
+Edit only the time duration:
+
+`edita INDEX d/DURATION` 
 
 __`INDEX`: Index of the to be edited appointment in the appointment list__
 * The index should not be out of range nor negative.
@@ -365,6 +377,14 @@ __`d/DURATION`: the time length of the appointment__
 __The input should be the number of duration unit:__
 * The time length of one unit of duration equals __15 minutes__.
 * The input for duration should be larger than 0.
+
+Examples:
+* `edita 1 s/02/02/2025 1300 d/4`
+  * This change the time of the appointment of index 1 to Feb 2 2025 at 1pm and end at 2pm.
+* `edita 1 s/02/02/2025 1300`
+    * Only change the appointment start time to Feb 2 2025 at 1pm, the time duration remains the same.
+* `edita 1 d/4`
+    * Only change the time length of the appointment to one hour, the start time remains the same.
 
 [<span style="font-size: small;">Back to Top</span>](#top)
 
@@ -488,6 +508,7 @@ _Details coming soon ..._
 | **Edita**   | `edita INDEX [s/DD/MM/YYYY HHMM] [d/DURATION]` e.g., `edita 1 s/ 02/02/2024 1300 d/4`                                                   |
 | **Lista**   | `lista`                                                                                                                                 |
 | **Deletea** | `deletea INDEX` e.g., `deletea 1`                                                                                                       |
+| **Finda**   | `finda ic/NRIC` e.g., `finda ic/S1234567D`                                                                                              |
 | **Help**    | `help`                                                                                                                                  |
 
 [<span style="font-size: small;">Back to Top</span>](#top)
