@@ -62,13 +62,13 @@ So, whether you're a busy professional juggling multiple appointments, vitalConn
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * `list` : Lists all contacts.
+   * `list` : Lists all patients.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Clinic.
+   * `add n/John Doe ic/S1234567D` : Adds a patient named `John Doe` with nric `S1234567D` to the Clinic.
 
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
+   * `delete 3` : Deletes the 3rd patient shown in the current list.
 
-   * `clear` : Deletes all contacts.
+   * `clear` : Deletes all patients.
 
    * `exit` : Exits the app.
 
@@ -113,6 +113,7 @@ Format: `help`
 
 [<span style="font-size: small;">Back to Top</span>](#top)
 
+## Patient Management
 ### Adding a patient : `add`
 
 Adds a patient to the clinic.
@@ -165,13 +166,20 @@ Format: `delete INDEX`
 
 * Deletes the patient at the specified `INDEX`.
 * The index refers to the index number shown in the displayed patient list.
+* If the panel is currently not showing any patient list (e.g. showing appointment list), the default patient list is the general clinic patient list (which contains all the patients).
 * The index **must be a positive integer** 1, 2, 3, …​
+
+> [!CAUTION]
+> The deletion of a patient will result in the deletion of all the contact and medical information as well as all the appointments of the patient.
+> If accidentally delete a patient, can use `undo` command to recover the deleted patient.
 
 Examples:
 * `list` followed by `delete 2` deletes the 2nd patient in the clinic.
 * `find Betsy` followed by `delete 1` deletes the 1st patient in the results of the `find` command.
 
 [<span style="font-size: small;">Back to Top</span>](#top)
+
+## Contact Management
 
 ### Adding contact information : `addc`
 
@@ -182,14 +190,15 @@ Adds contact information to a patient in the clinic.
 Format: `addc ic/NRIC [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]`
 
 * At least one of the optional fields must be provided.
-* Rules for phone number: At least 3 digits.
+* Phone number should be of 3 to 15 digits long.
 * Emails should be of the format local-part@domain and adhere to the following constraints:
-  1. The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (+_.-). The local-part may not start or end with any special characters.
+  1. The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (+_.-). The local-part may not start or end with any special characters, and the special characters should not be adjacent to each other.
   2. This is followed by a '@' and then a domain name. The domain name is made up of domain labels separated by periods.
      The domain name must:
       - end with a domain label at least 2 characters long
       - have each domain label start and end with alphanumeric characters
       - have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
+* Address has a max length of 50 characters, and it should not be empty upon adding.
 
 Examples:
 * `addc ic/S1234567D p/91234567`
@@ -206,22 +215,22 @@ Edits contact information of a patient in the clinic. It is also used to add or 
 
 Format: `editc ic/NRIC [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]`
 
-* We call `p/`, `e/`, and `a/` as the `optional fields`.
+* We call `[p/PHONE_NUMBER]`, `[e/EMAIL]`, and `[a/ADDRESS]` as the `optional fields`. It has a structure of `prefix/VALUE`.
 * At least one of the `optional fields` must be provided.
-* If want to delete an `optional field`, leave the `optional field` empty.
-* If the `optional field` already exist a value, the value will be updated with the new value.
-* If the `optional field` does not previously hold a value, the new value will be added to the `optional field`.
+* To delete an `optional field`, leave the `VALUE` part empty.
+* If the `VALUE` part is not empty, the corresponding patient contact's field will either be updated or added with the new value.
+* If all `optional fields` become empty, the contact information of the patient will be considered deleted. If one want to add a new contact information, please use `addc` command.
 
 Examples:
 * `editc ic/S1234567D p/91234567` will result in the phone number of the patient with NRIC `S1234567D` being updated to `91234567`.
 * `editc ic/S1234567D a/` will result in the address of the patient with NRIC `S1234567D` being deleted.
-* Suppose the person now only has a phone number, `editc ic/S1234567D e/email@test.com` will result in the email of the patient with NRIC `S1234567D` being updated to `email@test.com`.
+* Suppose the person currently has a phone number only, `editc ic/S1234567D e/email@test.com` will result in the email of the patient with NRIC `S1234567D` being updated to `email@test.com`.
 
 [<span style="font-size: small;">Back to Top</span>](#top)
 
 ### Listing contact information : `listc`
 
-Lists all patients with contact information.
+Lists all patients with non-empty contact information.
 
 ![listc command](images/commandsPictures/listcCommand.png)
 
@@ -240,6 +249,8 @@ Examples:
 
 [<span style="font-size: small;">Back to Top</span>](#top)
 
+## Medical Information Management
+
 ### Adding medical information : `addm`
 
 Adds medical information to a patient in the clinic.
@@ -251,6 +262,33 @@ Format: `addm ic/NRIC h/HEIGHT w/WEIGHT [t/ALLERGY]…​`
 Examples:
 * `addm ic/S1234567D h/163 w/50`
 * `addm ic/S1234567D h/163 w/50 t/insulin t/iodine`
+
+[<span style="font-size: small;">Back to Top</span>](#top)
+
+### Editing the medical information : "editm"
+
+Edit the medical information of an existing person.
+
+Format: `editm ic/NRIC h/HEIGHT w/WEIGHT -o at/ALLERGY…​`
+
+* All fields are optional field but at least one should be present.
+* There should only be one field `-o`.
+* The order of `-o` and at does not matter, as long as `-o` exist in current command,
+  all allergyTags will be new tags overwriting the old tags.
+
+Prefix explanation:
+- `-o` will set mode for this command to overwrite.
+- `at/ALLERGY` append this tag to existing tag.
+
+Example:
+* `editm ic/G1234567J w/100, -o at/milk at/egg`
+
+This will change the weight of person with ic G1234567J to 100 and
+overwrite allergy tag to milk and egg.
+
+> [!CAUTION]
+> Use if prefix `-o` will delete all existing tag, including the added tag in current command before it.
+> Please use with cautious.
 
 [<span style="font-size: small;">Back to Top</span>](#top)
 
@@ -274,6 +312,8 @@ Examples:
 * `deletem ic/S1234567D` will result in the medical information of the patient with NRIC `S1234567D` being deleted.
 
 [<span style="font-size: small;">Back to Top</span>](#top)
+
+## Appointment Management
 
 ### Adding an appointment : `adda`
 
@@ -336,6 +376,14 @@ Format: `lista`
 
 [<span style="font-size: small;">Back to Top</span>](#top)
 
+## Other Features
+
+### Undoing the previous command : `undo`
+
+Undoes the previous command that changes the data.
+
+Format: `undo`
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the clinic.
@@ -363,33 +411,6 @@ Clinic data are saved in the hard disk automatically after any command that chan
 
 [<span style="font-size: small;">Back to Top</span>](#top)
 
-### Editing the medical information : "editm"
-
-Edit the medical information of an existing person.
-
-Format: `editm ic/NRIC h/HEIGHT w/WEIGHT -o at/ALLERGY…​`
-
-* All fields are optional field but at least one should be present.
-* There should only be one field `-o`.
-* The order of `-o` and at does not matter, as long as `-o` exist in current command, 
-all allergyTags will be new tags overwriting the old tags.
-
-Prefix explanation:
-- `-o` will set mode for this command to overwrite.
-- `at/ALLERGY` append this tag to existing tag.
-
-Example:
-* `editm ic/G1234567J w/100, -o at/milk at/egg`
-
-This will change the weight of person with ic G1234567J to 100 and
-overwrite allergy tag to milk and egg.
-
-> [!CAUTION]
-> Use if prefix `-o` will delete all existing tag, including the added tag in current command before it. 
-> Please use with cautious.
-
-[<span style="font-size: small;">Back to Top</span>](#top)
-
 ### Editing the data file
 
 Clinic data are saved automatically as a JSON file `[JAR file location]/data/clinic.json`. Advanced users are welcome to update data directly by editing that data file.
@@ -400,9 +421,6 @@ Furthermore, certain edits can cause the Clinic to behave in unexpected ways (e.
 </div>
 
 ### Archiving data files `[coming in v2.0]`
-_Details coming soon ..._
-
-### Editing a patient : `[coming in v1.3]`
 _Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
@@ -421,7 +439,6 @@ _Details coming soon ..._
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command summary
-
 | Action      | Format, Examples                                                                                                                        |
 |-------------|-----------------------------------------------------------------------------------------------------------------------------------------|
 | **Add**     | `add n/NAME ic/NRIC` <br> e.g., `add n/John Doe ic/S1234567D`                                                                           |
