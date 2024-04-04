@@ -8,6 +8,7 @@ import vitalconnect.commons.core.index.Index;
 import vitalconnect.commons.util.ToStringBuilder;
 import vitalconnect.logic.Messages;
 import vitalconnect.logic.commands.exceptions.CommandException;
+import vitalconnect.model.Appointment;
 import vitalconnect.model.Model;
 import vitalconnect.model.person.Person;
 /**
@@ -22,7 +23,8 @@ public class DeleteCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_DELETE_PERSON_SUCCESS =
+            "Deleted Person: %1$s, and this patient's appointments.";
 
     private final Index targetIndex;
     private Person deletedPerson;
@@ -43,6 +45,11 @@ public class DeleteCommand extends Command {
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
         deletedPerson = personToDelete.copyPerson();
         model.deletePerson(personToDelete);
+        List<Appointment> aptToDelete =
+                model.findAppointmentsByNric(personToDelete.getIdentificationInformation().getNric());
+        for (Appointment apt: aptToDelete) {
+            model.deleteAppointment(apt);
+        }
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(personToDelete)));
     }
 

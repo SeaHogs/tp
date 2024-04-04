@@ -23,6 +23,7 @@ import vitalconnect.logic.commands.EditCommand;
 import vitalconnect.logic.commands.EditContactCommand;
 import vitalconnect.logic.commands.EditMedicalCommand;
 import vitalconnect.logic.commands.ExitCommand;
+import vitalconnect.logic.commands.FindAptCommand;
 import vitalconnect.logic.commands.FindCommand;
 import vitalconnect.logic.commands.HelpCommand;
 import vitalconnect.logic.commands.ListAptCommand;
@@ -129,6 +130,8 @@ public class ClinicParser {
         case EditAppointmentCommand.COMMAND_WORD:
             return new EditAppointmentCommandParser().parse(arguments);
 
+        case FindAptCommand.COMMAND_WORD:
+            return new FindAptCommandParser().parse(arguments);
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -67,3 +67,4 @@ public class CreateAptCommandParser {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }
+
