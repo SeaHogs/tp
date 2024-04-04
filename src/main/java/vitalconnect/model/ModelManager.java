@@ -34,6 +34,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final ObservableList<Appointment> appointments;
+    private ObservableList<Appointment> foundApt;
     private Predicate<Person> currentPredicate;
 
 
@@ -49,10 +50,12 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.clinic.getPersonList());
         this.appointments = FXCollections.observableArrayList();
+        this.foundApt = FXCollections.observableArrayList();
         this.currentPredicate = PREDICATE_SHOW_ALL_PERSONS;
 
         if (loadedAppointments != null) {
             this.appointments.setAll(loadedAppointments);
+
         }
     }
 
@@ -116,6 +119,7 @@ public class ModelManager implements Model {
     public void setAppointments(List<Appointment> appointments) {
         this.appointments.setAll(appointments);
     }
+
     /**
      * Returns an unmodifiable view of the list of appointments.
      *
@@ -145,7 +149,25 @@ public class ModelManager implements Model {
                                 && newAppointment.getEndDateTime().isAfter(existingAppointment.getDateTime()))
                 .collect(Collectors.toList());
     }
+    @Override
+    public ObservableList<Appointment> findAppointmentsByNric(Nric nric) {
+        requireNonNull(nric);
+        List<Appointment> foundAppointments = appointments.stream()
+                .filter(appointment -> appointment.getPatientIc().equals(nric.toString()))
+                .collect(Collectors.toList());
 
+        foundApt = FXCollections.observableArrayList(foundAppointments);
+        return getFoundAppointmentList();
+    }
+    @Override
+    public ObservableList<Appointment> getFoundAppointmentList() {
+        System.out.println("found apt list");
+        for (Appointment a: foundApt) {
+            System.out.println(a);
+        }
+        FXCollections.sort(foundApt, Comparator.comparing(Appointment::getDateTime));
+        return foundApt;
+    }
     @Override
     public List<Appointment> getConflictingAppointmentsForExistingApt(Index index, Appointment newAppointment) {
         ArrayList<Appointment> appointments = new ArrayList<>(getFilteredAppointmentList());
@@ -156,6 +178,7 @@ public class ModelManager implements Model {
               && newAppointment.getEndDateTime().isAfter(existingAppointment.getDateTime()))
           .collect(Collectors.toList());
     }
+
     @Override
     public void setClinic(ReadOnlyClinic clinic) {
         this.clinic.resetData(clinic);
@@ -164,6 +187,12 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyClinic getClinic() {
         return clinic;
+    }
+
+    @Override
+    public ReadOnlyClinic getClinicCopy() {
+        ReadOnlyClinic copy = new Clinic(clinic);
+        return copy;
     }
 
     @Override

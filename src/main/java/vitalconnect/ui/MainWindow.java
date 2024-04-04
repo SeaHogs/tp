@@ -35,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private AppointmentListPanel appointmentListPanel;
+    private AppointmentListPanel foundAptListPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -115,9 +116,8 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-
-        // Initialize AppointmentListPanel but don't add it to the placeholder yet
         appointmentListPanel = new AppointmentListPanel(logic.getFilteredAppointmentList());
+        foundAptListPanel = new AppointmentListPanel(logic.getFoundAppointmentList());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -136,6 +136,15 @@ public class MainWindow extends UiPart<Stage> {
     public void showAppointmentList() {
         personListPanelPlaceholder.getChildren().clear();
         personListPanelPlaceholder.getChildren().add(appointmentListPanel.getRoot());
+    }
+    /**
+     * Switches the displayed list in the main window to show the found appointment list.
+     * This method clears any current content in the placeholder and then loads the appointment list view.
+     */
+    public void showFoundAppointmentList() {
+        personListPanelPlaceholder.getChildren().clear();
+        foundAptListPanel = new AppointmentListPanel(logic.getFoundAppointmentList());
+        personListPanelPlaceholder.getChildren().add(foundAptListPanel.getRoot());
     }
 
     /**
@@ -218,6 +227,9 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             case SHOW_APPOINTMENTS:
                 showAppointmentList();
+                break;
+            case SHOW_FOUNDAPT:
+                showFoundAppointmentList();
                 break;
             default:
                 showPersonList();
