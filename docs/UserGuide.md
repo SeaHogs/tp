@@ -441,6 +441,8 @@ Clears all entries from the clinic.
 
 ![clear command](images/commandsPictures/clearCommand.png)
 
+
+
 Format: `clear`
 
 > [!CAUTION]
