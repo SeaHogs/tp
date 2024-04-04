@@ -422,24 +422,38 @@ _Details coming soon ..._
 
 ## Command summary
 
-| Action      | Format, Examples                                                                                                                        |
-|-------------|-----------------------------------------------------------------------------------------------------------------------------------------|
-| **Add**     | `add n/NAME ic/NRIC` <br> e.g., `add n/John Doe ic/S1234567D`                                                                           |
-| **Clear**   | `clear`                                                                                                                                 |
-| **Delete**  | `delete INDEX`<br> e.g., `delete 3`                                                                                                     |
-| **Find**    | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                              |
-| **List**    | `list`                                                                                                                                  |
-| **Addc**    | `addc ic/NRIC [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]` e.g., `addc ic/S1234567D a/123, Clementi Rd, 1234665 e/test@email.com p/91234567` |
-| **Editc**   | `editc ic/NRIC [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]` e.g., `editc ic/S1234567D a/ e/test@email.com p/91234567`                        |
-| **Listc**   | `listc`                                                                                                                                 |
-| **Deletec** | `deletec ic/NRIC` e.g., `deletec ic/S1234567D`                                                                                          |
-| **Addm**    | `addm ic/NRIC h/HEIGHT w/WEIGHT [t/ALLERGY]…​` e.g., `addm ic/S1234567D h/163 w/50 t/insulin t/iodine`                                  |
-| **Listm**   | `listm`                                                                                                                                 |
-| **Deletem** | `deletem ic/NRIC` e.g., `deletec ic/S1234567D`                                                                                          |
-| **Adda**    | `adda NRIC s/DD/MM/YYYY HHMM d/DURATION` e.g., `adda S1234567D s/ 02/02/2024 1300 d/2`                                                  |
-| **Edita**   | `edita INDEX [s/DD/MM/YYYY HHMM] [d/DURATION]` e.g., `edita 1 s/ 02/02/2024 1300 d/4`                                                   |
-| **Lista**   | `lista`                                                                                                                                 |
-| **Deletea** | `deletea INDEX` e.g., `deletea 1`                                                                                                       |
-| **Help**    | `help`                                                                                                                                  |
+Action | Format, Examples
+--------|------------------
+**Help** | `help`
+**Add** | `add ic/[NRIC] n/[NAME]` <br> e.g., `add ic/S1234567D n/James Doe`
+**Edit** | `edit ic/[NRIC] n/[NAME]` <br> e.g., `add ic/S1234567D n/John Doe`
+**Delete** | `delete INDEX`<br> e.g., `delete 3`
+**List** | `list`
+**Addc** | `addc ic/NRIC [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]` <br> e.g., `addc ic/S1234567D p/91234567 e/test@email.com a/123, Clementi Rd, 1234665`
+**Editc** | `editc ic/NRIC [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]` <br> e.g., `editc ic/S1234567D p/91234567 e/testing@email.com a/Blk 123 Street 4`
+**Deletec** | `deletec ic/[NRIC]` <br> e.g., `deletec ic/S1234567D`
+**Listc** | `listc`
+**Addm** | `addm ic/NRIC h/[HEIGHT] w/[WEIGHT] [t/ALLERGY]…​` <br> e.g., `addm ic/S1234567D h/163 w/50 t/insulin t/iodine`
+**Editm** | `editm ic/NRIC h/[HEIGHT] w/[WEIGHT] [t/ALLERGY]…` <br> e.g., `editm ic/S1234567D h/165 w/55 t/aspirin`
+**Deletem** | `deletem ic/[NRIC]` <br> e.g., `deletem ic/S1234567D`
+**Listm**   | `listm`
+**Adda** | `adda ic/NRIC [s/DD/MM/YYYY HHMM] [d/DURATION]` <br> e.g., `adda ic/S1234567D s/02/02/2024 1300 d/4`
+**Edita** | `edita INDEX [s/DD/MM/YYYY HHMM] [d/DURATION]` <br> e.g., `edita 1 s/02/02/2024 1400 d/4`
+**Deletea** | `deletea INDEX` <br> e.g., `deletea 1`
+**Lista**   | `lista`
+**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find John Doe`
+**Undo** | `undo`
+**Clear** | `clear`
+**Exit** | `exit`
+
+
+Action | Format, Examples
+--------|------------------
+**Add** | `add n/NAME ic/NRIC` <br> e.g., `add n/John Doe ic/S1234567D`**Clear** | `clear`
+**Delete** | `delete INDEX`<br> e.g., `delete 3`
+**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**List** | `list`
+**Help** | `help`
 
 [<span style="font-size: small;">Back to Top</span>](#top)
