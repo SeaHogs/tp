@@ -4,8 +4,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 import com.calendarfx.model.Calendar;
 import com.calendarfx.model.CalendarSource;
@@ -42,22 +40,21 @@ public class Timetable extends UiPart<Region> {
         appointmentList.addListener((ListChangeListener<Appointment>) change -> {
             while (change.next()) {
                 if (change.wasAdded()) {
-                    for (Appointment addedAppointment : change.getAddedSubList()) {
-                        // Add the newly added appointment to the calendar
-                        addAppointmentToCalendar(addedAppointment);
+                    calendarView.getCalendarSources().get(0).getCalendars().get(0).clear();
+                    for (Appointment updatedAppointment : appointmentList) {
+                        addAppointmentToCalendar(updatedAppointment);
                     }
                 } else if (change.wasRemoved()) {
                     for (Appointment removedAppointment : change.getRemoved()) {
-                        // Remove the removed appointment from the calendar
                         removeAppointmentFromCalendar(removedAppointment);
                     }
                 } else if (change.wasUpdated()) {
-                    // Handle updates if needed
-                    // For simplicity, we will remove and re-add the updated appointment
-                    for (Appointment updatedAppointment : change.getList()) {
-                        removeAppointmentFromCalendar(updatedAppointment);
-                        addAppointmentToCalendar(updatedAppointment);
-                    }
+                    // dummy code to test where edit is going
+                    // edita does not go through model as expected
+                    // calendarView.getCalendarSources().get(0).getCalendars().get(0).clear();
+                    // for (Appointment updatedAppointment : appointmentList) {
+                        // addAppointmentToCalendar(updatedAppointment);
+                    // }
                 }
             }
         });
@@ -65,20 +62,20 @@ public class Timetable extends UiPart<Region> {
 
     private void addAppointmentToCalendar(Appointment appointment) {
         Entry<String> entry = new Entry<>(appointment.getPatientName() + " " + appointment.getPatientIc());
-        entry.changeStartDate(appointment.getDateTime().toLocalDate());
-        entry.changeEndDate(appointment.getDateTime().toLocalDate());
-        entry.changeStartTime(appointment.getDateTime().toLocalTime());
-        entry.changeEndTime(appointment.getDateTime().toLocalTime().plusHours(1));
+        entry.setInterval(appointment.getDateTime(), appointment.getEndDateTime());
         calendarView.getCalendarSources().get(0).getCalendars().get(0).addEntries(entry);
     }
 
     private void removeAppointmentFromCalendar(Appointment appointment) {
-        // Remove the appointment entry from the calendar
         calendarView.getCalendarSources().get(0).getCalendars().get(0)
                 .findEntries(appointment.getPatientName() + " " + appointment.getPatientIc())
-                .removeIf(Entry entry -> entry..isEqual(appointment.getDateTime().toLocalDate()) &&
-                        entry.getStartTime().equals(appointment.getDateTime().toLocalTime()));
+                .forEach(entry -> calendarView.getCalendarSources().get(0)
+                        .getCalendars()
+                        .get(0)
+                        .removeEntry((Entry<?>) entry));
     }
+
+
 
     /**
      * Sets up the calendar view with appropriate configurations and adds appointments to display.
