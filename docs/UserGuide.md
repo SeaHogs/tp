@@ -270,25 +270,26 @@ Examples:
 
 Edit the medical information of an existing person.
 
-Format: `editm ic/NRIC h/HEIGHT w/WEIGHT -o at/ALLERGY…​`
+Format: `editm ic/NRIC [h/HEIGHT] [w/WEIGHT] [-o] [at/ALLERGY…​]`
 
-* All fields are optional field but at least one should be present.
-* There should only be one field `-o`.
-* The order of `-o` and at does not matter, as long as `-o` exist in current command,
-  all allergyTags will be new tags overwriting the old tags.
+* At least one of the optional fields must be provided.
+* The overwrite notation `-o` should only appear once.
+* `-o` can be placed at any position in the command.
 
 Prefix explanation:
-- `-o` will set mode for this command to overwrite.
-- `at/ALLERGY` append this tag to existing tag.
+- `w/WEIGHT`, `h/HIGHT`: Change the current wight and height value to WEIGHT and HEIGHT.
+- `at/ALLERGY`: Append this tag to existing tag.
+- `-o`: Set mode for this command to overwrite, meaning all existing tag will be deleted and replaced by the new tags.
 
 Example:
-* `editm ic/G1234567J w/100, -o at/milk at/egg`
+* `editm ic/S1234567D w/100 -o at/milk at/egg`
 
-This will change the weight of person with ic G1234567J to 100 and
+This will change the weight of person with ic S1234567D to 100 and
 overwrite allergy tag to milk and egg.
+* Noted that command achieving same effect could be `editm ic/S1234567D w/100 at/milk at/egg -o` or `editm ic/S1234567D -o w/100 at/milk at/egg`.
 
 > [!CAUTION]
-> Use if prefix `-o` will delete all existing tag, including the added tag in current command before it.
+> Use of prefix `-o` will delete all existing tag, including the added tag in current command before it.
 > Please use with cautious.
 
 [<span style="font-size: small;">Back to Top</span>](#top)
