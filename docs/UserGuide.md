@@ -219,12 +219,13 @@ Format: `editc ic/NRIC [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]`
 * At least one of the `optional fields` must be provided.
 * To delete an `optional field`, leave the `VALUE` part empty.
 * If the `VALUE` part is not empty, the corresponding patient contact's field will either be updated or added with the new value.
-* If all `optional fields` become empty, the contact information of the patient will be considered deleted. If one want to add a new contact information, please use `addc` command.
+* If all three fields of contact information (phone, email, and address) become empty, the contact information of the patient will be considered deleted. If one want to add a new contact information, please use `addc` command.
 
 Examples:
 * `editc ic/S1234567D p/91234567` will result in the phone number of the patient with NRIC `S1234567D` being updated to `91234567`.
 * `editc ic/S1234567D a/` will result in the address of the patient with NRIC `S1234567D` being deleted.
 * Suppose the person currently has a phone number only, `editc ic/S1234567D e/email@test.com` will result in the email of the patient with NRIC `S1234567D` being updated to `email@test.com`.
+* `editc ic/S1234567D p/ e/ a/` will have same effect as `deletec ic/S1234567D`, resulting in the contact information of the patient with NRIC `S1234567D` being deleted.
 
 [<span style="font-size: small;">Back to Top</span>](#top)
 
