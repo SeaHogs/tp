@@ -31,26 +31,32 @@ For first time users, you can first go through the steps listed under [Installat
 - [Installation](#installation)
 - [Commands](#Commands)
     - [Viewing help](#viewing-help--help)
-    - [Adding a patient](#adding-a-patient--add)
-    - [Editing identification information](#editing-identification-information--edit)
-    - [Deleting a patient](#deleting-a-patient--delete)
-    - [Listing all patients](#listing-all-patients--list)
-    - [Adding contact information](#adding-contact-information--addc)
-    - [Editing contact information](#editing-the-contact-information--editc)
-    - [Deleting contact information](#deleting-contact-information--deletec)
-    - [Listing contact information](#listing-contact-information--listc)
-    - [Adding medical information](#adding-medical-information--addm)
-    - [Editing medical information](#editing-the-medical-information--editm)
-    - [Deleting medical information](#deleting-medical-information--deletem)
-    - [Listing medical information](#listing-medical-information--listm)
-    - [Adding an appointment](#adding-an-appointment--adda)
-    - [Editing an appointment](#editing-an-appointment--edita)
-    - [Deleting an appointment](#deleting-an-appointment--deletea)
-    - [Listing appointments](#list-out-appointments--lista)
-    - [Locating patients by name](#locating-patients-by-name--find)
-    - [Undoing last command](#undo--undo)
-    - [Clearing all entries](#clearing-all-entries--clear)
-    - [Exiting the program](#exiting-the-program--exit)
+    - [Patient Management](#patient-management)
+        - [Adding a patient](#adding-a-patient--add)
+        - [Editing identification information](#editing-identification-information--edit)
+        - [Deleting a patient](#deleting-a-patient--delete)
+        - [Listing all patients](#listing-all-patients--list)
+    - [Contact Management](#contact-management)
+        - [Adding contact information](#adding-contact-information--addc)
+        - [Editing contact information](#editing-the-contact-information--editc)
+        - [Deleting contact information](#deleting-contact-information--deletec)
+        - [Listing contact information](#listing-contact-information--listc)
+    - [Medical Information Management](#medical-information-management)
+        - [Adding medical information](#adding-medical-information--addm)
+        - [Editing medical information](#editing-the-medical-information--editm)
+        - [Deleting medical information](#deleting-medical-information--deletem)
+        - [Listing medical information](#listing-medical-information--listm)
+    - [Appointment Management](#appointment-management)
+        - [Adding an appointment](#adding-an-appointment--adda)
+        - [Editing an appointment](#editing-an-appointment--edita)
+        - [Deleting an appointment](#deleting-an-appointment--deletea)
+        - [Listing appointments](#list-out-appointments--lista)
+    - [Other features](#other-features)
+        - [Locating patients by name](#locating-patients-by-name--find)
+        - [Locating appointments by patient](#locating-appointments-by-patient--finda)
+        - [Undoing last command](#undo--undo)
+        - [Clearing all entries](#clearing-all-entries--clear)
+        - [Exiting the program](#exiting-the-program--exit)
     - [Saving the data](#saving-the-data)
     - [Editing the data file](#editing-the-data-file)
 - [FAQ](#faq)
@@ -70,7 +76,7 @@ For first time users, you can first go through the steps listed under [Installat
 
 4. Open a command terminal or learn how to do so [here](https://www.google.com/search?q=how+to+open+a+command+terminal&rlz=1C1GCEA_enSG1015SG1015&oq=how+to+open+a+command+terminal&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBCDQzMThqMGoxqAIAsAIA&sourceid=chrome&ie=UTF-8)
 
-5. Type `cd` followed by the location of the folder that you are putting the `vitalconnect.jar` file in. Find out more [here](https://www.wikihow.com/Change-Directories-in-Command-Prompt#:~:text=Open%20the%20Command%20Prompt%20(CMD,the%20root%20of%20the%20drive)
+5. Type `cd` followed by the location of the folder that you are putting the `vitalconnect.jar` file in. Find out more [here](https://www.wikihow.com/Change-Directories-in-Command-Prompt)
 
 6. Type `java -jar vitalConnect.jar` and press Enter to launch java and run the application. A GUI should appear in a few seconds.
 
@@ -419,13 +425,13 @@ Format: `undo`
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
-### Finding appointments for a patient : `finda`
+### Locating appointments by patient : `finda`
 
 Find and list out all the appointment of a specific patient in the appointment list.
 
 Format: `finda ic/NRIC`
 
-* The patient(ic) must exist in the patient list.
+* The NRIC must be a NRIC of an already existing patient.
 
 Examples:
 * `finda ic/S1234567D`
@@ -497,6 +503,7 @@ Furthermore, certain edits can cause the Clinic to behave in unexpected ways (e.
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command summary
+
 Action | Format, Examples
 --------|------------------
 **Help** | `help`
@@ -517,6 +524,17 @@ Action | Format, Examples
 **Deletea** | `deletea INDEX` <br> e.g., `deletea 1`
 **Lista**   | `lista`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find John Doe`
+**Finda** | `finda ic/NRIC`<br> e.g., `finda ic/S1234567D
 **Undo** | `undo`
 **Clear** | `clear`
 **Exit** | `exit`
+
+Action | Format, Examples
+--------|------------------
+**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Clear** | `clear`
+**Delete** | `delete INDEX`<br> e.g., `delete 3`
+**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**List** | `list`
+**Help** | `help`
