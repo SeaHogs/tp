@@ -11,6 +11,8 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import com.calendarfx.view.CalendarView?>
+
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
          title="VitalConnect" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
   <icons>
@@ -65,7 +67,9 @@
           </VBox>
 
           <StackPane fx:id="rightPane">
-            <!-- Right pane content goes here -->
+            <StackPane fx:id="calendarViewPlaceholder" VBox.vgrow="ALWAYS">
+              <CalendarView fx:id="calendarView" minWidth="400" minHeight="400"/>
+            </StackPane>
           </StackPane>
         </SplitPane>
       </VBox>
