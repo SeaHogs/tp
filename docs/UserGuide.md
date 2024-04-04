@@ -323,13 +323,13 @@ Examples:
 
 Adds an appointment for an exist patient to the appointment list.
 
-Format: `adda ic/NRIC s/START TIME d/DURATION`
+Format: `adda ic/NRIC s/START_TIME d/DURATION`
 
 __`ic/NRIC`: Patient's NRIC__
 * The patient(ic) should already exist in the patient list.
 
 
-__`s/START TIME`: Start time of the appointment__
+__`s/START_TIME`: Start time of the appointment__
 * The start time should be in the format: __DD/MM/YYYY HHmm__.
 * The start time should __not be earlier__ than now time.
 * The appointment time period should not overlap with other appointments.
@@ -341,8 +341,8 @@ __The input should be the number of duration unit:__
 * The input for duration should be larger than 0.
 
 Examples:
-* `adda ic/S1234567D s/02/02/2024 1300 d/2` 
-* This will add an appointment for the patient with NRIC `S1234567D` start from 2nd February 2024 at 1:00 PM and end at 1:30 PM.
+* `adda ic/S1234567D s/02/06/2024 1300 d/2` 
+* This will add an appointment for the patient with NRIC `S1234567D` start from 2nd June 2024 at 1:00 PM and end at 1:30 PM.
 
 [<span style="font-size: small;">Back to Top</span>](#top)
 
@@ -350,24 +350,18 @@ Examples:
 
 Edits the start time and/or duration of an appointment of an existing person.
 
-__Format:__ `edita INDEX [s/START TIME] [d/DURATION]`
+__Format:__ `edita INDEX [s/START_TIME] [d/DURATION]`
 
-Edit both start time and duration:
+Edit both start time and duration: `edita INDEX s/START_TIME d/DURATION`
 
-`edita INDEX s/START TIME d/DURATION`
+Edit only the start time: `edita INDEX s/START_TIME` 
 
-Edit only the start time:
-
-`edita INDEX s/START TIME` 
-
-Edit only the time duration:
-
-`edita INDEX d/DURATION` 
+Edit only the time duration: `edita INDEX d/DURATION` 
 
 __`INDEX`: Index of the to be edited appointment in the appointment list__
 * The index should not be out of range nor negative.
 
-__`s/START TIME`: Start time of the appointment__
+__`s/START_TIME`: Start time of the appointment__
 * The start time should be in the format: __DD/MM/YYYY HHmm__.
 * The start time should __not be earlier__ than now time.
 * The edited  appointment time period should not overlap with other appointments.
@@ -414,7 +408,7 @@ Format: `lista`
 
 [<span style="font-size: small;">Back to Top</span>](#top)
 
-### Deleting an appointment : `finda`
+### Finding appointments for a patient : `finda`
 
 Find and list out all the appointment of a specific patient in the appointment list.
 
