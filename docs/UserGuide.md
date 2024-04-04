@@ -70,11 +70,11 @@ For first time users, you can first go through the steps listed under [Installat
 
 4. Open a command terminal or learn how to do so [here](https://www.google.com/search?q=how+to+open+a+command+terminal&rlz=1C1GCEA_enSG1015SG1015&oq=how+to+open+a+command+terminal&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBCDQzMThqMGoxqAIAsAIA&sourceid=chrome&ie=UTF-8)
 
-5. Type `cd` followed by the location of the folder that you are putting the `vitalconnect.jar` file in. Find out more [here](https://www.wikihow.com/Change-Directories-in-Command-Prompt#:~:text=Open%20the%20Command%20Prompt%20(CMD,the%20root%20of%20the%20drive.)
+5. Type `cd` followed by the location of the folder that you are putting the `vitalconnect.jar` file in. Find out more [here](https://www.wikihow.com/Change-Directories-in-Command-Prompt#:~:text=Open%20the%20Command%20Prompt%20(CMD,the%20root%20of%20the%20drive)
 
 6. Type `java -jar vitalConnect.jar` and press Enter to launch java and run the application. A GUI should appear in a few seconds.
 
-7. Type any command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+7. Type any command in the command box and press Enter to execute it. e.g. typing `help` and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
    * `list` : Lists all patients.
@@ -158,9 +158,8 @@ Format: `delete INDEX`
 * If the panel is currently not showing any patient list (e.g. showing appointment list), the default patient list is the general clinic patient list (which contains all the patients).
 * The index **must be a positive integer** 1, 2, 3, …​
 
-> [!CAUTION]
-> The deletion of a patient will result in the deletion of all the contact and medical information as well as all the appointments of the patient.
-> If accidentally delete a patient, can use `undo` command to recover the deleted patient.
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+The deletion of a patient will result in the deletion of all the contact and medical information as well as all the appointments of the patient. <br> If accidentally delete a patient, can use `undo` command to recover the deleted patient. </div>
 
 Examples:
 * `list` followed by `delete 2` deletes the 2nd patient in the clinic.
@@ -185,7 +184,7 @@ Adds the contact information to a patient in the clinic.
 Format: `addc ic/NRIC [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]`
 
 **:information_source: Additional notes about the command format:**<br>
-* Items in square brackets are optional.<br>
+Items in square brackets are optional.<br>
   e.g `addc ic/S1234567D p/91234567 e/test@email.com`
 
 * The NRIC must be a NRIC of an already existing patient.
@@ -214,7 +213,7 @@ Edits the contact information of a patient in the clinic. It is also used to add
 Format: `editc ic/NRIC [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]`
 
 **:information_source: Additional notes about the command format:**<br>
-* Items in square brackets are optional.<br>
+Items in square brackets are optional.<br>
   e.g `addc ic/S1234567D p/91234567 e/test@email.com`
 
 * At least one of the `optional fields` must be provided.
@@ -256,11 +255,9 @@ Format: `addm ic/NRIC h/HEIGHT w/WEIGHT [t/ALLERGY]…​`
 * The NRIC must be a NRIC of an already existing patient.
 
 **:information_source: Additional notes about the command format:**<br>
-
-* Items in square brackets are optional.<br>
+Items in square brackets are optional.<br>
   e.g `addm ic/S1234567D h/163 w/50`
-
-* Items with `…`​ after them can be used multiple times including zero times.<br>
+Items with `…`​ after them can be used multiple times including zero times.<br>
   e.g. `[t/ALLERGY]…​` can be used as ` ` (i.e. 0 times), `t/Amoxicillin`, `t/insulin t/iodine` etc.
   e.g. `[t/ALLERGY]…​` can be used as ` ` (i.e. 0 times), `t/Amoxicillin`, `t/insulin t/iodine` etc.
 
@@ -292,9 +289,8 @@ This will change the weight of person with ic S1234567D to 100 and
 overwrite allergy tag to milk and egg.
 * Noted that command achieving same effect could be `editm ic/S1234567D w/100 at/milk at/egg -o` or `editm ic/S1234567D -o w/100 at/milk at/egg`.
 
-> [!CAUTION]
-> Use of prefix `-o` will delete all existing tag, including the added tag in current command before it.
-> Please use with cautious.
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+Use of prefix `-o` will delete all existing tag, including the added tag in current command before it. </div>
 
 [<span style="font-size: small;">Back to Top</span>](#top)
 
@@ -450,8 +446,8 @@ Clears all entries from the clinic.
 
 Format: `clear`
 
-> [!CAUTION]
-> This command will delete all the patients from the clinic. Please use with cautious.
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+This command will delete all the patients from the clinic. </div>
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
