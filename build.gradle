@@ -66,7 +66,6 @@ dependencies {
     implementation group: 'com.opencsv', name: 'opencsv', version: '5.4'
     // Year Month Picker
     implementation group: 'se.alipsa', name: 'fx-yearmonth-picker', version: '1.1.0'
-
     // https://mvnrepository.com/artifact/com.calendarfx/view
     implementation group: 'com.calendarfx', name: 'view', version: '11.11.1'
 }
