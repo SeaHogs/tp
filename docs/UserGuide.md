@@ -359,6 +359,7 @@ Format: `adda ic/NRIC s/START_TIME d/DURATION`
 
 __`s/START_TIME`: Start time of the appointment__
 * The start time should be in the format: __DD/MM/YYYY HHmm__.
+* The start time should be a valid date. (e.g. 31/02/2024 is not valid as the date is not exist)
 * The start time should __not be earlier__ than now time.
 * The appointment time period should not overlap with other appointments.
 
@@ -366,6 +367,7 @@ __`d/DURATION`: the time length of the appointment__
 __The input should be the number of duration unit:__
 * The time length of one unit of duration equals __15 minutes__.
 * The input for duration should be a positive integer.
+* The limitation of the input of duration is 96 (24 hours).
 
 Examples:
 * `adda ic/S1234567D s/02/06/2024 1300 d/2` 
@@ -393,6 +395,7 @@ __`INDEX`: Index of the to be edited appointment in the appointment list__
 __`s/START_TIME`: Start time of the appointment__
 * The start time should be in the format: __DD/MM/YYYY HHmm__.
 * The start time should __not be earlier__ than now time.
+* The start time should be a valid date. (e.g. 31/02/2024 is not valid as the date is not exist)
 * The edited  appointment time period should not overlap with other appointments.
 
 __`d/DURATION`: the time length of the appointment__
@@ -400,6 +403,7 @@ __`d/DURATION`: the time length of the appointment__
 __The input should be the number of duration unit:__
 * The time length of one unit of duration equals __15 minutes__.
 * The input for duration should be a positive integer.
+* The limitation of the input of duration is 96 (24 hours).
 
 Examples:
 * `edita 1 s/02/02/2025 1300 d/4`
