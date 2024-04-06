@@ -424,7 +424,7 @@ Deletes an exist appointment from the appointment list by providing the index of
 Format: `deletea INDEX`
 
 * Deletes the appointment at the specified `INDEX`.
-* The index refers to the index number shown in the appointment list.
+* The index refers to the index number stored in the appointment list, regardless of whether the appointment list is the current showing list in the list displaying panel.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
