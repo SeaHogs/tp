@@ -29,6 +29,7 @@ For first time users, you can first go through the steps listed under [Installat
 - [Introduction](#introduction)
 - [Quick start](#quick-start)
 - [Installation](#installation)
+
 - [Commands](#commands)
     - [Viewing help](#viewing-help--help)
     - [Patient Management](#patient-management)
@@ -279,12 +280,14 @@ Format: `addm ic/NRIC h/HEIGHT w/WEIGHT [t/ALLERGY]…​`
 * The NRIC must be a NRIC of an already existing patient.
 
 <div markdown="block" class="alert alert-info">
+
 **:information_source: Additional notes about the command format:**<br>
 Items in square brackets are optional.<br>
   e.g `addm ic/S1234567D h/163 w/50`
 Items with `…`​ after them can be used multiple times including zero times.<br>
   e.g. `[t/ALLERGY]…​` can be used as ` ` (i.e. 0 times), `t/Amoxicillin`, `t/insulin t/iodine` etc.
   e.g. `[t/ALLERGY]…​` can be used as ` ` (i.e. 0 times), `t/Amoxicillin`, `t/insulin t/iodine` etc.
+
 </div>
 
 Examples:
@@ -351,11 +354,20 @@ Adds an appointment for an exist patient to the appointment list.
 
 Format: `adda ic/NRIC s/START_TIME d/DURATION`
 
-* The NRIC must be a NRIC of an already existing patient.
-* The START TIME should be in the format: DD/MM/YYYY HHmm where DD is day, MM is month, YYYY is year, HH is hour and mm is minute.
-* The START TIME should not be earlier than the current time.
-* The time length of one unit of DURATION equals 15 minutes.
-* The input for DURATION should be larger than 0.
+  __`ic/NRIC`: Patient's NRIC__
+* The patient(ic) should already exist in the patient list.
+
+__`s/START_TIME`: Start time of the appointment__
+* The start time should be in the format: __DD/MM/YYYY HHmm__.
+* The start time should be a valid date. (e.g. 31/02/2024 is not valid as the date is not exist)
+* The start time should __not be earlier__ than now time.
+* The appointment time period should not overlap with other appointments.
+
+__`d/DURATION`: the time length of the appointment__
+__The input should be the number of duration unit:__
+* The time length of one unit of duration equals __15 minutes__.
+* The input for duration should be a positive integer.
+* The limitation of the input of duration is 96 (24 hours).
 
 Examples:
 * `adda ic/S1234567D s/02/06/2024 1300 d/2` 
@@ -383,13 +395,15 @@ __`INDEX`: Index of the to be edited appointment in the appointment list__
 __`s/START_TIME`: Start time of the appointment__
 * The start time should be in the format: __DD/MM/YYYY HHmm__.
 * The start time should __not be earlier__ than now time.
+* The start time should be a valid date. (e.g. 31/02/2024 is not valid as the date is not exist)
 * The edited  appointment time period should not overlap with other appointments.
 
 __`d/DURATION`: the time length of the appointment__
 
 __The input should be the number of duration unit:__
 * The time length of one unit of duration equals __15 minutes__.
-* The input for duration should be larger than 0.
+* The input for duration should be a positive integer.
+* The limitation of the input of duration is 96 (24 hours).
 
 Examples:
 * `edita 1 s/02/02/2025 1300 d/4`
@@ -410,11 +424,14 @@ Deletes an exist appointment from the appointment list by providing the index of
 Format: `deletea INDEX`
 
 * Deletes the appointment at the specified `INDEX`.
-* The index refers to the index number shown in the displayed list.
+* The index refers to the index number stored in the appointment list, regardless of whether the appointment list is the current showing list in the list displaying panel.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
 * `deletea 1`
+
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+The appointment can be added, deleted and edited even the appointment list is not displayed.</div>
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
@@ -495,6 +512,7 @@ Format: `exit`
 
 <div style="page-break-after: always;"></div>
 
+
 ### Saving the data
 
 Clinic data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
@@ -546,29 +564,29 @@ Furthermore, certain edits can cause the Clinic to behave in unexpected ways (e.
 
 ## Command summary
 
-Action | Format, Examples
---------|------------------
-**Help** | `help`
-**Add** | `add ic/NRIC n/NAME` <br> e.g., `add ic/S1234567D n/James Doe`
-**Edit** | `edit ic/NRIC n/NAME` <br> e.g., `add ic/S1234567D n/John Doe`
-**Delete** | `delete INDEX` <br> e.g., `delete 3`
-**List** | `list`
-**Addc** | `addc ic/NRIC [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]` <br> e.g., `addc ic/S1234567D p/91234567 e/test@email.com a/123, Clementi Rd, 1234665`
-**Editc** | `editc ic/NRIC [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]` <br> e.g., `editc ic/S1234567D p/91234567 e/testing@email.com a/Blk 123 Street 4`
-**Deletec** | `deletec ic/NRIC` <br> e.g., `deletec ic/S1234567D`
-**Addm** | `addm ic/NRIC h/HEIGHT w/WEIGHT [t/ALLERGY]…​` <br> e.g., `addm ic/S1234567D h/163 w/50 t/insulin t/iodine`
-**Editm** | `editm ic/NRIC h/HEIGHT w/WEIGHT [t/ALLERGY]…` <br> e.g., `editm ic/S1234567D h/165 w/55 t/aspirin`
-**Deletem** | `deletem ic/NRIC` <br> e.g., `deletem ic/S1234567D`
-**Listm** | `listm`
-**Adda** | `adda ic/NRIC s/DD/MM/YYYY HHMM d/DURATION` <br> e.g., `adda ic/S1234567D s/02/02/2024 1300 d/4`
-**Edita** | `edita INDEX s/DD/MM/YYYY HHMM d/DURATION` <br> e.g., `edita 1 s/02/02/2024 1400 d/4`
-**Deletea** | `deletea INDEX` <br> e.g., `deletea 1`
-**Lista** | `lista`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find John Doe`
-**Finda** | `finda ic/NRIC`<br> e.g., `finda ic/S1234567D`
-**Undo** | `undo`
-**Clear** | `clear`
-**Exit** | `exit`
-
+| Action      | Format, Examples                                                                                                                             |
+|-------------|----------------------------------------------------------------------------------------------------------------------------------------------|
+| **Help**    | `help`                                                                                                                                       |
+| **Add**     | `add ic/NRIC n/NAME` <br> e.g., `add ic/S1234567D n/James Doe`                                                                               |
+| **Edit**    | `edit ic/NRIC n/NAME` <br> e.g., `add ic/S1234567D n/John Doe`                                                                               |
+| **Delete**  | `delete INDEX` <br> e.g., `delete 3`                                                                                                         |
+| **List**    | `list`                                                                                                                                       |
+| **Addc**    | `addc ic/NRIC [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]` <br> e.g., `addc ic/S1234567D p/91234567 e/test@email.com a/123, Clementi Rd, 1234665` |
+| **Editc**   | `editc ic/NRIC [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]` <br> e.g., `editc ic/S1234567D p/91234567 e/testing@email.com a/Blk 123 Street 4`     |
+| **Deletec** | `deletec ic/NRIC` <br> e.g., `deletec ic/S1234567D`                                                                                          |
+| **Addm**    | `addm ic/NRIC h/HEIGHT w/WEIGHT [t/ALLERGY]…​` <br> e.g., `addm ic/S1234567D h/163 w/50 t/insulin t/iodine`                                  |
+| **Editm**   | `editm ic/NRIC h/HEIGHT w/WEIGHT [t/ALLERGY]…` <br> e.g., `editm ic/S1234567D h/165 w/55 t/aspirin`                                          |
+| **Deletem** | `deletem ic/NRIC` <br> e.g., `deletem ic/S1234567D`                                                                                          |
+| **Listm**   | `listm`                                                                                                                                      |
+| **Adda**    | `adda ic/NRIC s/DD/MM/YYYY HHMM d/DURATION` <br> e.g., `adda ic/S1234567D s/02/02/2024 1300 d/4`                                             |
+| **Edita**   | `edita INDEX s/DD/MM/YYYY HHMM d/DURATION` <br> e.g., `edita 1 s/02/02/2024 1400 d/4`                                                        |
+| **Deletea** | `deletea INDEX` <br> e.g., `deletea 1`                                                                                                       |
+| **Lista**   | `lista`                                                                                                                                      |
+| **Find**    | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find John Doe`                                                                                     |
+| **Finda**   | `finda ic/NRIC`<br> e.g., `finda ic/S1234567D`                                                                                               |
+| **Undo**    | `undo`                                                                                                                                       |
+| **Clear**   | `clear`                                                                                                                                      |
+| **Exit**    | `exit`                                                                                                                                       |
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
+

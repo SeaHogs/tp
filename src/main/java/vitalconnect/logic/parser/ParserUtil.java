@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -55,7 +56,12 @@ public class ParserUtil {
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedDuration)) {
             throw new ParseException("Invalid duration format. Duration must be a positive integer.");
         }
-        return Integer.parseInt(trimmedDuration);
+        int durationValue = Integer.parseInt(trimmedDuration);
+        if (durationValue > 96) {
+            throw new ParseException("Invalid duration: Duration must be a positive integer"
+                    + " less than or equal to 96 (24 hours).");
+        }
+        return durationValue;
     }
 
 
@@ -187,12 +193,20 @@ public class ParserUtil {
      */
     public static LocalDateTime parseTime(String dateTimeStr) throws ParseException {
         requireNonNull(dateTimeStr);
-        // Parse and validate date time
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         try {
-            return LocalDateTime.parse(dateTimeStr, formatter);
-        } catch (Exception e) {
-            throw new ParseException("Invalid date time format. Please enter in the format 'dd/MM/yyyy HHmm'.");
+            LocalDateTime dateTime = LocalDateTime.parse(dateTimeStr, formatter);
+
+            // Check if the parsed date is valid (re-parse the date to see if it remains the same)
+            String roundTrip = dateTime.format(formatter);
+            if (!roundTrip.equals(dateTimeStr)) {
+                throw new DateTimeParseException("Invalid date time", dateTimeStr, 0);
+            }
+
+            return dateTime;
+        } catch (DateTimeParseException e) {
+            throw new ParseException("Invalid date time. Please ensure the date "
+                    + "exists and enter in the format 'dd/MM/yyyy HHmm'.");
         }
     }
 
