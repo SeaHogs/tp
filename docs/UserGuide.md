@@ -201,7 +201,7 @@ Adds the contact information to a patient in the clinic.
 Format: `addc ic/NRIC [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]`
 
 <div markdown="block" class="alert alert-info">
-**information_source: Additional notes about the command format:**<br>
+**:information_source: Additional notes about the command format:**<br>
 Items in square brackets are optional.<br>
   e.g `addc ic/S1234567D p/91234567 e/test@email.com`
 </div>
