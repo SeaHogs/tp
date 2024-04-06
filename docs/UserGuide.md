@@ -108,7 +108,7 @@ Refer to the [Commands](https://ay2324s2-cs2103t-w08-2.github.io/tp/UserGuide.ht
 
 <div markdown="block" class="alert alert-info">
 
-**information_source: General notes about the command format:**<br>
+**:information_source: General notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `add n/NAME ic/NRIC`, `NAME` and `NRIC` are parameters which can be used as `add n/John Doe ic/S1234567D`.
@@ -420,11 +420,14 @@ Deletes an exist appointment from the appointment list by providing the index of
 Format: `deletea INDEX`
 
 * Deletes the appointment at the specified `INDEX`.
-* The index refers to the index number shown in the displayed list.
+* The index refers to the index number shown in the appointment list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
 * `deletea 1`
+
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+The appointment can be added, deleted and edited even the appointment list is not displayed.</div>
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 

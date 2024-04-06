@@ -55,7 +55,12 @@ public class ParserUtil {
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedDuration)) {
             throw new ParseException("Invalid duration format. Duration must be a positive integer.");
         }
-        return Integer.parseInt(trimmedDuration);
+        int durationValue = Integer.parseInt(trimmedDuration);
+        if (durationValue > 96) {
+            throw new ParseException("Invalid duration: Duration must be a positive integer"
+                    + " less than or equal to 96 (24 hours).");
+        }
+        return durationValue;
     }
 
 
