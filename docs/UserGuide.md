@@ -120,6 +120,8 @@ Refer to the [Commands](https://ay2324s2-cs2103t-w08-2.github.io/tp/UserGuide.ht
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+
+* Invalid prefixes may lead to unmatching error messages. For example, `editm ic/S1234567D H/8 W/2` will result in an error message saying that `NRIC is invalid...` instead of `invalid prefix`. This is because the whole part `S1234567D H/8 W/2` is treated as the NRIC.
 </div>
 
 ### Viewing help : `help`
@@ -216,7 +218,7 @@ Items in square brackets are optional.<br>
       - end with a domain label at least 2 characters long
       - have each domain label start and end with alphanumeric characters
       - have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
-* Address has a max length of 50 characters, and it should not be empty upon adding.
+* Address has a max length of 50 characters, and it should not be empty upon adding. Although in particular cases, the address can be larger than the current limit, 50 characters is able to suffice the needs in most situations. For long addresses that exceeds the 50 character limit, the compromise is to use shorforms, such as b123 instead of block 123.
 
 Examples:
 * `addc ic/S1234567D p/91234567`
@@ -256,6 +258,8 @@ Deletes the contact information of a patient in the clinic.
 
 Format: `deletec ic/NRIC`
 
+* After deletion of a patient's contact information, the patient will disappear from the current showing list panel as the current list panel is only displaying patients with non-empty contact information. If one wants to see the full list of patients, please use `list` command afterwards.
+
 Examples:
 * `deletec ic/S1234567D` will result in the deletion of the contact information of the patient with the NRIC `S1234567D`.
 
@@ -278,6 +282,7 @@ Adds the medical information to a patient in the clinic.
 Format: `addm ic/NRIC h/HEIGHT w/WEIGHT [t/ALLERGY]…​`
 
 * The NRIC must be a NRIC of an already existing patient.
+* The value HEIGHT and WEIGHT should be positive alphanumerical values.
 
 <div markdown="block" class="alert alert-info">
 
@@ -305,6 +310,7 @@ Edit the medical information of an existing person.
 Format: `editm ic/NRIC [h/HEIGHT] [w/WEIGHT] [-o] [at/ALLERGY…​]`
 
 * At least one of the optional fields must be provided.
+* The value HEIGHT and WEIGHT should be positive alphanumerical values.
 * The overwrite notation `-o` should only appear once.
 * `-o` can be placed at any position in the command.
 
@@ -332,6 +338,8 @@ Use of prefix `-o` will delete all existing tag, including the added tag in curr
 Deletes the medical information of a patient in the clinic.
 
 Format: `deletem ic/NRIC`
+
+* After deletion of a patient's medical information, the patient will disappear from the current showing list panel as the current list panel is only displaying patients with non-empty medical information. If one wants to see the full list of patients, please use `list` command afterwards.
 
 Examples:
 * `deletec ic/S1234567D` will result in the deletion of the medical information of the patient with the NRIC `S1234567D`.

@@ -243,9 +243,12 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code HEIGHT} is invalid.
      */
-    public static Height parseHeight(String height) {
+    public static Height parseHeight(String height) throws ParseException {
         requireNonNull(height);
         String trimmedHeight = height.trim();
+        if (!Height.isValidHeight(trimmedHeight)) {
+            throw new ParseException(Height.MESSAGE_CONSTRAINTS);
+        }
         return new Height(trimmedHeight);
     }
 
@@ -255,9 +258,12 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code WEIGHT} is invalid.
      */
-    public static Weight parseWeight(String weight) {
+    public static Weight parseWeight(String weight) throws ParseException {
         requireNonNull(weight);
         String trimmedWeight = weight.trim();
+        if (!Weight.isValidWeight(trimmedWeight)) {
+            throw new ParseException(Weight.MESSAGE_CONSTRAINTS);
+        }
         return new Weight(trimmedWeight);
     }
 }

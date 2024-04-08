@@ -96,7 +96,7 @@ public class EditMedicalCommand extends Command {
         }
 
         model.updatePersonMedicalInformation(nric, medicalInformation);
-        model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredPersonList(model.getCurrentPredicate());
 
         return new CommandResult(MESSAGE_SUCCESS);
     }

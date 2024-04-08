@@ -3,7 +3,6 @@ package vitalconnect.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static vitalconnect.logic.Messages.MESSAGE_PERSON_NOT_FOUND;
 import static vitalconnect.logic.parser.CliSyntax.PREFIX_NRIC;
-import static vitalconnect.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import vitalconnect.logic.commands.exceptions.CommandException;
 import vitalconnect.model.Model;
@@ -50,7 +49,7 @@ public class DeleteMedicalCommand extends Command {
         deletedInfo = personToEdit.getMedicalInformation();
         MedicalInformation medicalInformation = new MedicalInformation(new Height(""), new Weight(""));
         model.updatePersonMedicalInformation(nric, medicalInformation);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredPersonList(model.getCurrentPredicate());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
