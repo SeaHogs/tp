@@ -29,7 +29,7 @@ public class AddMedInfoCommand extends Command {
             + PREFIX_WEIGHT + "Weight(in kg) "
             + "[" + PREFIX_ALLERGYTAG + "Allergy]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NRIC + "S1234567A "
+            + PREFIX_NRIC + "S1234567D "
             + PREFIX_HEIGHT + "175 "
             + PREFIX_WEIGHT + "60 "
             + PREFIX_ALLERGYTAG + "Amoxicillin ";

@@ -24,6 +24,9 @@ public class Messages {
     public static final String MESSAGE_PERSON_ALREADY_EXIST = "Person already exists";
     public static final String MESSAGE_MEDICAL_INFO_ALREADY_EXIST = "Person's medical information already exists";
     public static final String MESSAGE_MEDICAL_INFO_NOT_FOUND = "Medical information not found";
+    public static final String MESSAGE_HEIGHT_IS_EMPTY = "Height value should not be empty";
+    public static final String MESSAGE_WEIGHT_IS_EMPTY = "Weight value should not be empty";
+
     public static final String MESSAGE_CONTACT_INFO_NOT_FOUND = "Contact information not found";
     public static final String MESSAGE_CONTACT_INFO_ALREADY_EXIST = "Contact information already exists";
     public static final String MESSAGE_EMAIL_NOT_FOUND = "Email not found";

@@ -23,9 +23,9 @@ public class AddContactCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Contacts added successfully";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds the contact information of a person. "
-        + "Parameters: (required field)\n"
-        + PREFIX_NRIC + "NRIC "
-        + "(optional but at least specify one)\n"
+        + "\nParameters: \nRequired field: "
+        + PREFIX_NRIC + "NRIC\n"
+        + "Optional but at least specify one: "
         + PREFIX_PHONE + "PHONE "
         + PREFIX_EMAIL + "EMAIL "
         + PREFIX_ADDRESS + "ADDRESS \n"

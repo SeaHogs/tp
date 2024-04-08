@@ -18,7 +18,7 @@ import vitalconnect.model.person.identificationinformation.Nric;
 public class DeleteAptCommand extends Command {
     public static final String COMMAND_WORD = "deletea";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes an appointment of a patient by the index\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Parameters: INDEX (must be a positive integer within the appointment list index range)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
     private final Index index;
