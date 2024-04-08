@@ -24,17 +24,8 @@ public class Messages {
     public static final String MESSAGE_PERSON_ALREADY_EXIST = "Person already exists";
     public static final String MESSAGE_MEDICAL_INFO_ALREADY_EXIST = "Person's medical information already exists";
     public static final String MESSAGE_MEDICAL_INFO_NOT_FOUND = "Medical information not found";
-    public static final String MESSAGE_HEIGHT_IS_EMPTY = "Height value should not be empty";
-    public static final String MESSAGE_WEIGHT_IS_EMPTY = "Weight value should not be empty";
-
     public static final String MESSAGE_CONTACT_INFO_NOT_FOUND = "Contact information not found";
     public static final String MESSAGE_CONTACT_INFO_ALREADY_EXIST = "Contact information already exists";
-    public static final String MESSAGE_EMAIL_NOT_FOUND = "Email not found";
-    public static final String MESSAGE_PHONE_NOT_FOUND = "Phone not found";
-    public static final String MESSAGE_ADDRESS_NOT_FOUND = "Address not found";
-    public static final String MESSAGE_EMAIL_ALREADY_EXIST = "Email already exists";
-    public static final String MESSAGE_PHONE_ALREADY_EXIST = "Phone already exists";
-    public static final String MESSAGE_ADDRESS_ALREADY_EXIST = "Address already exists";
     public static final String MESSAGE_NO_PREFIX_PROVIDED = "At least one prefix must be provided";
     public static final String MESSAGE_ALLERGY_ALREADY_EXIST = "Allergy already exists";
     public static final String MESSAGE_OPTION_NOT_VALID = "Option not valid";
