@@ -1,11 +1,8 @@
 package vitalconnect.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static vitalconnect.testutil.Assert.assertThrows;
-import static vitalconnect.testutil.TypicalPersons.getTypicalClinic;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -14,15 +11,12 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import vitalconnect.commons.core.GuiSettings;
 import vitalconnect.commons.core.index.Index;
-import vitalconnect.logic.Messages;
 import vitalconnect.logic.commands.exceptions.CommandException;
 import vitalconnect.model.Appointment;
 import vitalconnect.model.Clinic;
 import vitalconnect.model.Model;
-import vitalconnect.model.ModelManager;
 import vitalconnect.model.ReadOnlyClinic;
 import vitalconnect.model.ReadOnlyUserPrefs;
-import vitalconnect.model.UserPrefs;
 import vitalconnect.model.person.Person;
 import vitalconnect.model.person.contactinformation.Address;
 import vitalconnect.model.person.contactinformation.ContactInformation;
@@ -33,50 +27,49 @@ import vitalconnect.model.person.identificationinformation.Nric;
 import vitalconnect.model.person.medicalinformation.MedicalInformation;
 import vitalconnect.testutil.PersonBuilder;
 
-public class AddContactCommandTest {
-    private Model model = new ModelManager(getTypicalClinic(), new UserPrefs(), new ArrayList<>());
+public class EditContactCommandTest {
+    private Nric validNricAlreadyInModel = new Nric("S1234567D");
+    private Email validEmail = new Email("email@test.com");
+    private Phone validPhone = new Phone("12345678");
+    private Address validAddress = new Address("address");
 
     @Test
-    public void constructor_nullContactInformation_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddContactCommand(null, null));
+    public void execute_editEmail_success() throws CommandException {
+        EditContactCommandTest.ModelStubHasOnePersonWithEmptyCI modelStub =
+            new EditContactCommandTest.ModelStubHasOnePersonWithEmptyCI();
+        CommandResult commandResult = new EditContactCommand(validNricAlreadyInModel, validEmail, null, null)
+            .execute(modelStub);
+
+        assertEquals(EditContactCommand.MESSAGE_SUCCESS, commandResult.getFeedbackToUser());
     }
 
     @Test
-    public void execute_personNotFind_failure() {
-        assertThrows(CommandException.class,
-            Messages.MESSAGE_PERSON_NOT_FOUND, () -> new AddContactCommand(new Nric("S2519229Z"),
-                new ContactInformation()).execute(model));
+    public void execute_editPhone_success() throws CommandException {
+        EditContactCommandTest.ModelStubHasOnePersonWithEmptyCI modelStub =
+            new EditContactCommandTest.ModelStubHasOnePersonWithEmptyCI();
+        CommandResult commandResult = new EditContactCommand(validNricAlreadyInModel, null, validPhone, null)
+            .execute(modelStub);
+
+        assertEquals(EditContactCommand.MESSAGE_SUCCESS, commandResult.getFeedbackToUser());
     }
 
     @Test
-    public void execute_duplicateContactInformation_failure() {
-        Person personInList = model.getClinic().getPersonList().get(0);
-        ContactInformation contactInformation = new ContactInformation(new Email(""), new Phone(""), new Address(""));
-        AddContactCommand addContactCommand = new AddContactCommand(personInList
-            .getIdentificationInformation().getNric(), contactInformation);
+    public void execute_editAddress_success() throws CommandException {
+        EditContactCommandTest.ModelStubHasOnePersonWithEmptyCI modelStub =
+            new EditContactCommandTest.ModelStubHasOnePersonWithEmptyCI();
+        CommandResult commandResult = new EditContactCommand(validNricAlreadyInModel, null, null, validAddress)
+            .execute(modelStub);
 
-        assertThrows(CommandException.class, Messages.MESSAGE_CONTACT_INFO_ALREADY_EXIST, () ->
-            addContactCommand.execute(model));
+        assertEquals(EditContactCommand.MESSAGE_SUCCESS, commandResult.getFeedbackToUser());
     }
 
     @Test
-    public void execute_addContactInformation_success() throws CommandException {
-        ModelStubHasOnePersonWithEmptyCI modelStub = new ModelStubHasOnePersonWithEmptyCI();
-        Person validPerson = modelStub.findPersonByNric(new Nric("S2519229Z"));
-        ContactInformation ci = new ContactInformation(new Email("email@123.com"), new Phone(""), new Address(""));
-        CommandResult commandResult = new AddContactCommand(validPerson
-            .getIdentificationInformation().getNric(), ci).execute(modelStub);
-
-        assertEquals(AddContactCommand.MESSAGE_SUCCESS,
-            commandResult.getFeedbackToUser());
-    }
-
-    @Test
-    public void toStringTest() {
-        Nric nric = new Nric("S2519229Z");
-        ContactInformation ci = new ContactInformation(new Email("email@123.com"), new Phone(""), new Address(""));
-        AddContactCommand command = new AddContactCommand(nric, ci);
-        assertEquals(command.toString(), "addContact" + nric + ci);
+    public void execute_editAll_success() throws CommandException {
+        EditContactCommandTest.ModelStubHasOnePersonWithEmptyCI modelStub =
+            new EditContactCommandTest.ModelStubHasOnePersonWithEmptyCI();
+        CommandResult commandResult = new EditContactCommand(validNricAlreadyInModel,
+            validEmail, validPhone, validAddress).execute(modelStub);
+        assertEquals(EditContactCommand.MESSAGE_SUCCESS, commandResult.getFeedbackToUser());
     }
 
     /**
@@ -90,7 +83,7 @@ public class AddContactCommandTest {
 
         @Override
         public Predicate<Person> getCurrentPredicate() {
-            throw new AssertionError("This method should not be called.");
+            return null;
         }
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -251,8 +244,8 @@ public class AddContactCommandTest {
     /**
      * A Model stub that always accept the person being added.
      */
-    private class ModelStubHasOnePersonWithEmptyCI extends ModelStub {
-        final Person person = new PersonBuilder().build();
+    private class ModelStubHasOnePersonWithEmptyCI extends EditContactCommandTest.ModelStub {
+        final Person person = new PersonBuilder().withEmail("abc@test.com").build();
 
         @Override
         public Person findPersonByNric(Nric nric) {
