@@ -159,7 +159,9 @@ public class Timetable extends UiPart<Region> {
             entry.changeStartDate(app.getDateTime().toLocalDate());
             entry.changeEndDate(app.getDateTime().toLocalDate());
             entry.changeStartTime(app.getDateTime().toLocalTime());
-            entry.changeEndTime(app.getDateTime().toLocalTime().plusHours(1));
+            entry.changeEndTime(app.getDateTime().toLocalTime().plusMinutes(app.getDuration() * 15L));
+            System.out.println(app.getDateTime().toLocalTime());
+            System.out.println(entry);
             appointmentOfTheDay.addEntries(entry);
         }
     }
