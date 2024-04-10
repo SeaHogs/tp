@@ -10,8 +10,8 @@ import static vitalconnect.commons.util.AppUtil.checkArgument;
 public class Weight {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Weight should only contain alphanumerical measured in kg, " +
-                    "and should be bigger than 0 and smaller than 650";
+            "Weight should only contain alphanumerical measured in kg, "
+                    + "and should be bigger than 0 and smaller than 650";
 
     /*
      * The first character of the address must not be a whitespace,
