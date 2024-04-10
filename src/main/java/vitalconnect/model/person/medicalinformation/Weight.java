@@ -44,7 +44,8 @@ public class Weight {
         if (test.isEmpty()) {
             return true;
         }
-        return test.matches(VALIDATION_REGEX) && Float.parseFloat(test) > 0;
+        // heavies person in the world is 650kg
+        return test.matches(VALIDATION_REGEX) && Float.parseFloat(test) > 0 && Float.parseFloat(test) < 650;
     }
 
     @Override

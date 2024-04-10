@@ -44,8 +44,9 @@ public class Height {
         if (test.isEmpty()) {
             return true;
         }
-        return test.matches(VALIDATION_REGEX) && Float.parseFloat(test) > 0;
+        return test.matches(VALIDATION_REGEX) && Float.parseFloat(test) > 0 && Float.parseFloat(test) < 300;
     }
+
 
     @Override
     public String toString() {
