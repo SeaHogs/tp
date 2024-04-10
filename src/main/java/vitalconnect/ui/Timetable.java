@@ -105,6 +105,9 @@ public class Timetable extends UiPart<Region> {
         calendarView.getCalendarSources().setAll(myCalendarSource);
         calendarView.getDayPage().setContextMenu(null);
         calendarView.setEntryContextMenuCallback(param -> null);
+        calendarView.setEntryDetailsCallback(param -> null);
+        calendarView.setCalendarSourceFactory(param -> null);
+        calendarView.setContextMenuCallback(param -> null);
         calendarView.setEntryDetailsPopOverContentCallback(param -> {
             Entry<?> entry = param.getEntry();
             Label label = new Label("Appointment of:" + entry.getTitle() + "\n"
