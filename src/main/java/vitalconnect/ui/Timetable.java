@@ -105,6 +105,9 @@ public class Timetable extends UiPart<Region> {
         calendarView.getCalendarSources().setAll(myCalendarSource);
         calendarView.getDayPage().setContextMenu(null);
         calendarView.setEntryContextMenuCallback(param -> null);
+        calendarView.setEntryDetailsCallback(param -> null);
+        calendarView.setCalendarSourceFactory(param -> null);
+        calendarView.setContextMenuCallback(param -> null);
         calendarView.setEntryDetailsPopOverContentCallback(param -> {
             Entry<?> entry = param.getEntry();
             Label label = new Label("Appointment of:" + entry.getTitle() + "\n"
@@ -156,7 +159,9 @@ public class Timetable extends UiPart<Region> {
             entry.changeStartDate(app.getDateTime().toLocalDate());
             entry.changeEndDate(app.getDateTime().toLocalDate());
             entry.changeStartTime(app.getDateTime().toLocalTime());
-            entry.changeEndTime(app.getDateTime().toLocalTime().plusHours(1));
+            entry.changeEndTime(app.getDateTime().toLocalTime().plusMinutes(app.getDuration() * 15L));
+            System.out.println(app.getDateTime().toLocalTime());
+            System.out.println(entry);
             appointmentOfTheDay.addEntries(entry);
         }
     }
