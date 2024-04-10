@@ -10,7 +10,8 @@ import static vitalconnect.commons.util.AppUtil.checkArgument;
 public class Height {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Height should only contain alphanumerical measured in cm, and should be bigger than 0";
+            "Height should only contain alphanumerical measured in cm, and should be bigger than 0 " +
+                    "and smaller than 300";
 
     /*
      * The first character of the address must not be a whitespace,
