@@ -44,7 +44,7 @@ For first time users, you can first go through the steps listed under [Installat
         - [Listing contact information](#listing-contact-information--listc)
     - [Medical Information Management](#medical-information-management)
         - [Adding medical information](#adding-medical-information--addm)
-        - [Editing medical information](#editing-the-medical-information--editm)
+        - [Editing medical information](#editing-medical-information--editm)
         - [Deleting medical information](#deleting-medical-information--deletem)
         - [Listing medical information](#listing-medical-information--listm)
     - [Appointment Management](#appointment-management)
@@ -60,6 +60,7 @@ For first time users, you can first go through the steps listed under [Installat
         - [Exiting the program](#exiting-the-program--exit)
     - [Saving the data](#saving-the-data)
     - [Editing the data file](#editing-the-data-file)
+- [Timetable](#timetable)
 - [FAQ](#faq)
 - [Known issues](#known-issues)
 - [Command summary](#command-summary)
@@ -283,6 +284,7 @@ Format: `addm ic/NRIC h/HEIGHT w/WEIGHT [t/ALLERGY]…​`
 
 * The NRIC must be a NRIC of an already existing patient.
 * The value HEIGHT and WEIGHT should be positive alphanumerical values.
+* The allergy tag should be a single word of alphanumeric characters and no space.
 
 <div markdown="block" class="alert alert-info">
 
@@ -290,8 +292,8 @@ Format: `addm ic/NRIC h/HEIGHT w/WEIGHT [t/ALLERGY]…​`
 Items in square brackets are optional.<br>
   e.g `addm ic/S1234567D h/163 w/50`
 Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/ALLERGY]…​` can be used as ` ` (i.e. 0 times), `t/Amoxicillin`, `t/insulin t/iodine` etc.
-  e.g. `[t/ALLERGY]…​` can be used as ` ` (i.e. 0 times), `t/Amoxicillin`, `t/insulin t/iodine` etc.
+  e.g. `t/ALLERGY…​` can be used as ` ` (i.e. 0 times), `t/Amoxicillin`, `t/insulin t/iodine` etc.
+  e.g. `t/ALLERGY…​` can be used as ` ` (i.e. 0 times), `t/Amoxicillin`, `t/insulin t/iodine` etc.
 
 </div>
 
@@ -313,6 +315,7 @@ Format: `editm ic/NRIC [h/HEIGHT] [w/WEIGHT] [-o] [at/ALLERGY…​]`
 * The value HEIGHT and WEIGHT should be positive alphanumerical values.
 * The overwrite notation `-o` should only appear once.
 * `-o` can be placed at any position in the command.
+* All allergy tag should be a single word of alphanumeric characters and no space.
 
 Prefix explanation:
 - `w/WEIGHT`, `h/HIGHT`: Change the current wight and height value to WEIGHT and HEIGHT.
@@ -545,7 +548,25 @@ Furthermore, certain edits can cause the Clinic to behave in unexpected ways (e.
 <div style="page-break-after: always;"></div>
 
 --------------------------------------------------------------------------------------------------------------------
+## Timetable
 
+This feature allows the user to visualise the appointment throughout the day.
+
+The timetable has an auto adjustment feature, if window size is larger enough(larger than 700 pixel), the timetable will show an extra calendar view with agenda on the left side of the timetable.
+
+The three buttons on the top left of the timetable allows user to adjust which day to look at using mouse.
+1. `Today` button will show the timetable of the current day.
+2. `<` button will show the timetable of the previous day.
+3. `>` button will show the timetable of the next day.
+
+The timetable also support changing the view using keyboard shortcuts.
+1. `Ctrl + P` will show the timetable of the previous day.
+2. `Ctrl + N` will show the timetable of the next day.
+3. `Ctrl + T` will show the timetable of the today.
+
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
+
+--------------------------------------------------------------------------------------------------------------------
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
