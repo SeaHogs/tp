@@ -183,7 +183,7 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd patient in the clinic.
 * `find Betsy` followed by `delete 1` deletes the 1st patient in the results of the `find` command.
 
-[<span style="font-size: small;">Back to Top</span>](#top)
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
 
 ### Listing all patients : `list`
 
@@ -332,7 +332,7 @@ overwrite allergy tag to milk and egg.
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 Use of prefix `-o` will delete all existing tag, including the added tag in current command before it. </div>
 
-[<span style="font-size: small;">Back to Top</span>](#top)
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
 
 <div style="page-break-after: always;"></div>
 
@@ -487,7 +487,7 @@ Format: `finda ic/NRIC`
 Examples:
 * `finda ic/S1234567D`
 
-[<span style="font-size: small;">Back to Top</span>](#top)
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
 
 <div style="page-break-after: always;"></div>
 
