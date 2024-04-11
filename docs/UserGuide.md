@@ -44,7 +44,7 @@ For first time users, you can first go through the steps listed under [Installat
         - [Listing contact information](#listing-contact-information--listc)
     - [Medical Information Management](#medical-information-management)
         - [Adding medical information](#adding-medical-information--addm)
-        - [Editing medical information](#editing-the-medical-information--editm)
+        - [Editing medical information](#editing-medical-information--editm)
         - [Deleting medical information](#deleting-medical-information--deletem)
         - [Listing medical information](#listing-medical-information--listm)
     - [Appointment Management](#appointment-management)
@@ -60,6 +60,7 @@ For first time users, you can first go through the steps listed under [Installat
         - [Exiting the program](#exiting-the-program--exit)
     - [Saving the data](#saving-the-data)
     - [Editing the data file](#editing-the-data-file)
+- [Timetable](#timetable)
 - [FAQ](#faq)
 - [Known issues](#known-issues)
 - [Command summary](#command-summary)
@@ -86,15 +87,15 @@ For first time users, you can first go through the steps listed under [Installat
 7. Type any command in the command box and press Enter to execute it. e.g. typing `help` and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * `list` : Lists all patients.
+    * `list` : Lists all patients.
 
-   * `add n/John Doe ic/S1234567D` : Adds a patient named `John Doe` with nric `S1234567D` to the Clinic.
+    * `add n/John Doe ic/S1234567D` : Adds a patient named `John Doe` with nric `S1234567D` to the Clinic.
 
-   * `delete 3` : Deletes the 3rd patient shown in the current list.
+    * `delete 3` : Deletes the 3rd patient shown in the current list.
 
-   * `clear` : Deletes all patients.
+    * `clear` : Deletes all patients.
 
-   * `exit` : Exits the app.
+    * `exit` : Exits the app.
 
 Refer to the [Commands](https://ay2324s2-cs2103t-w08-2.github.io/tp/UserGuide.html#commands) below for specific details for each of the commands.
 
@@ -182,7 +183,7 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd patient in the clinic.
 * `find Betsy` followed by `delete 1` deletes the 1st patient in the results of the `find` command.
 
-[<span style="font-size: small;">Back to Top</span>](#top)
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
 
 ### Listing all patients : `list`
 
@@ -212,12 +213,12 @@ Items in square brackets are optional.<br>
 * At least one of the optional fields must be provided.
 * Phone number should be of 3 to 15 digits long.
 * Emails should be of the format local-part@domain and adhere to the following constraints:
-  1. The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (+_.-). The local-part may not start or end with any special characters, and the special characters should not be adjacent to each other.
-  2. This is followed by a '@' and then a domain name. The domain name is made up of domain labels separated by periods.
-     The domain name must:
-      - end with a domain label at least 2 characters long
-      - have each domain label start and end with alphanumeric characters
-      - have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
+    1. The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (+_.-). The local-part may not start or end with any special characters, and the special characters should not be adjacent to each other.
+    2. This is followed by a '@' and then a domain name. The domain name is made up of domain labels separated by periods.
+       The domain name must:
+        - end with a domain label at least 2 characters long
+        - have each domain label start and end with alphanumeric characters
+        - have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
 * Address has a max length of 50 characters, and it should not be empty upon adding. Although in particular cases, the address can be larger than the current limit, 50 characters is able to suffice the needs in most situations. For long addresses that exceeds the 50 character limit, the compromise is to use shorforms, such as b123 instead of block 123.
 
 Examples:
@@ -283,15 +284,16 @@ Format: `addm ic/NRIC h/HEIGHT w/WEIGHT [t/ALLERGY]…​`
 
 * The NRIC must be a NRIC of an already existing patient.
 * The value HEIGHT and WEIGHT should be positive alphanumerical values.
+* The allergy tag should be a single word of alphanumeric characters and no space.
 
 <div markdown="block" class="alert alert-info">
 
 **:information_source: Additional notes about the command format:**<br>
 Items in square brackets are optional.<br>
-  e.g `addm ic/S1234567D h/163 w/50`
+e.g `addm ic/S1234567D h/163 w/50`
 Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/ALLERGY]…​` can be used as ` ` (i.e. 0 times), `t/Amoxicillin`, `t/insulin t/iodine` etc.
-  e.g. `[t/ALLERGY]…​` can be used as ` ` (i.e. 0 times), `t/Amoxicillin`, `t/insulin t/iodine` etc.
+e.g. `t/ALLERGY…​` can be used as ` ` (i.e. 0 times), `t/Amoxicillin`, `t/insulin t/iodine` etc.
+e.g. `t/ALLERGY…​` can be used as ` ` (i.e. 0 times), `t/Amoxicillin`, `t/insulin t/iodine` etc.
 
 </div>
 
@@ -313,6 +315,7 @@ Format: `editm ic/NRIC [h/HEIGHT] [w/WEIGHT] [-o] [at/ALLERGY…​]`
 * The value HEIGHT and WEIGHT should be positive alphanumerical values.
 * The overwrite notation `-o` should only appear once.
 * `-o` can be placed at any position in the command.
+* All allergy tag should be a single word of alphanumeric characters and no space.
 
 Prefix explanation:
 - `w/WEIGHT`, `h/HIGHT`: Change the current wight and height value to WEIGHT and HEIGHT.
@@ -329,7 +332,7 @@ overwrite allergy tag to milk and egg.
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 Use of prefix `-o` will delete all existing tag, including the added tag in current command before it. </div>
 
-[<span style="font-size: small;">Back to Top</span>](#top)
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
 
 <div style="page-break-after: always;"></div>
 
@@ -362,7 +365,7 @@ Adds an appointment for an exist patient to the appointment list.
 
 Format: `adda ic/NRIC s/START_TIME d/DURATION`
 
-  __`ic/NRIC`: Patient's NRIC__
+__`ic/NRIC`: Patient's NRIC__
 * The patient(ic) should already exist in the patient list.
 
 __`s/START_TIME`: Start time of the appointment__
@@ -378,7 +381,7 @@ __The input should be the number of duration unit:__
 * The limitation of the input of duration is 96 (24 hours).
 
 Examples:
-* `adda ic/S1234567D s/02/06/2024 1300 d/2` 
+* `adda ic/S1234567D s/02/06/2024 1300 d/2`
 * This will add an appointment for the patient with NRIC `S1234567D` start from 2nd June 2024 at 1:00 PM and end at 1:30 PM.
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
@@ -393,9 +396,9 @@ __Format:__ `edita INDEX [s/START_TIME] [d/DURATION]`
 
 Edit both start time and duration: `edita INDEX s/START_TIME d/DURATION`
 
-Edit only the start time: `edita INDEX s/START_TIME` 
+Edit only the start time: `edita INDEX s/START_TIME`
 
-Edit only the time duration: `edita INDEX d/DURATION` 
+Edit only the time duration: `edita INDEX d/DURATION`
 
 __`INDEX`: Index of the to be edited appointment in the appointment list__
 * The index should not be out of range nor negative.
@@ -415,7 +418,7 @@ __The input should be the number of duration unit:__
 
 Examples:
 * `edita 1 s/02/02/2025 1300 d/4`
-  * This change the time of the appointment of index 1 to Feb 2 2025 at 1pm and end at 2pm.
+    * This change the time of the appointment of index 1 to Feb 2 2025 at 1pm and end at 2pm.
 * `edita 1 s/02/02/2025 1300`
     * Only change the appointment start time to Feb 2 2025 at 1pm, the time duration remains the same.
 * `edita 1 d/4`
@@ -484,7 +487,7 @@ Format: `finda ic/NRIC`
 Examples:
 * `finda ic/S1234567D`
 
-[<span style="font-size: small;">Back to Top</span>](#top)
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
 
 <div style="page-break-after: always;"></div>
 
@@ -545,7 +548,25 @@ Furthermore, certain edits can cause the Clinic to behave in unexpected ways (e.
 <div style="page-break-after: always;"></div>
 
 --------------------------------------------------------------------------------------------------------------------
+## Timetable
 
+This feature allows the user to visualise the appointment throughout the day.
+
+The timetable has an auto adjustment feature, if window size is larger enough(larger than 700 pixel), the timetable will show an extra calendar view with agenda on the left side of the timetable.
+
+The three buttons on the top left of the timetable allows user to adjust which day to look at using mouse.
+1. `Today` button will show the timetable of the current day.
+2. `<` button will show the timetable of the previous day.
+3. `>` button will show the timetable of the next day.
+
+The timetable also support changing the view using keyboard shortcuts.
+1. `Ctrl + P` will show the timetable of the previous day.
+2. `Ctrl + N` will show the timetable of the next day.
+3. `Ctrl + T` will show the timetable of the today.
+
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
+
+--------------------------------------------------------------------------------------------------------------------
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
@@ -597,4 +618,3 @@ Furthermore, certain edits can cause the Clinic to behave in unexpected ways (e.
 | **Exit**    | `exit`                                                                                                                                       |
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
-
