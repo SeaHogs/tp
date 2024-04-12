@@ -1,5 +1,7 @@
 package vitalconnect.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static vitalconnect.logic.Messages.MESSAGE_PERSON_NOT_FOUND;
 import static vitalconnect.testutil.Assert.assertThrows;
 
@@ -23,19 +25,10 @@ import vitalconnect.model.ReadOnlyClinic;
 import vitalconnect.model.ReadOnlyUserPrefs;
 import vitalconnect.model.person.Person;
 import vitalconnect.model.person.contactinformation.ContactInformation;
-import vitalconnect.model.person.contactinformation.Phone;
 import vitalconnect.model.person.identificationinformation.IdentificationInformation;
+import vitalconnect.model.person.identificationinformation.Name;
 import vitalconnect.model.person.identificationinformation.Nric;
 import vitalconnect.model.person.medicalinformation.MedicalInformation;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
-import vitalconnect.model.person.identificationinformation.Name;
-import vitalconnect.model.person.medicalinformation.Weight;
 
 public class CreateAptCommandTest {
 

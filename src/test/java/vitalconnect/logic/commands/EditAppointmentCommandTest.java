@@ -1,7 +1,7 @@
 package vitalconnect.logic.commands;
 
-import static vitalconnect.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static vitalconnect.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.time.LocalDateTime;
@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import vitalconnect.commons.core.GuiSettings;
 import vitalconnect.commons.core.index.Index;
 import vitalconnect.logic.commands.exceptions.CommandException;
@@ -27,6 +27,7 @@ import vitalconnect.model.person.identificationinformation.IdentificationInforma
 import vitalconnect.model.person.identificationinformation.Nric;
 import vitalconnect.model.person.medicalinformation.MedicalInformation;
 
+
 public class EditAppointmentCommandTest {
 
     @Test
@@ -37,8 +38,8 @@ public class EditAppointmentCommandTest {
         int duration = 2;
 
         EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(index, dateTime, duration);
-        String expectedMessage = EditAppointmentCommand.MESSAGE_SUCCESS + "index: 1\nUpdated appointment detail:\n" +
-                "Appointment with Alice from 2024-06-02 13:30 to 2024-06-02 14:00";
+        String expectedMessage = EditAppointmentCommand.MESSAGE_SUCCESS + "index: 1\nUpdated appointment detail:\n"
+                + "Appointment with Alice from 2024-06-02 13:30 to 2024-06-02 14:00";
 
         CommandResult commandResult = editAppointmentCommand.execute(modelStub);
         assertEquals(expectedMessage, commandResult.getFeedbackToUser());

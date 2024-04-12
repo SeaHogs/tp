@@ -1,7 +1,7 @@
 package vitalconnect.logic.commands;
 
-import static vitalconnect.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static vitalconnect.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.time.LocalDateTime;
@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.ObservableList;
 import vitalconnect.commons.core.GuiSettings;
 import vitalconnect.commons.core.index.Index;
 import vitalconnect.logic.commands.exceptions.CommandException;
