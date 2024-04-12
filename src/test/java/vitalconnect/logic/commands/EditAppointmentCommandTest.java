@@ -56,6 +56,30 @@ public class EditAppointmentCommandTest {
         assertThrows(CommandException.class, () -> editAppointmentCommand.execute(modelStub));
     }
 
+    @Test
+    public void execute_appointmentTimeConflict_throwsCommandException() {
+        ModelStub modelStub = new ModelStubWithConflictingAppointment();
+        Index index = Index.fromOneBased(1);
+        LocalDateTime dateTime = LocalDateTime.parse("02/06/2024 1330", DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+        int duration = 2; // Assume this duration causes a conflict
+
+        EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(index, dateTime, duration);
+
+        assertThrows(CommandException.class, () -> editAppointmentCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_pastDateTime_throwsCommandException() {
+        ModelStubAcceptingAppointmentEdited modelStub = new ModelStubAcceptingAppointmentEdited();
+        Index index = Index.fromOneBased(1);
+        LocalDateTime pastDateTime = LocalDateTime.now().minusDays(1);
+        int duration = 2;
+
+        EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(index, pastDateTime, duration);
+
+        assertThrows(CommandException.class, () -> editAppointmentCommand.execute(modelStub));
+    }
+
     private class ModelStub implements Model {
         @Override
         public void setCurrentPredicate(Predicate<Person> predicate) {
@@ -227,7 +251,8 @@ public class EditAppointmentCommandTest {
         private final ArrayList<Appointment> appointments = new ArrayList<>();
 
         ModelStubAcceptingAppointmentEdited() {
-            appointments.add(new Appointment("Alice", "S1234567A", LocalDateTime.of(2024, 3, 14, 15, 30),
+            appointments.add(new Appointment("Alice", "S1234567A",
+                    LocalDateTime.of(2024, 3, 14, 15, 30),
                     LocalDateTime.of(2024, 3, 14, 16, 30), 4));
         }
 
@@ -246,5 +271,33 @@ public class EditAppointmentCommandTest {
             return new ArrayList<>(); // No conflicts
         }
     }
+
+    private class ModelStubWithConflictingAppointment extends ModelStub {
+        private final ArrayList<Appointment> appointments = new ArrayList<>();
+
+        ModelStubWithConflictingAppointment() {
+            appointments.add(new Appointment("Alice", "S1234567A",
+                    LocalDateTime.of(2024, 3, 14, 15, 30),
+                    LocalDateTime.of(2024, 3, 14, 16, 30), 4));
+        }
+
+        @Override
+        public ObservableList<Appointment> getFilteredAppointmentList() {
+            return FXCollections.observableArrayList(appointments);
+        }
+
+        @Override
+        public void updateAppointment(Index index, Appointment appointment) {
+            appointments.set(index.getZeroBased(), appointment);
+        }
+
+        @Override
+        public List<Appointment> getConflictingAppointmentsForExistingApt(Index index, Appointment newAppointment) {
+            // Check if the new appointment conflicts with existing ones
+            // For the sake of this stub, we assume all appointments conflict
+            return new ArrayList<>(appointments);
+        }
+    }
+
 }
 

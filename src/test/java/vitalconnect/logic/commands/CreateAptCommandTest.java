@@ -23,17 +23,20 @@ import vitalconnect.model.ReadOnlyClinic;
 import vitalconnect.model.ReadOnlyUserPrefs;
 import vitalconnect.model.person.Person;
 import vitalconnect.model.person.contactinformation.ContactInformation;
+import vitalconnect.model.person.contactinformation.Phone;
 import vitalconnect.model.person.identificationinformation.IdentificationInformation;
 import vitalconnect.model.person.identificationinformation.Nric;
 import vitalconnect.model.person.medicalinformation.MedicalInformation;
 
-//import static org.junit.jupiter.api.Assertions.assertEquals;
-//import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-//import java.time.LocalDateTime;
-//import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-//import vitalconnect.model.person.identificationinformation.Name;
+import vitalconnect.model.person.identificationinformation.Name;
+import vitalconnect.model.person.medicalinformation.Weight;
+
 public class CreateAptCommandTest {
 
     @Test
@@ -84,30 +87,28 @@ public class CreateAptCommandTest {
                 "Appointment time cannot be in the past.", () -> createAptCommand.execute(modelStub));
     }
 
-
-    /*
     @Test
     public void execute_appointmentCreatedSuccessfully() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        String patientIc = "S1234567D";
-        String dateTimeStr = "02/02/2024 1330";
-        CreateAptCommand createAptCommand = new CreateAptCommand(patientIc, dateTimeStr);
+        Nric patientIc = new Nric("S1234567D");
+        LocalDateTime dateTimeStr = ParserUtil.parseTime("02/02/2025 1330");
+        int duration = 2;
+
+        CreateAptCommand createAptCommand = new CreateAptCommand(patientIc, dateTimeStr, duration);
 
         CommandResult commandResult = createAptCommand.execute(modelStub);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        LocalDateTime dateTime = LocalDateTime.parse(dateTimeStr, formatter);
-
         String successString = String.format("Created an appointment successfully!\nName: "
-                + "Amy" + "\nNRIC: %s\nTime: %s",
-                patientIc, dateTime.format(DateTimeFormatter.ofPattern("d MMM yyyy HH:mm")));
+                        + "Amy" + "\nNRIC: %s\nStart time: 2 Feb 2025 13:30\nEnd time: 2 Feb 2025 14:00",
+                patientIc.toString());
 
         assertEquals(successString, commandResult.getFeedbackToUser());
         assertTrue(modelStub.appointmentsAdded.stream().anyMatch(appointment ->
-                appointment.getPatientIc().equals(patientIc)
-                        && appointment.getDateTime().equals(dateTime)));
+                appointment.getPatientIc().equals(patientIc.toString())
+                        && appointment.getDateTime().equals(dateTimeStr)));
     }
-*/
+
+
 
     private class ModelStub implements Model {
         @Override
@@ -292,14 +293,30 @@ public class CreateAptCommandTest {
      */
     private class ModelStubAcceptingPersonAdded extends ModelStub {
         final ArrayList<Appointment> appointmentsAdded = new ArrayList<>();
+        private final Person amy = new Person(new IdentificationInformation(new Name("Amy"), new Nric("S1234567D")),
+                new MedicalInformation());
         @Override
         public boolean doesPersonExist(String name) {
             return true;
         }
 
         @Override
+        public Person findPersonByNric(Nric nric) {
+            if (amy.getIdentificationInformation().getNric().equals(nric)) {
+                return amy;
+            }
+            return null;
+        }
+
+        @Override
         public boolean doesIcExist(String ic) {
             return true;
+        }
+
+        @Override
+        public List<Appointment> getConflictingAppointments(Appointment appointment) {
+            ArrayList<Appointment> conflictingAppointments = new ArrayList<>();
+            return conflictingAppointments;
         }
 
         @Override
