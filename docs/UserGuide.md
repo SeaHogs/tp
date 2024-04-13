@@ -136,6 +136,8 @@ Format: `help`
 <div style="page-break-after: always;"></div>
 
 ## Patient Management
+The system follows a modular way of saving data. First create a patient using the `add` command, then use specific commands to add specific information to the patient such as contact and medical information. If there is no need for the information, there is no need to add it but the creation of a patient in the database requires using the `add` command.
+
 ### Adding a patient : `add`
 
 Adds a patient to the clinic using their identification information.
@@ -196,6 +198,8 @@ Format: `list`
 <div style="page-break-after: always;"></div>
 
 ## Contact Management
+
+For patients that do not require the clinic to contact them in the future such as a patient looking for medication, you can ignore the contact management section as there is no need to store their contact information in the database.
 
 ### Adding contact information : `addc`
 
