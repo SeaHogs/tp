@@ -1,24 +1,22 @@
 package vitalconnect.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static vitalconnect.logic.Messages.MESSAGE_PERSON_NOT_FOUND;
 import static vitalconnect.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import vitalconnect.commons.core.GuiSettings;
 import vitalconnect.commons.core.index.Index;
 import vitalconnect.logic.commands.exceptions.CommandException;
-import vitalconnect.logic.parser.ParserUtil;
-import vitalconnect.logic.parser.exceptions.ParseException;
 import vitalconnect.model.Appointment;
 import vitalconnect.model.Model;
 import vitalconnect.model.ReadOnlyClinic;
@@ -26,82 +24,62 @@ import vitalconnect.model.ReadOnlyUserPrefs;
 import vitalconnect.model.person.Person;
 import vitalconnect.model.person.contactinformation.ContactInformation;
 import vitalconnect.model.person.identificationinformation.IdentificationInformation;
-import vitalconnect.model.person.identificationinformation.Name;
 import vitalconnect.model.person.identificationinformation.Nric;
 import vitalconnect.model.person.medicalinformation.MedicalInformation;
 
-public class CreateAptCommandTest {
+
+public class EditAppointmentCommandTest {
 
     @Test
-    public void execute_icNotExist_throwsCommandException() throws ParseException {
-        ModelStub modelStub = new ModelStubWithoutPerson();
-        Nric patientIc = new Nric("S4848058F");
-        LocalDateTime dateTimeStr = ParserUtil.parseTime("02/06/2026 1330");
+    public void execute_appointmentEditedSuccessfully() throws Exception {
+        ModelStubAcceptingAppointmentEdited modelStub = new ModelStubAcceptingAppointmentEdited();
+        Index index = Index.fromOneBased(1);
+        LocalDateTime dateTime = LocalDateTime.parse("02/06/2024 1330", DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
         int duration = 2;
-        CreateAptCommand createAptCommand = new CreateAptCommand(patientIc, dateTimeStr, duration);
 
-        assertThrows(CommandException.class,
-            MESSAGE_PERSON_NOT_FOUND, () -> createAptCommand.execute(modelStub));
+        EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(index, dateTime, duration);
+        String expectedMessage = EditAppointmentCommand.MESSAGE_SUCCESS + "index: 1\nUpdated appointment detail:\n"
+                + "Appointment with Alice from 2024-06-02 13:30 to 2024-06-02 14:00";
+
+        CommandResult commandResult = editAppointmentCommand.execute(modelStub);
+        assertEquals(expectedMessage, commandResult.getFeedbackToUser());
     }
 
     @Test
-    public void execute_invalidDuration_throwsCommandException() throws ParseException {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Nric patientIc = new Nric("S1234567D");
-        LocalDateTime dateTime = ParserUtil.parseTime("02/02/2024 1330");
-        int duration = 0; // invalid duration
-        CreateAptCommand createAptCommand = new CreateAptCommand(patientIc, dateTime, duration);
+    public void execute_appointmentIndexInvalid_throwsCommandException() {
+        ModelStubAcceptingAppointmentEdited modelStub = new ModelStubAcceptingAppointmentEdited();
+        Index outOfBoundIndex = Index.fromOneBased(modelStub.getFilteredAppointmentList().size() + 1);
+        LocalDateTime dateTime = LocalDateTime.now().plusDays(1); // future date to avoid past date error
+        int duration = 2;
 
-        assertThrows(CommandException.class, () -> createAptCommand.execute(modelStub));
+        EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(outOfBoundIndex, dateTime, duration);
+
+        assertThrows(CommandException.class, () -> editAppointmentCommand.execute(modelStub));
     }
 
     @Test
-    public void execute_conflictingAppointment_throwsCommandException() throws ParseException {
+    public void execute_appointmentTimeConflict_throwsCommandException() {
         ModelStub modelStub = new ModelStubWithConflictingAppointment();
-        Nric patientIc = new Nric("S1234567D");
-        LocalDateTime dateTimeStr = ParserUtil.parseTime("02/02/2024 1330");
-        int duration = 2;
-        CreateAptCommand createAptCommand = new CreateAptCommand(patientIc, dateTimeStr, duration);
+        Index index = Index.fromOneBased(1);
+        LocalDateTime dateTime = LocalDateTime.parse("02/06/2024 1330", DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+        int duration = 2; // Assume this duration causes a conflict
 
-        assertThrows(CommandException.class, () -> createAptCommand.execute(modelStub));
+        EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(index, dateTime, duration);
+
+        assertThrows(CommandException.class, () -> editAppointmentCommand.execute(modelStub));
     }
 
     @Test
-    public void execute_appointmentInPast_throwsCommandException() {
-        ModelStub modelStub = new ModelStubAcceptingPersonAdded();
-        Nric patientIc = new Nric("S1234567D");
-        // Set a date and time in the past
+    public void execute_pastDateTime_throwsCommandException() {
+        ModelStubAcceptingAppointmentEdited modelStub = new ModelStubAcceptingAppointmentEdited();
+        Index index = Index.fromOneBased(1);
         LocalDateTime pastDateTime = LocalDateTime.now().minusDays(1);
-        int duration = 2; // duration in units (each unit represents 15 minutes)
-
-        CreateAptCommand createAptCommand = new CreateAptCommand(patientIc, pastDateTime, duration);
-
-        assertThrows(CommandException.class,
-                "Appointment time cannot be in the past.", () -> createAptCommand.execute(modelStub));
-    }
-
-    @Test
-    public void execute_appointmentCreatedSuccessfully() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Nric patientIc = new Nric("S1234567D");
-        LocalDateTime dateTimeStr = ParserUtil.parseTime("02/02/2025 1330");
         int duration = 2;
 
-        CreateAptCommand createAptCommand = new CreateAptCommand(patientIc, dateTimeStr, duration);
+        EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(index, pastDateTime, duration);
 
-        CommandResult commandResult = createAptCommand.execute(modelStub);
-
-        String successString = String.format("Created an appointment successfully!\nName: "
-                        + "Amy" + "\nNRIC: %s\nStart time: 2 Feb 2025 13:30\nEnd time: 2 Feb 2025 14:00",
-                patientIc.toString());
-
-        assertEquals(successString, commandResult.getFeedbackToUser());
-        assertTrue(modelStub.appointmentsAdded.stream().anyMatch(appointment ->
-                appointment.getPatientIc().equals(patientIc.toString())
-                        && appointment.getDateTime().equals(dateTimeStr)));
+        assertThrows(CommandException.class, () -> editAppointmentCommand.execute(modelStub));
     }
-
-
 
     private class ModelStub implements Model {
         @Override
@@ -269,64 +247,58 @@ public class CreateAptCommandTest {
     }
 
 
-    private class ModelStubWithoutPerson extends ModelStub {
-        @Override
-        public boolean doesPersonExist(String name) {
-            return false;
+    private class ModelStubAcceptingAppointmentEdited extends ModelStub {
+
+        private final ArrayList<Appointment> appointments = new ArrayList<>();
+
+        ModelStubAcceptingAppointmentEdited() {
+            appointments.add(new Appointment("Alice", "S1234567A",
+                    LocalDateTime.of(2024, 3, 14, 15, 30),
+                    LocalDateTime.of(2024, 3, 14, 16, 30), 4));
         }
+
         @Override
-        public boolean doesIcExist(String ic) {
-            return false;
+        public ObservableList<Appointment> getFilteredAppointmentList() {
+            return FXCollections.observableArrayList(appointments);
+        }
+
+        @Override
+        public void updateAppointment(Index index, Appointment appointment) {
+            appointments.set(index.getZeroBased(), appointment);
+        }
+
+        @Override
+        public List<Appointment> getConflictingAppointmentsForExistingApt(Index index, Appointment appointment) {
+            return new ArrayList<>(); // No conflicts
         }
     }
 
+    private class ModelStubWithConflictingAppointment extends ModelStub {
+        private final ArrayList<Appointment> appointments = new ArrayList<>();
 
-    /**
-     * A Model stub that always accept the appointment being added.
-     */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Appointment> appointmentsAdded = new ArrayList<>();
-        private final Person amy = new Person(new IdentificationInformation(new Name("Amy"), new Nric("S1234567D")),
-                new MedicalInformation());
-        @Override
-        public boolean doesPersonExist(String name) {
-            return true;
+        ModelStubWithConflictingAppointment() {
+            appointments.add(new Appointment("Alice", "S1234567A",
+                    LocalDateTime.of(2024, 3, 14, 15, 30),
+                    LocalDateTime.of(2024, 3, 14, 16, 30), 4));
         }
 
         @Override
-        public Person findPersonByNric(Nric nric) {
-            if (amy.getIdentificationInformation().getNric().equals(nric)) {
-                return amy;
-            }
-            return null;
+        public ObservableList<Appointment> getFilteredAppointmentList() {
+            return FXCollections.observableArrayList(appointments);
         }
 
         @Override
-        public boolean doesIcExist(String ic) {
-            return true;
+        public void updateAppointment(Index index, Appointment appointment) {
+            appointments.set(index.getZeroBased(), appointment);
         }
 
         @Override
-        public List<Appointment> getConflictingAppointments(Appointment appointment) {
-            ArrayList<Appointment> conflictingAppointments = new ArrayList<>();
-            return conflictingAppointments;
-        }
-
-        @Override
-        public void addAppointment(Appointment appointment) {
-            appointmentsAdded.add(appointment);
+        public List<Appointment> getConflictingAppointmentsForExistingApt(Index index, Appointment newAppointment) {
+            // Check if the new appointment conflicts with existing ones
+            // For the sake of this stub, we assume all appointments conflict
+            return new ArrayList<>(appointments);
         }
     }
 
-    private class ModelStubWithConflictingAppointment extends ModelStubAcceptingPersonAdded {
-        @Override
-        public List<Appointment> getConflictingAppointments(Appointment appointment) {
-            ArrayList<Appointment> conflictingAppointments = new ArrayList<>();
-            conflictingAppointments.add(appointment); // Simulate a conflict
-            return conflictingAppointments;
-        }
-    }
 }
-
-
 
