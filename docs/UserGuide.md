@@ -201,6 +201,9 @@ Format: `list`
 
 For patients that do not require the clinic to contact them in the future such as a patient looking for medication, you can ignore the contact management section as there is no need to store their contact information in the database.
 
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+Once the contact information has been added to an existing patient, you are no longer able to add contact information using the `addc` command. Instead, you should use the `editc` command to edit the existing contact information. </div>
+
 ### Adding contact information : `addc`
 
 Adds the contact information to a patient in the clinic.
