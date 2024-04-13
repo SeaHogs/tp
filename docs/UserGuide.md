@@ -487,7 +487,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
 Examples:
-* `find John` returns `John Doe` and `John Bard`</br>
+* `find John` returns `John Doe` and `John Bard`
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
