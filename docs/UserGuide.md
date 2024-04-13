@@ -293,7 +293,6 @@ Items in square brackets are optional.<br>
 e.g `addm ic/S1234567D h/163 w/50`
 Items with `…`​ after them can be used multiple times including zero times.<br>
 e.g. `t/ALLERGY…​` can be used as ` ` (i.e. 0 times), `t/Amoxicillin`, `t/insulin t/iodine` etc.
-e.g. `t/ALLERGY…​` can be used as ` ` (i.e. 0 times), `t/Amoxicillin`, `t/insulin t/iodine` etc.
 
 </div>
 
@@ -316,6 +315,12 @@ Format: `editm ic/NRIC [h/HEIGHT] [w/WEIGHT] [-o] [at/ALLERGY…​]`
 * The overwrite notation `-o` should only appear once.
 * `-o` can be placed at any position in the command.
 * All allergy tag should be a single word of alphanumeric characters and no space.
+
+<div markdown="block" class="alert alert-info">
+**:information_source: Additional notes about the command format:**<br>
+Items in square brackets are optional.<br>
+  e.g `editm ic/S1234567D h/130 w/100`
+</div>
 
 Prefix explanation:
 - `w/WEIGHT`, `h/HIGHT`: Change the current wight and height value to WEIGHT and HEIGHT.
@@ -399,6 +404,12 @@ Edit both start time and duration: `edita INDEX s/START_TIME d/DURATION`
 Edit only the start time: `edita INDEX s/START_TIME`
 
 Edit only the time duration: `edita INDEX d/DURATION`
+
+<div markdown="block" class="alert alert-info">
+**:information_source: Additional notes about the command format:**<br>
+Items in square brackets are optional.<br>
+  e.g `edita 1 s/02/02/2025 1300`
+</div>
 
 __`INDEX`: Index of the to be edited appointment in the appointment list__
 * The index should not be out of range nor negative.
