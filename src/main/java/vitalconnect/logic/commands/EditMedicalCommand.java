@@ -34,7 +34,7 @@ public class EditMedicalCommand extends Command {
         + "[" + PREFIX_HEIGHT + "HEIGHT " + "]"
         + "[" + PREFIX_WEIGHT + "WEIGHT " + "]"
         + "[" + PREFIX_OVERWRITETAG + "]"
-        + "[" + PREFIX_APPENDTAG + "ALLERGY"  + "...]" + "\n"
+        + "[" + PREFIX_APPENDTAG + "ALLERGY" + "...]" + "\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_NRIC + "S1234567D "
         + PREFIX_HEIGHT + "180 "

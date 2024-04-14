@@ -1,19 +1,18 @@
 package vitalconnect.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-
-import java.util.List;
-
 import static vitalconnect.logic.Messages.MESSAGE_PERSON_NOT_FOUND;
 import static vitalconnect.logic.parser.CliSyntax.PREFIX_NAME;
 import static vitalconnect.logic.parser.CliSyntax.PREFIX_NRIC;
 import static vitalconnect.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.List;
+
 import vitalconnect.commons.util.ToStringBuilder;
 import vitalconnect.logic.Messages;
 import vitalconnect.logic.commands.exceptions.CommandException;
-import vitalconnect.model.Model;
 import vitalconnect.model.Appointment;
+import vitalconnect.model.Model;
 import vitalconnect.model.person.Person;
 import vitalconnect.model.person.identificationinformation.IdentificationInformation;
 

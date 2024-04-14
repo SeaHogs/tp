@@ -48,7 +48,7 @@ public class Appointment {
         return patientIc;
     }
 
-    
+
     public void setPatientName(String name) {
         this.patientName = name;
     }
