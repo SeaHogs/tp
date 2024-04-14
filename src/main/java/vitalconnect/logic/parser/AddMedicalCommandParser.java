@@ -37,7 +37,7 @@ public class AddMedicalCommandParser implements Parser<AddMedInfoCommand> {
         Set<AllergyTag> allergyTags = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_ALLERGYTAG));
         Nric nric = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).get());
 
-        if (height.isEmpty() && weight.isEmpty() && Nric.isValidNric(nric.toString())) {
+        if ((height.isEmpty() || weight.isEmpty()) && Nric.isValidNric(nric.toString())) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMedInfoCommand.MESSAGE_USAGE));
         }
 

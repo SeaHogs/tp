@@ -78,7 +78,7 @@ public class DeleteContactCommandTest {
     /**
      * A default model stub that have all of the methods failing.
      */
-    private class ModelStub implements Model {
+    static class ModelStub implements Model {
         @Override
         public void setCurrentPredicate(Predicate<Person> predicate) {
         }
