@@ -20,11 +20,11 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the clinic. "
             + "Parameters: "
-            + PREFIX_NAME + "NAME "
-            + PREFIX_NRIC + "NRIC \n"
+            + PREFIX_NRIC + "NRIC "
+            + PREFIX_NAME + "NAME \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_NRIC + "S1234567D ";
+            + PREFIX_NRIC + "S1234567D "
+            + PREFIX_NAME + "John Doe ";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the clinic";

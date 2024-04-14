@@ -78,7 +78,7 @@ For first time users, you can first go through the steps listed under [Installat
 
 3. Copy the file to the folder you want to use as the _home folder_ for your vitalConnect.
 
-4. Open a command terminal or learn how to do so [here](https://www.google.com/search?q=how+to+open+a+command+terminal&rlz=1C1GCEA_enSG1015SG1015&oq=how+to+open+a+command+terminal&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBCDQzMThqMGoxqAIAsAIA&sourceid=chrome&ie=UTF-8)
+4. Open a command terminal or learn how to do so [here](https://www.freecodecamp.org/news/command-line-for-beginners/)
 
 5. Type `cd` followed by the location of the folder that you are putting the `vitalconnect.jar` file in. Find out more [here](https://www.wikihow.com/Change-Directories-in-Command-Prompt)
 
@@ -123,6 +123,7 @@ Refer to the [Commands](https://ay2324s2-cs2103t-w08-2.github.io/tp/UserGuide.ht
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 
 * Invalid prefixes may lead to unmatching error messages. For example, `editm ic/S1234567D H/8 W/2` will result in an error message saying that `NRIC is invalid...` instead of `invalid prefix`. This is because the whole part `S1234567D H/8 W/2` is treated as the NRIC.
+
 </div>
 
 ### Viewing help : `help`
@@ -136,6 +137,10 @@ Format: `help`
 <div style="page-break-after: always;"></div>
 
 ## Patient Management
+* The system follows a modular way of saving data. First create a patient using the `add` command, then use specific commands to add specific information to the patient such as contact and medical information. If there is no need for the information, there is no need to add it but the creation of a patient in the database requires using the `add` command.
+* The NRIC of a patient is used to indentify the patient so patients can share names but not NRICs.
+* The NRIC of a patient must be a valid NRIC. You may find more details about the structure in the wikipedia page [here](https://en.wikipedia.org/wiki/National_Registration_Identity_Card#Structure_of_the_NRIC_number/FIN) or check using this online tool [here](https://nric.biz/)
+
 ### Adding a patient : `add`
 
 Adds a patient to the clinic using their identification information.
@@ -143,6 +148,8 @@ Adds a patient to the clinic using their identification information.
 Format: `add ic/NRIC n/NAME`
 
 * The NRIC **must** be a valid NRIC.
+* Names should only contain alphanumeric characters and spaces, and it should not be blank.
+* We currently do not support symbols or other special characters so you will need to omit them from the name.
 
 Examples:
 * `add ic/S1234567D n/James Doe`
@@ -156,7 +163,7 @@ Edits a patient's identification information.
 Format: `edit ic/NRIC n/NAME`
 
 * The NRIC must be a NRIC of an already existing patient.
-* If you would like to change the name instead of the NRIC, create a new patient using `add` then use `delete` on the outdated version.
+* If you would like to change the NRIC instead of the name, create a new patient using `add` then use `delete` on the outdated version.
 
 Examples:
 * `edit ic/S1234567D n/John Doe`
@@ -196,6 +203,11 @@ Format: `list`
 <div style="page-break-after: always;"></div>
 
 ## Contact Management
+
+For patients that do not require the clinic to contact them in the future such as a patient looking for medication, you can ignore the contact management section as there is no need to store their contact information in the database.
+
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+Once the contact information has been added to an existing patient, you are no longer able to add contact information using the `addc` command. Instead, you should use the `editc` command to edit the existing contact information. </div>
 
 ### Adding contact information : `addc`
 
@@ -293,7 +305,6 @@ Items in square brackets are optional.<br>
 e.g `addm ic/S1234567D h/163 w/50`
 Items with `…`​ after them can be used multiple times including zero times.<br>
 e.g. `t/ALLERGY…​` can be used as ` ` (i.e. 0 times), `t/Amoxicillin`, `t/insulin t/iodine` etc.
-e.g. `t/ALLERGY…​` can be used as ` ` (i.e. 0 times), `t/Amoxicillin`, `t/insulin t/iodine` etc.
 
 </div>
 
@@ -316,6 +327,12 @@ Format: `editm ic/NRIC [h/HEIGHT] [w/WEIGHT] [-o] [at/ALLERGY…​]`
 * The overwrite notation `-o` should only appear once.
 * `-o` can be placed at any position in the command.
 * All allergy tag should be a single word of alphanumeric characters and no space.
+
+<div markdown="block" class="alert alert-info">
+**:information_source: Additional notes about the command format:**<br>
+Items in square brackets are optional.<br>
+  e.g `editm ic/S1234567D h/130 w/100`
+</div>
 
 Prefix explanation:
 - `w/WEIGHT`, `h/HIGHT`: Change the current wight and height value to WEIGHT and HEIGHT.
@@ -400,6 +417,12 @@ Edit only the start time: `edita INDEX s/START_TIME`
 
 Edit only the time duration: `edita INDEX d/DURATION`
 
+<div markdown="block" class="alert alert-info">
+**:information_source: Additional notes about the command format:**<br>
+Items in square brackets are optional.<br>
+  e.g `edita 1 s/02/02/2025 1300`
+</div>
+
 __`INDEX`: Index of the to be edited appointment in the appointment list__
 * The index should not be out of range nor negative.
 
@@ -472,7 +495,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
 Examples:
-* `find John` returns `John Doe` and `John Bard`</br>
+* `find John` returns `John Doe` and `John Bard`
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
@@ -539,8 +562,7 @@ If you exit the program through other means, your data will still be saved. Refe
 Clinic data are saved automatically as a JSON file `[JAR file location]/data/clinic.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, Clinic will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the Clinic to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+Incorrect or certain edits can cause the Clinic to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
