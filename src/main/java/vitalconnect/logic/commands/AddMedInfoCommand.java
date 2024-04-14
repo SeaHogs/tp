@@ -7,7 +7,6 @@ import static vitalconnect.logic.parser.CliSyntax.PREFIX_ALLERGYTAG;
 import static vitalconnect.logic.parser.CliSyntax.PREFIX_HEIGHT;
 import static vitalconnect.logic.parser.CliSyntax.PREFIX_NRIC;
 import static vitalconnect.logic.parser.CliSyntax.PREFIX_WEIGHT;
-import static vitalconnect.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import vitalconnect.logic.commands.exceptions.CommandException;
 import vitalconnect.model.Model;
@@ -58,7 +57,7 @@ public class AddMedInfoCommand extends Command {
             throw new CommandException(MESSAGE_MEDICAL_INFO_ALREADY_EXIST);
         } else {
             model.updatePersonMedicalInformation(nric, medicalInformation);
-            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+            model.updateFilteredPersonList(model.getCurrentPredicate());
 
             return new CommandResult(MESSAGE_SUCCESS);
         }

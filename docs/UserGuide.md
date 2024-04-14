@@ -153,6 +153,7 @@ Format: `add ic/NRIC n/NAME`
 * The NRIC **must** be a valid NRIC.
 * Names should only contain alphanumeric characters and spaces, and it should not be blank.
 * We currently do not support symbols or other special characters so you will need to omit them from the name.
+* After adding a patient, the current displaying list will be automatically changed to the list of all patients to reflect the changes.
 
 Examples:
 * `add ic/S1234567D n/James Doe`
@@ -167,6 +168,7 @@ Format: `edit ic/NRIC n/NAME`
 
 * The NRIC must be a NRIC of an already existing patient.
 * If you would like to change the NRIC instead of the name, create a new patient using `add` then use `delete` on the outdated version.
+* After editing a patient's identification information, if the patient is currently shown in the displayed list, the information updated will be reflected in the displayed list. If the patient is not currently in the displayed list or the displayed list is appointment list, the changes would be done in the background and not be reflected in the current list. One may want to use `list` command to see all patients and check the changes. Therefore, it is recommended to only take actions on patients that are currently shown in the list to avoid confusion.
 
 Examples:
 * `edit ic/S1234567D n/John Doe`
@@ -182,8 +184,8 @@ Deletes the specified patient from the clinic.
 Format: `delete INDEX`
 
 * Deletes the patient at the specified `INDEX`.
-* The index refers to the index number shown in the displayed patient list.
-* If the panel is currently not showing any patient list (e.g. showing appointment list), the default patient list is the general clinic patient list (which contains all the patients).
+* The index refers to the index number shown in the displayed **patient list**. The displayed patient list can either be the list of all patients with non-empty contact information (result of `listc`), list of all patients with non-empty medical information (result of `listm`), or list of all patients (result of `list`).
+* If the panel is currently not showing any patient list (e.g. showing appointment list), the patient list that the index refers to is the one (among the previous stated three) that user viewed last before viewing the appointment list. After successful deletion of the patient, the list shown in the panel will be updated to the one that the index refers to. It is recommended to display the list of patients (run `list`, `listc`, or `listm`) before using the `delete` command to avoid confusion.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
@@ -221,7 +223,7 @@ Format: `addc ic/NRIC [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]`
 <div markdown="block" class="alert alert-info">
 **:information_source: Additional notes about the command format:**<br>
 Items in square brackets are optional.<br>
-  e.g `addc ic/S1234567D p/91234567 e/test@email.com`
+  e.g `[p/91234567]`
 </div>
 
 * The NRIC must be a NRIC of an already existing patient.
@@ -236,6 +238,7 @@ Items in square brackets are optional.<br>
         - have each domain label start and end with alphanumeric characters
         - have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
 * Address has a max length of 50 characters, and it should not be empty upon adding. Although in particular cases, the address can be larger than the current limit, 50 characters is able to suffice the needs in most situations. For long addresses that exceeds the 50 character limit, the compromise is to use shorforms, such as b123 instead of block 123.
+* After adding a patient's contact information, if the patient is currently shown in the displayed list, the information updated will be reflected in the displayed list. If the patient is not currently in the displayed list or the displayed list is appointment list, the changes would be done in the background and not be reflected in the current list. One may want to use `list` command to see all patients and check the changes. Therefore, it is recommended to only take actions on patients that are currently shown in the list to avoid confusion.
 
 Examples:
 * `addc ic/S1234567D p/91234567`
@@ -255,7 +258,7 @@ Format: `editc ic/NRIC [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]`
 <div markdown="block" class="alert alert-info">
 **:information_source: Additional notes about the command format:**<br>
 Items in square brackets are optional.<br>
-  e.g `addc ic/S1234567D p/91234567 e/test@email.com`
+  e.g `[p/91234567]`
 </div>
 
 * At least one of the `optional fields` must be provided.
@@ -271,6 +274,7 @@ Items in square brackets are optional.<br>
         - have each domain label start and end with alphanumeric characters
         - have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
 * Address has a max length of 50 characters, and it should not be empty upon adding. Although in particular cases, the address can be larger than the current limit, 50 characters is able to suffice the needs in most situations. For long addresses that exceeds the 50 character limit, the compromise is to use shorforms, such as b123 instead of block 123.
+* After editing a patient's contact information, if the patient is currently shown in the displayed list, the information updated will be reflected in the displayed list. If the patient is not currently in the displayed list or the displayed list is appointment list, the changes would be done in the background and not be reflected in the current list. One may want to use `list` command to see all patients and check the changes. Therefore, it is recommended to only take actions on patients that are currently shown in the list to avoid confusion.
 
 Examples:
 * `editc ic/S1234567D p/91234567` will result in the phone number of the patient with NRIC `S1234567D` being updated to `91234567`.
@@ -284,7 +288,7 @@ Deletes the contact information of a patient in the clinic.
 
 Format: `deletec ic/NRIC`
 
-* After deletion of a patient's contact information, the patient will disappear from the current showing list panel as the current list panel is only displaying patients with non-empty contact information. If one wants to see the full list of patients, please use `list` command afterwards.
+* After deleting a patient's contact information, if the patient is currently shown in the displayed list, the information updated will be reflected in the displayed list. If the patient is not currently in the displayed list or the displayed list is appointment list, the changes would be done in the background and not be reflected in the current list. One may want to use `list` command to see all patients and check the changes. Therefore, it is recommended to only take actions on patients that are currently shown in the list to avoid confusion.
 
 Examples:
 * `deletec ic/S1234567D` will result in the deletion of the contact information of the patient with the NRIC `S1234567D`.
@@ -310,6 +314,7 @@ Format: `addm ic/NRIC h/HEIGHT w/WEIGHT [t/ALLERGY]…​`
 * The NRIC must be a NRIC of an already existing patient.
 * The value HEIGHT and WEIGHT should be positive alphanumerical values.
 * The allergy tag should be a single word of alphanumeric characters and no space.
+* After adding a patient's medical information, if the patient is currently shown in the displayed list, the information updated will be reflected in the displayed list. If the patient is not currently in the displayed list or the displayed list is appointment list, the changes would be done in the background and not be reflected in the current list. One may want to use `list` command to see all patients and check the changes. Therefore, it is recommended to only take actions on patients that are currently shown in the list to avoid confusion.
 
 <div markdown="block" class="alert alert-info">
 
@@ -340,6 +345,7 @@ Format: `editm ic/NRIC [h/HEIGHT] [w/WEIGHT] [-o] [at/ALLERGY…​]`
 * The overwrite notation `-o` should only appear once.
 * `-o` can be placed at any position in the command.
 * All allergy tag should be a single word of alphanumeric characters and no space.
+* After editing a patient's medical information, if the patient is currently shown in the displayed list, the information updated will be reflected in the displayed list. If the patient is not currently in the displayed list or the displayed list is appointment list, the changes would be done in the background and not be reflected in the current list. One may want to use `list` command to see all patients and check the changes. Therefore, it is recommended to only take actions on patients that are currently shown in the list to avoid confusion.
 
 <div markdown="block" class="alert alert-info">
 **:information_source: Additional notes about the command format:**<br>
@@ -372,7 +378,7 @@ Deletes the medical information of a patient in the clinic.
 
 Format: `deletem ic/NRIC`
 
-* After deletion of a patient's medical information, the patient will disappear from the current showing list panel as the current list panel is only displaying patients with non-empty medical information. If one wants to see the full list of patients, please use `list` command afterwards.
+* After deleting a patient's medical information, if the patient is currently shown in the displayed list, the information updated will be reflected in the displayed list. If the patient is not currently in the displayed list or the displayed list is appointment list, the changes would be done in the background and not be reflected in the current list. One may want to use `list` command to see all patients and check the changes. Therefore, it is recommended to only take actions on patients that are currently shown in the list to avoid confusion.
 
 Examples:
 * `deletec ic/S1234567D` will result in the deletion of the medical information of the patient with the NRIC `S1234567D`.

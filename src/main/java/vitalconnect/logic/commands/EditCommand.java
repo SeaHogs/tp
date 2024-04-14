@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static vitalconnect.logic.Messages.MESSAGE_PERSON_NOT_FOUND;
 import static vitalconnect.logic.parser.CliSyntax.PREFIX_NAME;
 import static vitalconnect.logic.parser.CliSyntax.PREFIX_NRIC;
-import static vitalconnect.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
 
@@ -39,8 +38,7 @@ public class EditCommand extends Command {
     private IdentificationInformation editedInfo;
 
     /**
-     * @param index of the person in the filtered person list to edit
-     * @param editPersonDescriptor details to edit the person with
+     * @param info of the person in the filtered person list to edit
      */
     public EditCommand(IdentificationInformation info) {
         requireNonNull(info);
@@ -68,8 +66,7 @@ public class EditCommand extends Command {
         for (Appointment appointment : appointments) {
             appointment.setPatientName(info.getName().toString());
         }
-
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredPersonList(model.getCurrentPredicate());
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));
     }
 
