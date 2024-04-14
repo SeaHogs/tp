@@ -31,12 +31,12 @@ public class MedicalInformationTest {
         Height validHeightObj = new Height(validHeight);
         Weight validWeightObj = new Weight(validWeight);
 
-        assertThrows(IllegalArgumentException.class,
-                () -> new MedicalInformation(new Height(invalidHeight), new Weight(invalidWeight)));
-        assertThrows(IllegalArgumentException.class,
-                () -> new MedicalInformation(validHeightObj, new Weight(invalidWeight)));
-        assertThrows(IllegalArgumentException.class,
-                () -> new MedicalInformation(new Height(invalidHeight), validWeightObj));
+        assertThrows(IllegalArgumentException.class, () ->
+                new MedicalInformation(new Height(invalidHeight), new Weight(invalidWeight)));
+        assertThrows(IllegalArgumentException.class, () ->
+                new MedicalInformation(validHeightObj, new Weight(invalidWeight)));
+        assertThrows(IllegalArgumentException.class, () ->
+                new MedicalInformation(new Height(invalidHeight), validWeightObj));
 
         assertDoesNotThrow(() -> new MedicalInformation(validHeightObj, validWeightObj));
     }
