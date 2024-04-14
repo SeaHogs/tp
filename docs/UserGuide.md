@@ -626,9 +626,6 @@ After dragging the divider to the left, the calendar view will be shown.
 ## Known issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
-2. **Regarding the edit command**, the appointment does not reflect an edited person's name correctly
-3. **Regarding the undo command**, the undo command does not undo the deleted appointments associated to a person
-4. **Regarding the appointments**, the deletion of patient data via 'delete' does not clear the data for the appointments.
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
