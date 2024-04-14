@@ -123,6 +123,9 @@ Refer to the [Commands](https://ay2324s2-cs2103t-w08-2.github.io/tp/UserGuide.ht
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 
 * Invalid prefixes may lead to unmatching error messages. For example, `editm ic/S1234567D H/8 W/2` will result in an error message saying that `NRIC is invalid...` instead of `invalid prefix`. This is because the whole part `S1234567D H/8 W/2` is treated as the NRIC.
+
+* The NRIC of a patient must be a valid NRIC. You may find more details about the structure in the wikipedia page [here](https://en.wikipedia.org/wiki/National_Registration_Identity_Card#Structure_of_the_NRIC_number/FIN) or check using this online tool [here](https://nric.biz/)
+
 </div>
 
 ### Viewing help : `help`
