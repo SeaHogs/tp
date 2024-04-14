@@ -1,6 +1,9 @@
 package vitalconnect.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+
+import java.util.List;
+
 import static vitalconnect.logic.Messages.MESSAGE_PERSON_NOT_FOUND;
 import static vitalconnect.logic.parser.CliSyntax.PREFIX_NAME;
 import static vitalconnect.logic.parser.CliSyntax.PREFIX_NRIC;
@@ -10,6 +13,7 @@ import vitalconnect.commons.util.ToStringBuilder;
 import vitalconnect.logic.Messages;
 import vitalconnect.logic.commands.exceptions.CommandException;
 import vitalconnect.model.Model;
+import vitalconnect.model.Appointment;
 import vitalconnect.model.person.Person;
 import vitalconnect.model.person.identificationinformation.IdentificationInformation;
 
@@ -59,6 +63,13 @@ public class EditCommand extends Command {
         editedPerson.setIdentificationInformation(info);
 
         model.setPerson(p, editedPerson);
+
+        // Appointments need to be manually updated
+        List<Appointment> appointments = model.findAppointmentsByNric(info.getNric());
+        for (Appointment appointment : appointments) {
+            appointment.setPatientName(info.getName().toString());
+        }
+
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));
     }

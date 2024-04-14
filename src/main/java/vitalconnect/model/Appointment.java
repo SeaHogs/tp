@@ -48,6 +48,11 @@ public class Appointment {
         return patientIc;
     }
 
+    
+    public void setPatientName(String name) {
+        this.patientName = name;
+    }
+
     /**
      * Returns the date and time of the appointment.
      *
