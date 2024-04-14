@@ -229,15 +229,6 @@ public class DeleteContactCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        /**
-         * @param nric
-         * @param medicalInformation
-         */
-        @Override
-        public void updatePersonMedicalInformation(Nric nric, MedicalInformation medicalInformation) {
-            throw new AssertionError("This method should not be called.");
-        }
-
         @Override
         public void updateAppointment(Index index, Appointment appointment) {
             throw new AssertionError("This method should not be called.");
