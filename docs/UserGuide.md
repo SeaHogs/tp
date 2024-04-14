@@ -308,7 +308,8 @@ Adds the medical information to a patient in the clinic.
 Format: `addm ic/NRIC h/HEIGHT w/WEIGHT [t/ALLERGY]…​`
 
 * The NRIC must be a NRIC of an already existing patient.
-* The value HEIGHT and WEIGHT should be positive alphanumerical values.
+* The value HEIGHT should only contain alphanumerical measured in cm, and should be bigger than 0 and smaller than 300.
+* The value WEIGHT should only contain alphanumerical measured in kg, and should be bigger than 0 and smaller than 650.
 * The allergy tag should be a single word of alphanumeric characters and no space.
 
 <div markdown="block" class="alert alert-info">
@@ -336,7 +337,8 @@ Edit the medical information of an existing person.
 Format: `editm ic/NRIC [h/HEIGHT] [w/WEIGHT] [-o] [at/ALLERGY…​]`
 
 * At least one of the optional fields must be provided.
-* The value HEIGHT and WEIGHT should be positive alphanumerical values.
+* The value HEIGHT should only contain alphanumerical measured in cm, and should be bigger than 0 and smaller than 300.
+* The value WEIGHT should only contain alphanumerical measured in kg, and should be bigger than 0 and smaller than 650.
 * The overwrite notation `-o` should only appear once.
 * `-o` can be placed at any position in the command.
 * All allergy tag should be a single word of alphanumeric characters and no space.
