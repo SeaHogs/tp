@@ -124,8 +124,6 @@ Refer to the [Commands](https://ay2324s2-cs2103t-w08-2.github.io/tp/UserGuide.ht
 
 * Invalid prefixes may lead to unmatching error messages. For example, `editm ic/S1234567D H/8 W/2` will result in an error message saying that `NRIC is invalid...` instead of `invalid prefix`. This is because the whole part `S1234567D H/8 W/2` is treated as the NRIC.
 
-* The NRIC of a patient must be a valid NRIC. You may find more details about the structure in the wikipedia page [here](https://en.wikipedia.org/wiki/National_Registration_Identity_Card#Structure_of_the_NRIC_number/FIN) or check using this online tool [here](https://nric.biz/)
-
 </div>
 
 ### Viewing help : `help`
@@ -139,8 +137,9 @@ Format: `help`
 <div style="page-break-after: always;"></div>
 
 ## Patient Management
-The system follows a modular way of saving data. First create a patient using the `add` command, then use specific commands to add specific information to the patient such as contact and medical information. If there is no need for the information, there is no need to add it but the creation of a patient in the database requires using the `add` command.
-The NRIC of a patient is used to indentify the patient so patients can share names but not NRICs.
+* The system follows a modular way of saving data. First create a patient using the `add` command, then use specific commands to add specific information to the patient such as contact and medical information. If there is no need for the information, there is no need to add it but the creation of a patient in the database requires using the `add` command.
+* The NRIC of a patient is used to indentify the patient so patients can share names but not NRICs.
+* The NRIC of a patient must be a valid NRIC. You may find more details about the structure in the wikipedia page [here](https://en.wikipedia.org/wiki/National_Registration_Identity_Card#Structure_of_the_NRIC_number/FIN) or check using this online tool [here](https://nric.biz/)
 
 ### Adding a patient : `add`
 
@@ -149,6 +148,8 @@ Adds a patient to the clinic using their identification information.
 Format: `add ic/NRIC n/NAME`
 
 * The NRIC **must** be a valid NRIC.
+* Names should only contain alphanumeric characters and spaces, and it should not be blank.
+* We currently do not support symbols or other special characters so you will need to omit them from the name.
 
 Examples:
 * `add ic/S1234567D n/James Doe`
