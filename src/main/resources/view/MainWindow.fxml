@@ -12,7 +12,7 @@
 <?import com.calendarfx.view.CalendarView?>
 
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-         title="VitalConnect" minWidth="900" minHeight="600" onCloseRequest="#handleExit">
+         title="VitalConnect" minWidth="1000" minHeight="600" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/address_book_32.png"/>
   </icons>
