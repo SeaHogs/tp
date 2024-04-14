@@ -78,7 +78,7 @@ For first time users, you can first go through the steps listed under [Installat
 
 3. Copy the file to the folder you want to use as the _home folder_ for your vitalConnect.
 
-4. Open a command terminal or learn how to do so [here](https://www.google.com/search?q=how+to+open+a+command+terminal&rlz=1C1GCEA_enSG1015SG1015&oq=how+to+open+a+command+terminal&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBCDQzMThqMGoxqAIAsAIA&sourceid=chrome&ie=UTF-8)
+4. Open a command terminal or learn how to do so [here](https://www.freecodecamp.org/news/command-line-for-beginners/)
 
 5. Type `cd` followed by the location of the folder that you are putting the `vitalconnect.jar` file in. Find out more [here](https://www.wikihow.com/Change-Directories-in-Command-Prompt)
 
