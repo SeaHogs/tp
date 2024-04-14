@@ -82,7 +82,10 @@ For first time users, you can first go through the steps listed under [Installat
 
 5. Type `cd` followed by the location of the folder that you are putting the `vitalconnect.jar` file in. Find out more [here](https://www.wikihow.com/Change-Directories-in-Command-Prompt)
 
-6. Type `java -jar vitalConnect.jar` and press Enter to launch java and run the application. A GUI should appear in a few seconds.
+6. Type `java -jar vitalConnect.jar` and press Enter to launch java and run the application. A GUI should appear in a few seconds. The calendar view will only be shown if the right panel is large enough. You can resize the panel by dragging the divider between the two panels. More instructions can be found in the `Timetable` section. (Note that your application might contain different initial placeholder datas.)
+
+![Launch without calendar](images/launch_1.png)
+![Launch with calendar](images/launch_2.png)
 
 7. Type any command in the command box and press Enter to execute it. e.g. typing `help` and pressing Enter will open the help window.<br>
    Some example commands you can try:
@@ -223,7 +226,8 @@ Items in square brackets are optional.<br>
 
 * The NRIC must be a NRIC of an already existing patient.
 * At least one of the optional fields must be provided.
-* Phone number should be of 3 to 15 digits long.
+* If a prefix (i.e. `p/`, `e/`, `a/`) is included in the command, the value following it should not be empty. If user does not want to add a specific field, do not include its prefix in the command. Otherwise an error message will be shown as empty values for these fields are not allowed.
+* Phone numbers should only contain numeric value without any other characters, and it should be 3 to 15 digits long.
 * Emails should be of the format local-part@domain and adhere to the following constraints:
     1. The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (+_.-). The local-part may not start or end with any special characters, and the special characters should not be adjacent to each other.
     2. This is followed by a '@' and then a domain name. The domain name is made up of domain labels separated by periods.
@@ -258,6 +262,15 @@ Items in square brackets are optional.<br>
 * To delete an `optional field`, leave the `VALUE` part empty.
 * If the `VALUE` part is not empty, the corresponding patient contact's field will either be updated or added with the new value.
 * If all three fields of contact information (phone, email, and address) become empty, the contact information of the patient will be considered deleted. If one want to add a new contact information, please use `addc` command.
+* Phone numbers should only contain numeric value without any other characters, and it should be 3 to 15 digits long.
+* Emails should be of the format local-part@domain and adhere to the following constraints:
+    1. The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (+_.-). The local-part may not start or end with any special characters, and the special characters should not be adjacent to each other.
+    2. This is followed by a '@' and then a domain name. The domain name is made up of domain labels separated by periods.
+       The domain name must:
+        - end with a domain label at least 2 characters long
+        - have each domain label start and end with alphanumeric characters
+        - have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
+* Address has a max length of 50 characters, and it should not be empty upon adding. Although in particular cases, the address can be larger than the current limit, 50 characters is able to suffice the needs in most situations. For long addresses that exceeds the 50 character limit, the compromise is to use shorforms, such as b123 instead of block 123.
 
 Examples:
 * `editc ic/S1234567D p/91234567` will result in the phone number of the patient with NRIC `S1234567D` being updated to `91234567`.
@@ -572,11 +585,15 @@ Incorrect or certain edits can cause the Clinic to behave in unexpected ways (e.
 --------------------------------------------------------------------------------------------------------------------
 ## Timetable
 
+![Timetable1](images/timetable1.png)
+
 This feature allows the user to visualise the appointment throughout the day.
 
-The timetable has an auto adjustment feature, if window size is larger enough(larger than 700 pixel), the timetable will show an extra calendar view with agenda on the left side of the timetable.
+The right part of the timetable (marked by green box) is a visual representation of the appointment for today. Each appointment is represented by a blue box with patient's name and nric. If the box is large enough, it will also display the appointment's start time. The height of the box represents the time length of the appointment.
 
-The three buttons on the top left of the timetable allows user to adjust which day to look at using mouse.
+The left part of the timetable (marked by purple box) is a calendar view with agendas for the current day. The complete information for the apopintment can be found in the agenda view, including the patient's name, nric, and the start time and end time of the appointments.
+
+The three buttons on the top left of the timetable (marked by yellow box) allows user to adjust which day to look at using mouse.
 1. `Today` button will show the timetable of the current day.
 2. `<` button will show the timetable of the previous day.
 3. `>` button will show the timetable of the next day.
@@ -585,6 +602,14 @@ The timetable also support changing the view using keyboard shortcuts.
 1. `Ctrl + P` will show the timetable of the previous day.
 2. `Ctrl + N` will show the timetable of the next day.
 3. `Ctrl + T` will show the timetable of the today.
+
+It is worth noting that the left calendar view (marked by purple box in the above image) is only shown when the left panel size is large enough (i.e. larger than 700 pixels). If the calendar is not currently showing, users can resize the panel by dragging the divider in the middle of the application. The divider is highlighted in **green color** in the following two images below.
+
+![Timetable without calendar](images/timetable3.png)
+
+After dragging the divider to the left, the calendar view will be shown.
+
+![Timetable with calendar](images/timetable2.png)
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 

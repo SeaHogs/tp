@@ -28,9 +28,6 @@ Class Allergy
 
 Class UniqueAppointmentList
 Class Appointment
-Class Doctor
-Class Patient
-Class Time
 
 Class I #FFFFFF
 }
@@ -70,9 +67,6 @@ Address -[hidden]right-> Email
 
 Clinic *--> "1" UniqueAppointmentList
 UniqueAppointmentList --> "~* all" Appointment
-Appointment *--> Doctor
-Appointment *--> Patient
-Appointment *--> Time
 
 ModelManager --> "~* filtered" Person
 ModelManager --> "~* filtered" Appointment
