@@ -87,7 +87,7 @@ For first time users, you can first go through the steps listed under [Installat
 ![Launch without calendar](images/launch_1.png)
 ![Launch with calendar](images/launch_2.png)
 
-7. Type any command in the command box and press Enter to execute it. e.g. typing `help` and pressing Enter will open the help window.<br>
+Type any command in the command box and press Enter to execute it. e.g. typing `help` and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
     * `list` : Lists all patients.
@@ -564,17 +564,17 @@ Format: `exit`
 
 ### Saving the data
 
-Clinic data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+Clinic data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually. All of the data is saved automatically as JSON files `[JAR file location]/data/clinic.json` and `[JAR file location]/data/appointments.json`. The data is saved into two JSON files, one for patient data and one for appointment data.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If you exit the program through other means, your data will still be saved. Refer to [here](https://se-education.org/addressbook-level3/UserGuide.html#saving-the-data) for more info.
+If you exit the program through other means, your data will still be saved. If you are transfering data, be mindful that there are two JSON files with data.
 </div>
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
 ### Editing the data file
 
-Clinic data are saved automatically as a JSON file `[JAR file location]/data/clinic.json`. Advanced users are welcome to update data directly by editing that data file.
+Advanced users are welcome to update data directly by editing the following JSON files, `[JAR file location]/data/clinic.json` or `[JAR file location]/data/appointments.json`.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 Incorrect or certain edits can cause the Clinic to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
