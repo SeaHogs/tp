@@ -4,11 +4,11 @@ title: User Guide
 ---
 ## Introduction
 
-Welcome to **vitalConnect**, your all-in-one desktop application for efficient clinic management, optimized for both Command Line Interface (CLI) and Graphical User Interface (GUI).
+Welcome to **VitalConnect**, your all-in-one desktop application for efficient clinic management, optimized for both Command Line Interface (CLI) and Graphical User Interface (GUI).
 
 Designed to streamline your clinic management tasks, VitalConnect offers the speed of a CLI with the convenience of a GUI, allowing you to effortlessly organize your patient and appointments with just a few keystrokes.With its intuitive interface and robust features, you can add, delete, and search for appointments, track medical information, as well as check patient contact for communication with ease.
 
-So, whether you're a busy professional juggling multiple appointments, vitalConnect is here to simplify your life. Let's dive in and explore how vitalConnect can revolutionize the way you manage your appointment and patient.
+So, whether you're a busy professional juggling multiple appointments, VitalConnect is here to simplify your life. Let's dive in and explore how VitalConnect can revolutionize the way you manage your appointment and patient.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -76,13 +76,13 @@ For first time users, you can first go through the steps listed under [Installat
 
 2. Download the latest `vitalconnect.jar` from [here](https://github.com/AY2324S2-CS2103T-W08-2/tp/releases).
 
-3. Copy the file to the folder you want to use as the _home folder_ for your vitalConnect.
+3. Copy the file to the folder you want to use as the _home folder_ for your VitalConnect.
 
 4. Open a command terminal or learn how to do so [here](https://www.freecodecamp.org/news/command-line-for-beginners/)
 
 5. Type `cd` followed by the location of the folder that you are putting the `vitalconnect.jar` file in. Find out more [here](https://www.wikihow.com/Change-Directories-in-Command-Prompt)
 
-6. Type `java -jar vitalConnect.jar` and press Enter to launch java and run the application. A GUI should appear in a few seconds. The calendar view will only be shown if the right panel is large enough. You can resize the panel by dragging the divider between the two panels. More instructions can be found in the `Timetable` section. (Note that your application might contain different initial placeholder datas.)
+6. Type `java -jar vitalconnect.jar` and press Enter to launch java and run the application. A GUI should appear in a few seconds. The calendar view will only be shown if the right panel is large enough. You can resize the panel by dragging the divider between the two panels. More instructions can be found in the `Timetable` section. (Note that your application might contain different initial placeholder datas.)
 
 ![Launch without calendar](images/launch_1.png)
 ![Launch with calendar](images/launch_2.png)
