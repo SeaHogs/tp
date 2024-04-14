@@ -137,6 +137,7 @@ Format: `help`
 
 ## Patient Management
 The system follows a modular way of saving data. First create a patient using the `add` command, then use specific commands to add specific information to the patient such as contact and medical information. If there is no need for the information, there is no need to add it but the creation of a patient in the database requires using the `add` command.
+The NRIC of a patient is used to indentify the patient so patients can share names but not NRICs.
 
 ### Adding a patient : `add`
 
@@ -158,7 +159,7 @@ Edits a patient's identification information.
 Format: `edit ic/NRIC n/NAME`
 
 * The NRIC must be a NRIC of an already existing patient.
-* If you would like to change the name instead of the NRIC, create a new patient using `add` then use `delete` on the outdated version.
+* If you would like to change the NRIC instead of the name, create a new patient using `add` then use `delete` on the outdated version.
 
 Examples:
 * `edit ic/S1234567D n/John Doe`
