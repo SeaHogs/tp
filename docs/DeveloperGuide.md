@@ -102,7 +102,7 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 
 How the `Logic` component works:
 
-1. When `Logic` is called upon to execute a command, it is passed to an `AddressBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
+1. When `Logic` is called upon to execute a command, it is passed to an `ClinicParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
 1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
 1. The command can communicate with the `Model` when it is executed (e.g. to delete a person).<br>
    Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.
@@ -113,14 +113,13 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 <img src="images/ParserClasses.png" width="600"/>
 
 How the parsing works:
-* When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
+* When called upon to parse a user command, the `ClinicParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `ClinicParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
 **API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
 
 <img src="images/ModelClassDiagram.png" width="450" />
-
 
 The `Model` component,
 
@@ -137,8 +136,8 @@ The `Model` component,
 <img src="images/StorageClassDiagram.png" width="550" />
 
 The `Storage` component,
-* can save both address book data and user preference data in JSON format, and read them back into corresponding objects.
-* inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
+* can save both clinic data and user preference data in JSON format, and read them back into corresponding objects.
+* inherits from both `ClinicStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
 ### Common classes
@@ -330,113 +329,128 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (good
 (For all use cases below, the **System** is the `vitalconnect` and the **Actor** is the `user`, unless specified otherwise)
 
 **Use case: UC1 - Add a patient**
+
 **MSS**
 1.  User requests to add a patient by specifying the patient's name and NRIC.
 2.  vitalconnect adds the patient with name and NRIC.
 3.  vitalconnect displays the updated patient list with the new patient added.
-Use case ends.
+</br>Use case ends.
+
 **Extensions**
 * 1a. The NRIC already exists in the system.
-      * 1a1. vitalconnect displays warning message and the existing patient's information.
-      Use case ends.
+  * 1a1. vitalconnect displays warning message and the existing patient's information.
+    </br>Use case ends.
 * 1b. The NRIC or name entered is invalid.
-      * 1b1. vitalconnect shows an error message.
-      Use case ends.
+  * 1b1. vitalconnect shows an error message.
+    </br>Use case ends.
 
 **Use case: UC2 - Delete a patient**
+
 **MSS**
 1.  User requests to delete a patient by specifying the index of the patient in the patient list.
 2.  vitalconnect deletes the patient from patient list.
 3.  vitalconnect displays the updated patient list with the patient removed.
-Use case ends.
+</br>Use case ends.
+
 **Extensions**
 * 1a. The patient doesn't exist in the system.
-      * 1a1. vitalconnect displays an error message.
-      Use case ends.
+  * 1a1. vitalconnect displays an error message.
+    </br>Use case ends.
 
 **Use case: UC3 - Add an appointment**
 **MSS**
 1.  User requests to add an appointment for a patient by providing the patient's NRIC, appointment start time, and duration.
 2.  vitalconnect add the appointment to the appointment list under this patient's NRIC.
 3.  vitalconnect displays the updated appointment list with the new appointment added.
-Use case ends.
+</br>Use case ends.
+
 **Extensions**
 * 1a. Critical information (start time and duration) missing or in invalid format in the add appointment command.
-      * 1a1. vitalconnect displays a warning message.
-      Use case ends.
+  * 1a1. vitalconnect displays a warning message.
+    </br>Use case ends.
 * 1b. The assigned patient doesn't exist in the database.
-      * 1b1. vitalconnect displays a warning message.
-      Use case ends.
+  * 1b1. vitalconnect displays a warning message.
+    </br>Use case ends.
 * 1c. The appointment time overlaps with existing appointment time.
-      * 1c1. vitalconnect displays a warning message and shows all the appointments with overlapping time.
-      Use case ends.
+  * 1c1. vitalconnect displays a warning message and shows all the appointments with overlapping time.
+    </br>Use case ends.
 
 **Use case: UC4 - Delete an appointment**
+
 **MSS**
 1.  User requests to delete an appointment for a patient by specifying the index of the appointment in the appointment list.
 2.  vitalconnect removes the appointment from the appointment list.
 3.  vitalconnect displays the updated appointment list with the appointment removed.
-Use case ends.
+</br>Use case ends.
+
 **Extensions**
 * 1a. The appointment doesn't exist in the database.
-      * 1a1. vitalconnect displays a warning message.
-      Use case ends.
+  * 1a1. vitalconnect displays a warning message.
+    </br>Use case ends.
 
 **Use case: UC5 - Modify an appointment**
+
 **MSS**
 1.  User requests to modify an appointment for a patient by specifying the index of the appointment in the appointment list.
 2.  vitalconnect saves the new appointment information.
 3.  vitalconnect displays the updated detail of the appointment modified.
-Use case ends.
+</br>Use case ends.
+
 **Extensions**
 * 1a. The appointment referred by the index doesn't exist in the database.
-      * 1a1. vitalconnect displays an error message.
-      Use case ends.
+  * 1a1. vitalconnect displays an error message.
+    </br>Use case ends.
 * 1b. The id is not a valid number.
-      * 1b1. vitalconnect displays an error message.
-      Use case ends.
+  * 1b1. vitalconnect displays an error message.
+    </br>Use case ends.
 * 1c. The new information is in invalid form.
-      * 1c1. vitalconnect displays an error message.
-      Use case ends.
+  * 1c1. vitalconnect displays an error message.
+    </br>Use case ends.
 * 1d. The modified appointment time overlaps with existing appointment time.
-      * 1d1. vitalconnect displays an error message and shows all the conflicting appointments.
-      Use case ends.
+  * 1d1. vitalconnect displays an error message and shows all the conflicting appointments.
+    </br>Use case ends.
 
 **Use case: UC6 - Add specific information (contact/medical information) for a patient**
+
 **MSS**
 1.  User requests to add specific information for a patient by specifying the patient's NRIC and the information to be added.
 2.  vitalconnect save the specific information to the database.
-Use case ends.
+</br>Use case ends.
+
 **Extensions**
 * 1a. The patient doesn't exist in the database.
-      * 1a1. vitalconnect displays a warning message.
-      Use case ends.
+  * 1a1. vitalconnect displays a warning message.
+    </br>Use case ends.
 * 1b. The information is invalid.
-      * 1b1. vitalconnect displays a warning message.
-      Use case ends.
+  * 1b1. vitalconnect displays a warning message.
+    </br>Use case ends.
 
 **Use case: UC7 - Delete specific information (contact/medical information) for a patient**
+
 **MSS**
-1.  User requests to delete specific information for a patient by specifying the patient's NRIC.
-2.  vitalconnect remove the specific information to the database.
-Use case ends.
+1. User requests to delete specific information for a patient by specifying the patient's NRIC.
+2. vitalconnect remove the specific information to the database.
+</br>Use case ends.
+
 **Extensions**
 * 1a. The patient or specific information doesn't exist in the database.
-      * 1a1. vitalconnect displays a warning message.
-      Use case ends.
+  * 1a1. vitalconnect displays a warning message.
+    </br>Use case ends.
 
 **Use case: UC8 - Modify specific information**
+
 **MSS**
 1.  User requests to modify specific information for a patient by specifying the patient's NRIC and new information.
 2.  vitalconnect displays the updated specific information of the patient.
-Use case ends.
+</br>Use case ends.
+
 **Extensions**
 * 1a. The patient or specific information doesn't exist in the database.
-      * 1a1. vitalconnect displays a warning message.
-      Use case ends.
+  * 1a1. vitalconnect displays a warning message.
+    </br>Use case ends.
 * 1b. The specific information is invalid.
-      * 1b1. vitalconnect displays a warning message.
-      Use case ends.
+  * 1b1. vitalconnect displays a warning message.
+    </br>Use case ends.
 
 ### Non-Functional Requirements
 
@@ -472,7 +486,6 @@ Use case ends.
 * **ID (Identification Number)**: A unique identifier associated with a specific appointment, used to distinguish and reference individual appointments.
 * **Warning Message**: An alert displayed by the vitalconnect system to notify the user of a potential issue or discrepancy.
 * **Error Message**: A notification displayed by the vitalconnect system to inform the user about a critical issue or mistake.
-* **Crashing Time**: A situation where the proposed time for an appointment conflicts with an existing appointment time in the system.
 * **Invalid Data Entry**: Information entered by the user that does not meet the required format or criteria.
 * **Valid Data Entry**: Information entered by the user that meets the required format or criteria.
 * **Tooltip**: A common graphical user interface element in which, when hovering over a screen element or component, a text box displays information about that element.
