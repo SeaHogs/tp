@@ -10,10 +10,11 @@ import static vitalconnect.commons.util.AppUtil.checkArgument;
 public class Height {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Height should only contain alphanumerical measured in cm, and should be bigger than 0";
+            "Height should only contain alphanumerical measured in cm, and should be bigger than 0"
+                    + "and less than 300 cm.";
 
     /*
-     * The first character of the address must not be a whitespace,
+     * The first character of the height must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[0-9]*\\.?[0-9]+";
@@ -44,7 +45,7 @@ public class Height {
         if (test.isEmpty()) {
             return true;
         }
-        return test.matches(VALIDATION_REGEX) && Float.parseFloat(test) > 0;
+        return test.matches(VALIDATION_REGEX) && Float.parseFloat(test) > 0 && Float.parseFloat(test) < 272;
     }
 
     @Override

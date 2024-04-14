@@ -1,4 +1,4 @@
-package vitalconnect.model.allergytag;
+package vitalconnect.model.person.meidcalinformation;
 
 import static vitalconnect.testutil.Assert.assertThrows;
 
