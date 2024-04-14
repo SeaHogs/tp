@@ -7,6 +7,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -77,6 +78,22 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+
+        primaryStage.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.isControlDown() && event.getCode() == KeyCode.N) {
+                    timetable.getCalendarView().goForward();
+                    event.consume();
+                } else if (event.isControlDown() && event.getCode() == KeyCode.P) {
+                    timetable.getCalendarView().goBack();
+                    event.consume();
+                } else if (event.isControlDown() && event.getCode() == KeyCode.T) {
+                    timetable.getCalendarView().goToday();
+                    event.consume();
+                }
+            }
+        });
     }
 
     public Stage getPrimaryStage() {

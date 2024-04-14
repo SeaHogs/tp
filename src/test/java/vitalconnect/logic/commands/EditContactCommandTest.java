@@ -1,13 +1,8 @@
 package vitalconnect.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static vitalconnect.logic.Messages.MESSAGE_PERSON_NOT_FOUND;
-import static vitalconnect.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -17,92 +12,69 @@ import javafx.collections.ObservableList;
 import vitalconnect.commons.core.GuiSettings;
 import vitalconnect.commons.core.index.Index;
 import vitalconnect.logic.commands.exceptions.CommandException;
-import vitalconnect.logic.parser.ParserUtil;
-import vitalconnect.logic.parser.exceptions.ParseException;
 import vitalconnect.model.Appointment;
+import vitalconnect.model.Clinic;
 import vitalconnect.model.Model;
 import vitalconnect.model.ReadOnlyClinic;
 import vitalconnect.model.ReadOnlyUserPrefs;
 import vitalconnect.model.person.Person;
+import vitalconnect.model.person.contactinformation.Address;
 import vitalconnect.model.person.contactinformation.ContactInformation;
+import vitalconnect.model.person.contactinformation.Email;
+import vitalconnect.model.person.contactinformation.Phone;
 import vitalconnect.model.person.identificationinformation.IdentificationInformation;
-import vitalconnect.model.person.identificationinformation.Name;
 import vitalconnect.model.person.identificationinformation.Nric;
 import vitalconnect.model.person.medicalinformation.MedicalInformation;
+import vitalconnect.testutil.PersonBuilder;
 
-public class CreateAptCommandTest {
+public class EditContactCommandTest {
+    private Nric validNricAlreadyInModel = new Nric("S1234567D");
+    private Email validEmail = new Email("email@test.com");
+    private Phone validPhone = new Phone("12345678");
+    private Address validAddress = new Address("address");
 
     @Test
-    public void execute_icNotExist_throwsCommandException() throws ParseException {
-        ModelStub modelStub = new ModelStubWithoutPerson();
-        Nric patientIc = new Nric("S4848058F");
-        LocalDateTime dateTimeStr = ParserUtil.parseTime("02/06/2026 1330");
-        int duration = 2;
-        CreateAptCommand createAptCommand = new CreateAptCommand(patientIc, dateTimeStr, duration);
+    public void execute_editEmail_success() throws CommandException {
+        EditContactCommandTest.ModelStubHasOnePersonWithEmptyCI modelStub =
+            new EditContactCommandTest.ModelStubHasOnePersonWithEmptyCI();
+        CommandResult commandResult = new EditContactCommand(validNricAlreadyInModel, validEmail, null, null)
+            .execute(modelStub);
 
-        assertThrows(CommandException.class,
-            MESSAGE_PERSON_NOT_FOUND, () -> createAptCommand.execute(modelStub));
+        assertEquals(EditContactCommand.MESSAGE_SUCCESS, commandResult.getFeedbackToUser());
     }
 
     @Test
-    public void execute_invalidDuration_throwsCommandException() throws ParseException {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Nric patientIc = new Nric("S1234567D");
-        LocalDateTime dateTime = ParserUtil.parseTime("02/02/2024 1330");
-        int duration = 0; // invalid duration
-        CreateAptCommand createAptCommand = new CreateAptCommand(patientIc, dateTime, duration);
+    public void execute_editPhone_success() throws CommandException {
+        EditContactCommandTest.ModelStubHasOnePersonWithEmptyCI modelStub =
+            new EditContactCommandTest.ModelStubHasOnePersonWithEmptyCI();
+        CommandResult commandResult = new EditContactCommand(validNricAlreadyInModel, null, validPhone, null)
+            .execute(modelStub);
 
-        assertThrows(CommandException.class, () -> createAptCommand.execute(modelStub));
+        assertEquals(EditContactCommand.MESSAGE_SUCCESS, commandResult.getFeedbackToUser());
     }
 
     @Test
-    public void execute_conflictingAppointment_throwsCommandException() throws ParseException {
-        ModelStub modelStub = new ModelStubWithConflictingAppointment();
-        Nric patientIc = new Nric("S1234567D");
-        LocalDateTime dateTimeStr = ParserUtil.parseTime("02/02/2024 1330");
-        int duration = 2;
-        CreateAptCommand createAptCommand = new CreateAptCommand(patientIc, dateTimeStr, duration);
+    public void execute_editAddress_success() throws CommandException {
+        EditContactCommandTest.ModelStubHasOnePersonWithEmptyCI modelStub =
+            new EditContactCommandTest.ModelStubHasOnePersonWithEmptyCI();
+        CommandResult commandResult = new EditContactCommand(validNricAlreadyInModel, null, null, validAddress)
+            .execute(modelStub);
 
-        assertThrows(CommandException.class, () -> createAptCommand.execute(modelStub));
+        assertEquals(EditContactCommand.MESSAGE_SUCCESS, commandResult.getFeedbackToUser());
     }
 
     @Test
-    public void execute_appointmentInPast_throwsCommandException() {
-        ModelStub modelStub = new ModelStubAcceptingPersonAdded();
-        Nric patientIc = new Nric("S1234567D");
-        // Set a date and time in the past
-        LocalDateTime pastDateTime = LocalDateTime.now().minusDays(1);
-        int duration = 2; // duration in units (each unit represents 15 minutes)
-
-        CreateAptCommand createAptCommand = new CreateAptCommand(patientIc, pastDateTime, duration);
-
-        assertThrows(CommandException.class,
-                "Appointment time cannot be in the past.", () -> createAptCommand.execute(modelStub));
+    public void execute_editAll_success() throws CommandException {
+        EditContactCommandTest.ModelStubHasOnePersonWithEmptyCI modelStub =
+            new EditContactCommandTest.ModelStubHasOnePersonWithEmptyCI();
+        CommandResult commandResult = new EditContactCommand(validNricAlreadyInModel,
+            validEmail, validPhone, validAddress).execute(modelStub);
+        assertEquals(EditContactCommand.MESSAGE_SUCCESS, commandResult.getFeedbackToUser());
     }
 
-    @Test
-    public void execute_appointmentCreatedSuccessfully() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Nric patientIc = new Nric("S1234567D");
-        LocalDateTime dateTimeStr = ParserUtil.parseTime("02/02/2025 1330");
-        int duration = 2;
-
-        CreateAptCommand createAptCommand = new CreateAptCommand(patientIc, dateTimeStr, duration);
-
-        CommandResult commandResult = createAptCommand.execute(modelStub);
-
-        String successString = String.format("Created an appointment successfully!\nName: "
-                        + "Amy" + "\nNRIC: %s\nStart time: 2 Feb 2025 13:30\nEnd time: 2 Feb 2025 14:00",
-                patientIc.toString());
-
-        assertEquals(successString, commandResult.getFeedbackToUser());
-        assertTrue(modelStub.appointmentsAdded.stream().anyMatch(appointment ->
-                appointment.getPatientIc().equals(patientIc.toString())
-                        && appointment.getDateTime().equals(dateTimeStr)));
-    }
-
-
-
+    /**
+     * A default model stub that have all of the methods failing.
+     */
     private class ModelStub implements Model {
         @Override
         public void setCurrentPredicate(Predicate<Person> predicate) {
@@ -111,13 +83,13 @@ public class CreateAptCommandTest {
 
         @Override
         public Predicate<Person> getCurrentPredicate() {
-            throw new AssertionError("This method should not be called.");
+            return null;
         }
-
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
         }
+
         @Override
         public ReadOnlyUserPrefs getUserPrefs() {
             throw new AssertionError("This method should not be called.");
@@ -189,14 +161,15 @@ public class CreateAptCommandTest {
         }
 
         @Override
-        public boolean doesIcExist(String name) {
+        public boolean doesPersonExist(String name) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean doesPersonExist(String name) {
+        public boolean doesIcExist(String name) {
             throw new AssertionError("This method should not be called.");
         }
+
         @Test
         public void addAppointment(Appointment appointment) {
             throw new AssertionError("This method should not be called.");
@@ -235,17 +208,16 @@ public class CreateAptCommandTest {
         @Override
         public void deleteAppointment(Appointment appointment) {
             throw new AssertionError("This method should not be called.");
-
         }
 
         @Override
         public Person findPersonByNric(Nric nric) {
-            return null;
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public Person findPersonByNric(IdentificationInformation info) {
-            return null;
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -259,74 +231,38 @@ public class CreateAptCommandTest {
          */
         @Override
         public void updatePersonMedicalInformation(Nric nric, MedicalInformation medicalInformation) {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void updateAppointment(Index index, Appointment appointment) {
+            throw new AssertionError("This method should not be called.");
         }
 
     }
-
-
-    private class ModelStubWithoutPerson extends ModelStub {
-        @Override
-        public boolean doesPersonExist(String name) {
-            return false;
-        }
-        @Override
-        public boolean doesIcExist(String ic) {
-            return false;
-        }
-    }
-
 
     /**
-     * A Model stub that always accept the appointment being added.
+     * A Model stub that always accept the person being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Appointment> appointmentsAdded = new ArrayList<>();
-        private final Person amy = new Person(new IdentificationInformation(new Name("Amy"), new Nric("S1234567D")),
-                new MedicalInformation());
-        @Override
-        public boolean doesPersonExist(String name) {
-            return true;
-        }
+    private class ModelStubHasOnePersonWithEmptyCI extends EditContactCommandTest.ModelStub {
+        final Person person = new PersonBuilder().withEmail("abc@test.com").build();
 
         @Override
         public Person findPersonByNric(Nric nric) {
-            if (amy.getIdentificationInformation().getNric().equals(nric)) {
-                return amy;
-            }
-            return null;
+            return this.person;
         }
 
         @Override
-        public boolean doesIcExist(String ic) {
-            return true;
+        public ReadOnlyClinic getClinic() {
+            return new Clinic();
         }
 
         @Override
-        public List<Appointment> getConflictingAppointments(Appointment appointment) {
-            ArrayList<Appointment> conflictingAppointments = new ArrayList<>();
-            return conflictingAppointments;
+        public void updateFilteredPersonList(Predicate<Person> predicate) {
         }
 
         @Override
-        public void addAppointment(Appointment appointment) {
-            appointmentsAdded.add(appointment);
-        }
-    }
-
-    private class ModelStubWithConflictingAppointment extends ModelStubAcceptingPersonAdded {
-        @Override
-        public List<Appointment> getConflictingAppointments(Appointment appointment) {
-            ArrayList<Appointment> conflictingAppointments = new ArrayList<>();
-            conflictingAppointments.add(appointment); // Simulate a conflict
-            return conflictingAppointments;
+        public void updatePersonContactInformation(Nric nric, ContactInformation contactInformation) {
         }
     }
 }
-
-
-

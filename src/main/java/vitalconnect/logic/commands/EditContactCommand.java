@@ -96,4 +96,14 @@ public class EditContactCommand extends Command {
                                                         editedInfo.getAddress());
         return cmd.execute(model);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof EditContactCommand // instanceof handles nulls
+            && nric.equals(((EditContactCommand) other).nric)
+            && email.equals(((EditContactCommand) other).email)
+            && phone.equals(((EditContactCommand) other).phone)
+            && address.equals(((EditContactCommand) other).address));
+    }
 }

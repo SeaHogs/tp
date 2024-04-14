@@ -271,7 +271,5 @@ public class AddContactCommandTest {
         @Override
         public void updatePersonContactInformation(Nric nric, ContactInformation contactInformation) {
         }
-
     }
-
 }
