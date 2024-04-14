@@ -14,7 +14,7 @@ public class Height {
                     + "and smaller than 300";
 
     /*
-     * The first character of the address must not be a whitespace,
+     * The first character of the height must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[0-9]*\\.?[0-9]+";

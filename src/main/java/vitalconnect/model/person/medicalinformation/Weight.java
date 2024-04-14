@@ -21,7 +21,7 @@ public class Weight {
 
     public final String value;
     /**
-     * Constructs a {@code Height}.
+     * Constructs a {@code Weight}.
      *
      * @param weight A valid weight.
      */
@@ -45,7 +45,6 @@ public class Weight {
         if (test.isEmpty()) {
             return true;
         }
-        // heavies person in the world is 650kg
         return test.matches(VALIDATION_REGEX) && Float.parseFloat(test) > 0 && Float.parseFloat(test) < 650;
     }
 
