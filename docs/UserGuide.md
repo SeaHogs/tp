@@ -232,7 +232,7 @@ Format: `addc ic/NRIC [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]`
 <div markdown="block" class="alert alert-info">
 **:information_source: Additional notes about the command format:**<br>
 Items in square brackets are optional.<br>
-  e.g `[p/91234567]`
+  e.g `addc ic/S1234567D p/91234567`
 </div>
 
 * The NRIC must be the NRIC of an already existing patient.
@@ -250,7 +250,6 @@ Items in square brackets are optional.<br>
 
 Examples:
 * `addc ic/S1234567D p/91234567`
-* `addc ic/S1234567D p/91234567 e/test@email.com `
 * `addc ic/S1234567D p/91234567 e/test@email.com a/123, Clementi Rd, 1234665`
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
@@ -266,7 +265,7 @@ Format: `editc ic/NRIC [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]`
 <div markdown="block" class="alert alert-info">
 **:information_source: Additional notes about the command format:**<br>
 Items in square brackets are optional.<br>
-  e.g `[p/91234567]`
+  e.g `editc ic/S1234567D p/91234567`
 </div>
 
 * At least one of the `optional fields` must be provided.
@@ -285,8 +284,7 @@ Items in square brackets are optional.<br>
 
 Examples:
 * `editc ic/S1234567D p/91234567` will result in the phone number of the patient with NRIC `S1234567D` being updated to `91234567`.
-* `editc ic/S1234567D a/` will result in the address of the patient with NRIC `S1234567D` being deleted.
-
+* `editc ic/S1234567D a/` will delete the address of the patient with NRIC `S1234567D`
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
 ### Deleting contact information : `deletec`
