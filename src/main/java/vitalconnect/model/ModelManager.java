@@ -141,6 +141,15 @@ public class ModelManager implements Model {
         appointments.remove(appointment);
     }
 
+    /**
+     * Deletes all appointments from the clinic.
+     *
+     */
+    @Override
+    public void clearAppointments() {
+        appointments.clear();
+    }
+
     @Override
     public List<Appointment> getConflictingAppointments(Appointment newAppointment) {
         return getFilteredAppointmentList().stream()
@@ -188,6 +197,12 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyClinic getClinicCopy() {
         ReadOnlyClinic copy = new Clinic(clinic);
+        return copy;
+    }
+
+    @Override
+    public List<Appointment> getAppointmentsCopy() {
+        List<Appointment> copy = new ArrayList<Appointment>(appointments);
         return copy;
     }
 

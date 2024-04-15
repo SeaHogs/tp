@@ -24,7 +24,7 @@ public class CreateAptCommand extends Command {
 
     public static final String COMMAND_WORD = "adda";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds an appointment for a patient in the patient list.\n "
+            + ": Adds an appointment for a patient in the patient list.\n"
             + "Format: " + COMMAND_WORD + " ic/ NRIC s/ START TIME d/ DURATION\n"
             + "(One unit of duration represent 15 minutes.)\n"
             + "Example: " + COMMAND_WORD + " "
