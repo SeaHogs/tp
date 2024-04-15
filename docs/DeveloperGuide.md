@@ -158,12 +158,14 @@ How the parsing works:
   
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
+<div style="page-break-after: always;"></div>
+
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2324S2-CS2103T-W08-2/tp/tree/master/src/main/java/vitalconnect/model/Model.java)
 
 <div style="page-break-after: always;"></div>
 
-<img src="images/ModelClassDiagram.png" width="400" />
+<img src="images/ModelClassDiagram.png" width="450" />
 
 The `Model` component,
 
@@ -171,7 +173,13 @@ The `Model` component,
 * stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` object.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
-* stores each `Person` with 3 types of information; [`Identification Information`](https://github.com/AY2324S2-CS2103T-W08-2/tp/tree/master/src/main/java/vitalconnect/model/person/identificationinformation), [`Contact Information`](https://github.com/AY2324S2-CS2103T-W08-2/tp/tree/master/src/main/java/vitalconnect/model/person/contactinformation), `Medical Information`](https://github.com/AY2324S2-CS2103T-W08-2/tp/tree/master/src/main/java/vitalconnect/model/person/medicalinformation), and each them can be expanded upon easily for future additions such as emergency contact, etc.
+
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
+
+<div style="page-break-after: always;"></div>
+
+Each `Person` is able to be stored with 3 types of information; [`Identification Information`](https://github.com/AY2324S2-CS2103T-W08-2/tp/tree/master/src/main/java/vitalconnect/model/person/identificationinformation), [`Contact Information`](https://github.com/AY2324S2-CS2103T-W08-2/tp/tree/master/src/main/java/vitalconnect/model/person/contactinformation), `Medical Information`](https://github.com/AY2324S2-CS2103T-W08-2/tp/tree/master/src/main/java/vitalconnect/model/person/medicalinformation).
+And each them can be expanded upon easily for future additions such as emergency contact, etc.
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
@@ -352,6 +360,8 @@ The timetable feature allows users to view all appointments scheduled for a spec
 ### Person List Integration
 1. Although not directly related to appointments, the class also observes changes in the ObservableList of persons (personList). This is because the UI needs to update when person details change.
 2. When a person's details change, the corresponding entries in the calendar view are updated to reflect the changes. Since appointments only change when the user use 'lista' command, and the calendar view can not wait for 'lista' command.
+
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
 
 <div style="page-break-after: always;"></div>
 
@@ -739,8 +749,6 @@ testers are expected to do more *exploratory* testing.
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-[<span style="font-size: small;">Back to table of contents</span>](#toc)
-
 ## **Appendix: Planned Enhancements**
 1. Currently the commands are switching the view upon execution and a planned enhancement would be to standarize the view switching.
 2. Currently the constraints for names are limited and a planned enhancement would be to widen the constraints for special characters to account for other languages as well.
@@ -749,3 +757,6 @@ testers are expected to do more *exploratory* testing.
 5. Currently the system only supports one doctor by forcing the appointments to not overlap and a planned enhancement would be to set multiple doctors so that the clinic can have overlapping appointments
 6. Currently for the timetable, weekends and weekdays between 10pm and 6am the timetable are greyed out, making the users believe that no appointments can be added in those period and a planned enhancement would be to allow users to set their own limits. 
 7. Currently the system has no standardised command formats and a planned enhancement would be to standardize them so that the order is consistent.
+
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
+
