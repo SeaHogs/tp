@@ -253,6 +253,35 @@ The feature for deleting appointments allows users to remove scheduled appointme
 
 This section outlines the technical and functional aspects of the appointment features, providing clarity on how they 
 are implemented and interact with the overall system. Additional enhancements like undo/redo capabilities further refine user interactions, making the application robust and user-friendly.
+
+
+### **Timetable**
+
+The timetable feature allows users to view all appointments scheduled for a specific day. This feature provides a consolidated view of the day's appointments, aiding in planning and organization.
+
+#### Calendar View Integration:
+1. The class uses the [CalendarFX](https://github.com/dlsc-software-consulting-gmbh/CalendarFX) library to implement the calendar view.
+2. The setUpCalendarView() method configures various aspects of the CalendarView, such as styling, toolbars, search functionality, and context menus.
+
+#### Appointment List Management:
+1. The Timetable class observes changes in the ObservableList of appointments (appointmentList). It updates the calendar view accordingly when appointments are added, removed, replaced, or updated.
+2. The addAppointmentToCalendar() method adds a new appointment to the calendar view by creating an Entry object with appropriate details and adding it to the calendar.
+
+#### Person List Integration:
+1. Although not directly related to appointments, the class also observes changes in the ObservableList of persons (personList). This is because the UI needs to update when person details change.
+2. When a person's details change, the corresponding entries in the calendar view are updated to reflect the changes. Since appointments only change when user use 'lista' command(surprising?), and the calendar view can not wait for 'lista' command.
+
+#### Real-time Clock Update:
+1. The class includes a background thread (updateTimeThread) that continuously updates the current date and time displayed in the calendar view every 30 seconds.
+2. This ensures that the calendar view always displays the current date and time without requiring manual refresh.
+
+#### Example Usage Scenario:
+1. The user navigates to the timetable view to see all appointments scheduled for the day.
+2. The calendar view displays a list of appointments with details such as patient name, appointment time, and duration.
+3. The user can interact with the calendar view to view additional details, modify appointments, or add new appointments.
+4. The calendar view automatically updates in real-time to reflect any changes made to appointments or patient details.
+5. If enough pixels are available, the calendar view will display a agenda.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
