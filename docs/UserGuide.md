@@ -65,9 +65,6 @@ For first time users, you can first go through the steps listed under [Installat
 - [Known issues](#known-issues)
 - [Command summary](#command-summary)
 
-
---------------------------------------------------------------------------------------------------------------------
-
 <div style="page-break-after: always;"></div>
 
 ## Installation
@@ -84,21 +81,20 @@ For first time users, you can first go through the steps listed under [Installat
 
 6. Type `java -jar vitalconnect.jar` and press Enter to launch java and run the application. A GUI should appear in a few seconds. The calendar view will only be shown if the right panel is large enough. You can resize the panel by dragging the divider between the two panels. More instructions can be found in the `Timetable` section. (Note that your application might contain different initial placeholder datas.)
 
-![Launch without calendar](images/launch_1.png)
 ![Launch with calendar](images/launch_2.png)
 
 Type any command in the command box and press Enter to execute it. e.g. typing `help` and pressing Enter will open the help window.<br>
-   Some example commands you can try:
+Some example commands you can try:
 
-    * `list` : Lists all patients.
+* `list` : Lists all patients.
 
-    * `add n/John Doe ic/S1234567D` : Adds a patient named `John Doe` with nric `S1234567D` to the Clinic.
+* `add n/John Doe ic/S1234567D` : Adds a patient named `John Doe` with nric `S1234567D` to the Clinic.
 
-    * `delete 3` : Deletes the 3rd patient shown in the current list.
+* `delete 3` : Deletes the 3rd patient shown in the current list.
 
-    * `clear` : Deletes all patients.
+* `clear` : Deletes all patients.
 
-    * `exit` : Exits the app.
+* `exit` : Exits the app.
 
 Refer to the [Commands](https://ay2324s2-cs2103t-w08-2.github.io/tp/UserGuide.html#commands) below for specific details for each of the commands.
 
@@ -160,6 +156,8 @@ Examples:
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
+<div style="page-break-after: always;"></div>
+
 ### Editing identification information : `edit`
 
 Edits a patient's identification information.
@@ -217,6 +215,10 @@ For patients that do not require the clinic to contact them in the future such a
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 Once the contact information has been added to an existing patient, you are no longer able to add contact information using the `addc` command. Instead, you should use the `editc` command to edit the existing contact information. </div>
 
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
+
+<div style="page-break-after: always;"></div>
+
 ### Adding contact information : `addc`
 
 Adds the contact information to a patient in the clinic.
@@ -266,7 +268,7 @@ Items in square brackets are optional.<br>
 * At least one of the `optional fields` must be provided.
 * To delete an `optional field`, leave the `VALUE` part empty.
 * If the `VALUE` part is not empty, the corresponding patient contact's field will either be updated or added with the new value.
-* If all three fields of contact information (phone, email, and address) become empty, the contact information of the patient will be considered deleted. If one want to add a new contact information, please use `addc` command.
+* If all three fields of contact information become empty, the contact information of the patient will be  deleted. To add a new contact information, use the `addc` command.
 * Phone numbers should only contain numeric value without any other characters, and it should be 3 to 15 digits long.
 * Emails should be of the format local-part@domain and adhere to the following constraints:
     1. The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (+_.-). The local-part may not start or end with any special characters, and the special characters should not be adjacent to each other.
@@ -294,13 +296,13 @@ Examples:
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
-<div style="page-break-after: always;"></div>
-
 ### Listing contact information : `listc`
 
 Lists all patients with contact information.
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
+
+<div style="page-break-after: always;"></div>
 
 ## Medical Information Management
 
@@ -319,10 +321,6 @@ Format: `addm ic/NRIC h/HEIGHT w/WEIGHT [t/ALLERGY]…​`
 Tag word which is longer than 45 characters (longest english word) may not be displayed properly as it cut out by the UI.
 It is recommended to use short and concise tag word.
 </div>
-
-[<span style="font-size: small;">Back to table of contents</span>](#toc)
-
-<div style="page-break-after: always;"></div>
 
 <div markdown="block" class="alert alert-info">
 
@@ -356,8 +354,8 @@ Format: `editm ic/NRIC [h/HEIGHT] [w/WEIGHT] [-o] [at/ALLERGY…​]`
 * All allergy tag should be a single word of alphanumeric characters and no space.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-Tag word which is longer than 45 characters (longest english word) may not be displayed properly as it cut out by the UI.
-It is recommended to use short and concise tag word.
+Use of prefix `-o` will delete all existing tag, including the added tag in current command before it. Tag word which is longer than 45 characters (longest english word) may not be displayed properly as it cut out by the UI. It is recommended to use short and concise tag word.
+
 </div>
 
 <div markdown="block" class="alert alert-info">
@@ -377,9 +375,6 @@ Example:
 This will change the weight of patient with ic S1234567D to 100 and
 overwrite allergy tag to milk and egg.
 * Noted that command achieving same effect could be `editm ic/S1234567D w/100 at/milk at/egg -o` or `editm ic/S1234567D -o w/100 at/milk at/egg`.
-
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-Use of prefix `-o` will delete all existing tag, including the added tag in current command before it. </div>
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
@@ -470,12 +465,9 @@ __The input should be the number of duration unit:__
 * The limitation of the input of duration is 96 (24 hours).
 
 Examples:
-* `edita 1 s/02/02/2025 1300 d/4`
-    * This change the time of the appointment of index 1 to Feb 2 2025 at 1pm and end at 2pm.
-* `edita 1 s/02/02/2025 1300`
-    * Only change the appointment start time to Feb 2 2025 at 1pm, the time duration remains the same.
-* `edita 1 d/4`
-    * Only change the time length of the appointment to one hour, the start time remains the same.
+* `edita 1 s/02/02/2025 1300 d/4` - This change the time of the appointment of index 1 to Feb 2 2025 at 1pm and end at 2pm.
+* `edita 1 s/02/02/2025 1300`- Only change the appointment start time to Feb 2 2025 at 1pm, the time duration remains the same.
+* `edita 1 d/4` - Only change the time length of the appointment to one hour, the start time remains the same.
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
@@ -609,8 +601,11 @@ This feature allows the user to visualise the appointment throughout the day.
 The right part of the timetable (marked by green box) is a visual representation of the appointment for today. Each appointment is represented by a blue box with patient's name and nric. If the box is large enough, it will also display the appointment's start time. The height of the box represents the time length of the appointment.
 
 The left part of the timetable (marked by purple box) is a calendar view with agendas for the current day. The complete information for the apopintment can be found in the agenda view, including the patient's name, nric, and the start time and end time of the appointments.
+<div style="page-break-after: always;"></div>
+
 
 The three buttons on the top left of the timetable (marked by yellow box) allows user to adjust which day to look at using mouse.
+
 1. `Today` button will show the timetable of the current day.
 2. `<` button will show the timetable of the previous day.
 3. `>` button will show the timetable of the next day.
@@ -623,6 +618,8 @@ The timetable also support changing the view using keyboard shortcuts.
 It is worth noting that the left calendar view (marked by purple box in the above image) is only shown when the left panel size is large enough (i.e. larger than 700 pixels). If the calendar is not currently showing, users can resize the panel by dragging the divider in the middle of the application. The divider is highlighted in **green color** in the following two images below.
 
 ![Timetable without calendar](images/timetable3.png)
+
+<div style="page-break-after: always;"></div>
 
 After dragging the divider to the left, the calendar view will be shown.
 
@@ -649,8 +646,6 @@ After dragging the divider to the left, the calendar view will be shown.
 --------------------------------------------------------------------------------------------------------------------
 
 <div style="page-break-after: always;"></div>
-
-[<span style="font-size: small;">Back to table of contents</span>](#toc)
 
 ## Command summary
 
