@@ -354,15 +354,19 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (good
 1.  User requests to add a patient by specifying the patient's name and NRIC.
 2.  vitalconnect adds the patient with name and NRIC.
 3.  vitalconnect displays the updated patient list with the new patient added.
-</br>Use case ends.
+
+Use case ends.
+
 
 **Extensions**
 * 1a. The NRIC already exists in the system.
   * 1a1. vitalconnect displays warning message and the existing patient's information.
-    </br>Use case ends.
+
+	Use case ends.
 * 1b. The NRIC or name entered is invalid.
   * 1b1. vitalconnect shows an error message.
-    </br>Use case ends.
+
+	Use case ends.
 
 **Use case: UC2 - Delete a patient**
 
@@ -370,30 +374,36 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (good
 1.  User requests to delete a patient by specifying the index of the patient in the patient list.
 2.  vitalconnect deletes the patient from the patient list.
 3.  vitalconnect displays the updated patient list with the patient removed.
-</br>Use case ends.
+
+Use case ends.
 
 **Extensions**
 * 1a. The patient doesn't exist in the system.
   * 1a1. vitalconnect displays an error message.
-    </br>Use case ends.
+
+Use case ends.
 
 **Use case: UC3 - Add an appointment**
 **MSS**
 1.  User requests to add an appointment for a patient by providing the patient's NRIC, appointment start time, and duration.
 2.  vitalconnect add the appointment to the appointment list under this patient's NRIC.
 3.  vitalconnect displays the updated appointment list with the new appointment added.
-</br>Use case ends.
+
+Use case ends.
 
 **Extensions**
 * 1a. Critical information (start time and duration) missing or in invalid format in the add appointment command.
   * 1a1. vitalconnect displays a warning message.
-    </br>Use case ends.
+
+	Use case ends.
 * 1b. The assigned patient doesn't exist in the database.
   * 1b1. vitalconnect displays a warning message.
-    </br>Use case ends.
+    
+	Use case ends.
 * 1c. The appointment time overlaps with an existing appointment time.
   * 1c1. vitalconnect displays a warning message and shows all the appointments with overlapping times.
-    </br>Use case ends.
+
+	Use case ends.
 
 **Use case: UC4 - Delete an appointment**
 
@@ -401,12 +411,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (good
 1.  User requests to delete an appointment for a patient by specifying the index of the appointment in the appointment list.
 2.  vitalconnect removes the appointment from the appointment list.
 3.  vitalconnect displays the updated appointment list with the appointment removed.
-</br>Use case ends.
+
+Use case ends.
 
 **Extensions**
 * 1a. The appointment doesn't exist in the database.
   * 1a1. vitalconnect displays a warning message.
-    </br>Use case ends.
+
+
+Use case ends.
 
 **Use case: UC5 - Modify an appointment**
 
@@ -414,63 +427,77 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (good
 1.  User requests to modify an appointment for a patient by specifying the index of the appointment in the appointment list.
 2.  vitalconnect saves the new appointment information.
 3.  vitalconnect displays the updated details of the appointment modified.
-</br>Use case ends.
+
+Use case ends.
 
 **Extensions**
 * 1a. The appointment referred by the index doesn't exist in the database.
   * 1a1. vitalconnect displays an error message.
-    </br>Use case ends.
+
+	Use case ends.
 * 1b. The ID is not a valid number.
   * 1b1. vitalconnect displays an error message.
-    </br>Use case ends.
+
+	Use case ends.
 * 1c. The new information is in invalid form.
   * 1c1. vitalconnect displays an error message.
-    </br>Use case ends.
+
+	Use case ends.
 * 1d. The modified appointment time overlaps with an existing appointment time.
   * 1d1. vitalconnect displays an error message and shows all the conflicting appointments.
-    </br>Use case ends.
+
+	Use case ends.
 
 **Use case: UC6 - Add specific information (contact/medical information) for a patient**
 
 **MSS**
 1.  User requests to add specific information for a patient by specifying the patient's NRIC and the information to be added.
 2.  vitalconnect saves the specific information to the database.
-</br>Use case ends.
+
+Use case ends.
 
 **Extensions**
 * 1a. The patient doesn't exist in the database.
   * 1a1. vitalconnect displays a warning message.
-    </br>Use case ends.
+
+	Use case ends.
+
 * 1b. The information is invalid.
   * 1b1. vitalconnect displays a warning message.
-    </br>Use case ends.
+
+	Use case ends.
 
 **Use case: UC7 - Delete specific information (contact/medical information) for a patient**
 
 **MSS**
 1. User requests to delete specific information for a patient by specifying the patient's NRIC.
 2. vitalconnect removes the specific information from the database.
-</br>Use case ends.
+
+Use case ends.
 
 **Extensions**
 * 1a. The patient or specific information doesn't exist in the database.
   * 1a1. vitalconnect displays a warning message.
-    </br>Use case ends.
+
+Use case ends.
 
 **Use case: UC8 - Modify specific information**
 
 **MSS**
 1.  User requests to modify specific information for a patient by specifying the patient's NRIC and new information.
 2.  vitalconnect displays the updated specific information of the patient.
-</br>Use case ends.
+
+Use case ends.
 
 **Extensions**
 * 1a. The patient or specific information doesn't exist in the database.
   * 1a1. vitalconnect displays a warning message.
-    </br>Use case ends.
+
+	Use case ends.
 * 1b. The specific information is invalid.
   * 1b1. vitalconnect displays a warning message.
-    </br>Use case ends.
+
+	Use case ends.
 
 **Use case: UC9 - Undoing the deletion**
 
@@ -479,7 +506,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (good
 2.  vitalconnect displays the updated specific information of the patient.
 3.  User requests an undo via the undo command.
 4.  vitalconnect reverts and displays the previous information of the patient.
-</br>Use case ends.
+
+Use case ends.
 
 ### Non-Functional Requirements
 
