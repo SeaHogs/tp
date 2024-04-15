@@ -2,6 +2,7 @@ package vitalconnect.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import vitalconnect.commons.core.index.Index;
@@ -28,6 +29,7 @@ public class DeleteCommand extends Command {
 
     private final Index targetIndex;
     private Person deletedPerson;
+    private List<Appointment> pastAppointments;
 
     public DeleteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
@@ -45,6 +47,9 @@ public class DeleteCommand extends Command {
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
         deletedPerson = personToDelete.copyPerson();
         model.deletePerson(personToDelete);
+
+        pastAppointments = model.getAppointmentsCopy();
+
         List<Appointment> aptToDelete =
                 model.findAppointmentsByNric(personToDelete.getIdentificationInformation().getNric());
         for (Appointment apt: aptToDelete) {
@@ -78,6 +83,7 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult undo(Model model) throws CommandException {
         AddCommand cmd = new AddCommand(deletedPerson);
+        model.setAppointments(pastAppointments);
         return cmd.execute(model);
     }
 }
