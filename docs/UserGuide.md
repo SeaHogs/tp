@@ -184,8 +184,12 @@ Deletes the specified patient from the clinic.
 Format: `delete INDEX`
 
 * Deletes the patient at the specified `INDEX`.
-* The index refers to the index number shown in the displayed **patient list**. The displayed patient list can either be the list of all patients with non-empty contact information (result of `listc`), list of all patients with non-empty medical information (result of `listm`), or list of all patients (result of `list`).
-* If the panel is currently not showing any patient list (e.g. showing appointment list), the patient list that the index refers to is the one (among the previous stated three) that user viewed last before viewing the appointment list. After successful deletion of the patient, the list shown in the panel will be updated to the one that the index refers to. It is recommended to display the list of patients (run `list`, `listc`, or `listm`) before using the `delete` command to avoid confusion.
+* INDEX reference: The index corresponds to the position of a patient within the **currently displayed patient list**. This list may be:
+  * All patients with non-empty contact information (result of the `listc` command).
+  * All patients with non-empty medical information (result of the `listm` command).
+  * All patients in the system (result of the `list` command).
+* If the display is not currently showing a patient list (for example, it's showing the appointment list), then the index refers to the last patient list viewed before the switch to the appointment list.
+* After successful deletion of the patient, the list shown in the panel will be updated to the one that the index refers to. It is recommended to display the list of patients (run `list`, `listc`, or `listm`) before using the `delete` command to avoid confusion.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
