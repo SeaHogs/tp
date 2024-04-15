@@ -16,30 +16,30 @@
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
     <SplitPane fx:id="splitPane" minHeight="105" GridPane.columnIndex="0">
-      <Pane styleClass="person-pane" minWidth="30" maxWidth="260">
+      <Pane styleClass="person-pane" minWidth="180" maxWidth="270">
         <VBox>
           <VBox spacing="5" alignment="CENTER_LEFT" styleClass="person-pane-padding">
             <HBox>
-              <Label fx:id="id" styleClass="cell_big_label">
+              <Label fx:id="id" styleClass="cell_big_label" wrapText="true">
                 <minWidth>
                   <!-- Ensures that the label text is never truncated -->
                   <Region fx:constant="USE_PREF_SIZE" />
                 </minWidth>
               </Label>
-              <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
+              <Label fx:id="name" text="\$first" prefWidth="150" styleClass="cell_big_label" wrapText="true"/>
             </HBox>
-            <Label fx:id="nric" styleClass="cell_small_label" text="\$nric" />
+            <Label fx:id="nric" styleClass="cell_small_label" prefWidth="150" text="\$nric" wrapText="true" />
           </VBox>
           <Separator visible="false" prefHeight="1" styleClass="custom-separator"/>
           <VBox styleClass="person-pane-padding" prefWidth="210">
-            <Label fx:id="allergy" text="\$first" styleClass="label-allergy" />
+            <Label fx:id="allergy" text="\$first" styleClass="label-allergy" wrapText="true" />
             <FlowPane fx:id="tags"/>
           </VBox>
         </VBox>
       </Pane>
-      <StackPane minWidth="110" prefWidth="130">
+      <StackPane minWidth="100" prefWidth="130" maxWidth="200">
         <HBox styleClass="person-pane-top-padding">
-          <Label fx:id="medicalInformation" text="\$first" styleClass="cell_big_label" />
+          <Label fx:id="medicalInformation" text="\$first" styleClass="cell_big_label" wrapText="true" />
         </HBox>
       </StackPane>
       <Pane minWidth="30" prefWidth="400">

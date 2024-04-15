@@ -168,7 +168,6 @@ Format: `edit ic/NRIC n/NAME`
 
 * The NRIC must be a NRIC of an already existing patient.
 * If you would like to change the NRIC instead of the name, create a new patient using `add` then use `delete` on the outdated version.
-* After editing a patient's identification information, if the patient is currently shown in the displayed list, the information updated will be reflected in the displayed list. If the patient is not currently in the displayed list or the displayed list is appointment list, the changes would be done in the background and not be reflected in the current list. One may want to use `list` command to see all patients and check the changes. Therefore, it is recommended to only take actions on patients that are currently shown in the list to avoid confusion.
 
 Examples:
 * `edit ic/S1234567D n/John Doe`
@@ -242,7 +241,6 @@ Items in square brackets are optional.<br>
         - have each domain label start and end with alphanumeric characters
         - have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
 * Address has a max length of 50 characters, and it should not be empty upon adding. Although in particular cases, the address can be larger than the current limit, 50 characters is able to suffice the needs in most situations. For long addresses that exceeds the 50 character limit, the compromise is to use shorforms, such as b123 instead of block 123.
-* After adding a patient's contact information, if the patient is currently shown in the displayed list, the information updated will be reflected in the displayed list. If the patient is not currently in the displayed list or the displayed list is appointment list, the changes would be done in the background and not be reflected in the current list. One may want to use `list` command to see all patients and check the changes. Therefore, it is recommended to only take actions on patients that are currently shown in the list to avoid confusion.
 
 Examples:
 * `addc ic/S1234567D p/91234567`
@@ -278,7 +276,6 @@ Items in square brackets are optional.<br>
         - have each domain label start and end with alphanumeric characters
         - have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
 * Address has a max length of 50 characters, and it should not be empty upon adding. Although in particular cases, the address can be larger than the current limit, 50 characters is able to suffice the needs in most situations. For long addresses that exceeds the 50 character limit, the compromise is to use shorforms, such as b123 instead of block 123.
-* After editing a patient's contact information, if the patient is currently shown in the displayed list, the information updated will be reflected in the displayed list. If the patient is not currently in the displayed list or the displayed list is appointment list, the changes would be done in the background and not be reflected in the current list. One may want to use `list` command to see all patients and check the changes. Therefore, it is recommended to only take actions on patients that are currently shown in the list to avoid confusion.
 
 Examples:
 * `editc ic/S1234567D p/91234567` will result in the phone number of the patient with NRIC `S1234567D` being updated to `91234567`.
@@ -291,8 +288,6 @@ Examples:
 Deletes the contact information of a patient in the clinic.
 
 Format: `deletec ic/NRIC`
-
-* After deleting a patient's contact information, if the patient is currently shown in the displayed list, the information updated will be reflected in the displayed list. If the patient is not currently in the displayed list or the displayed list is appointment list, the changes would be done in the background and not be reflected in the current list. One may want to use `list` command to see all patients and check the changes. Therefore, it is recommended to only take actions on patients that are currently shown in the list to avoid confusion.
 
 Examples:
 * `deletec ic/S1234567D` will result in the deletion of the contact information of the patient with the NRIC `S1234567D`.
@@ -319,7 +314,15 @@ Format: `addm ic/NRIC h/HEIGHT w/WEIGHT [t/ALLERGY]…​`
 * The value HEIGHT should only contain alphanumerical measured in cm, and should be bigger than 0 and smaller than 300.
 * The value WEIGHT should only contain alphanumerical measured in kg, and should be bigger than 0 and smaller than 650.
 * The allergy tag should be a single word of alphanumeric characters and no space.
-* After adding a patient's medical information, if the patient is currently shown in the displayed list, the information updated will be reflected in the displayed list. If the patient is not currently in the displayed list or the displayed list is appointment list, the changes would be done in the background and not be reflected in the current list. One may want to use `list` command to see all patients and check the changes. Therefore, it is recommended to only take actions on patients that are currently shown in the list to avoid confusion.
+
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+Tag word which is longer than 45 characters (longest english word) may not be displayed properly as it cut out by the UI.
+It is recommended to use short and concise tag word.
+</div>
+
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
+
+<div style="page-break-after: always;"></div>
 
 <div markdown="block" class="alert alert-info">
 
@@ -341,7 +344,7 @@ Examples:
 
 ### Editing medical information : `editm`
 
-Edit the medical information of an existing person.
+Edit the medical information of an existing patient.
 
 Format: `editm ic/NRIC [h/HEIGHT] [w/WEIGHT] [-o] [at/ALLERGY…​]`
 
@@ -351,7 +354,11 @@ Format: `editm ic/NRIC [h/HEIGHT] [w/WEIGHT] [-o] [at/ALLERGY…​]`
 * The overwrite notation `-o` should only appear once.
 * `-o` can be placed at any position in the command.
 * All allergy tag should be a single word of alphanumeric characters and no space.
-* After editing a patient's medical information, if the patient is currently shown in the displayed list, the information updated will be reflected in the displayed list. If the patient is not currently in the displayed list or the displayed list is appointment list, the changes would be done in the background and not be reflected in the current list. One may want to use `list` command to see all patients and check the changes. Therefore, it is recommended to only take actions on patients that are currently shown in the list to avoid confusion.
+
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+Tag word which is longer than 45 characters (longest english word) may not be displayed properly as it cut out by the UI.
+It is recommended to use short and concise tag word.
+</div>
 
 <div markdown="block" class="alert alert-info">
 **:information_source: Additional notes about the command format:**<br>
@@ -367,7 +374,7 @@ Prefix explanation:
 Example:
 * `editm ic/S1234567D w/100 -o at/milk at/egg`
 
-This will change the weight of person with ic S1234567D to 100 and
+This will change the weight of patient with ic S1234567D to 100 and
 overwrite allergy tag to milk and egg.
 * Noted that command achieving same effect could be `editm ic/S1234567D w/100 at/milk at/egg -o` or `editm ic/S1234567D -o w/100 at/milk at/egg`.
 
@@ -383,8 +390,6 @@ Use of prefix `-o` will delete all existing tag, including the added tag in curr
 Deletes the medical information of a patient in the clinic.
 
 Format: `deletem ic/NRIC`
-
-* After deleting a patient's medical information, if the patient is currently shown in the displayed list, the information updated will be reflected in the displayed list. If the patient is not currently in the displayed list or the displayed list is appointment list, the changes would be done in the background and not be reflected in the current list. One may want to use `list` command to see all patients and check the changes. Therefore, it is recommended to only take actions on patients that are currently shown in the list to avoid confusion.
 
 Examples:
 * `deletec ic/S1234567D` will result in the deletion of the medical information of the patient with the NRIC `S1234567D`.
@@ -432,7 +437,7 @@ Examples:
 
 ### Editing an appointment : `edita`
 
-Edits the start time and/or duration of an appointment of an existing person.
+Edits the start time and/or duration of an appointment of an existing patient.
 
 __Format:__ `edita INDEX [s/START_TIME] [d/DURATION]`
 
