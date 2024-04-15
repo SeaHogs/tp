@@ -163,8 +163,6 @@ How the parsing works:
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2324S2-CS2103T-W08-2/tp/tree/master/src/main/java/vitalconnect/model/Model.java)
 
-<div style="page-break-after: always;"></div>
-
 <img src="images/ModelClassDiagram.png" width="450" />
 
 The `Model` component,
@@ -735,8 +733,7 @@ testers are expected to do more *exploratory* testing.
 <div style="page-break-after: always;"></div>
 
 ### Deleting a person
-
-1. Deleting a person while all persons are being shown
+Deleting a person while all persons are being shown
 
    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
@@ -757,6 +754,4 @@ testers are expected to do more *exploratory* testing.
 5. Currently the system only supports one doctor by forcing the appointments to not overlap and a planned enhancement would be to set multiple doctors so that the clinic can have overlapping appointments
 6. Currently for the timetable, weekends and weekdays between 10pm and 6am the timetable are greyed out, making the users believe that no appointments can be added in those period and a planned enhancement would be to allow users to set their own limits. 
 7. Currently the system has no standardised command formats and a planned enhancement would be to standardize them so that the order is consistent.
-
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
-
