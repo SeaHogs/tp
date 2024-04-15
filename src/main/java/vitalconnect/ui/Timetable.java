@@ -31,7 +31,7 @@ public class Timetable extends UiPart<Region> {
      * Constructs a new Timetable instance.
      *
      * @param appointmentList    The list of appointments to be displayed in the timetable.
-     * @param filteredPersonList
+     * @param personList        The list of persons to be displayed in the timetable.
      */
     public Timetable(ObservableList<Appointment> appointmentList, ObservableList<Person> personList) {
         super(FXML);
