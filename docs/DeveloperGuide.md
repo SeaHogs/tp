@@ -750,7 +750,7 @@ Deleting a person while all persons are being shown
 2. Currently the constraints for names are limited and a planned enhancement would be to widen the constraints for special characters to account for other languages as well.
 3. Currently the constraints for allergy tags are limited and do not account for the size and a planned enhancement would be to adjust the constraints for the size and special characters to account for allergies with multiple words.
 4. Currently the system requires several commands to add all of the information to a patient and a planned enhancement would be to have a global add function, allowing the user to add all of the information in one singular command.
-5. Currently the system only supports one doctor by forcing the appointments to not overlap and a planned enhancement would be to set multiple doctors so that the clinic can have overlapping appointments
+5. Currently the system forces the appointments to not overlap and a planned enhancement would be to allow overlapping appointments for clinics with multiple doctors.
 6. Currently for the timetable, weekends and weekdays between 10pm and 6am the timetable are greyed out, making the users believe that no appointments can be added in those period and a planned enhancement would be to allow users to set their own limits. 
 7. Currently the system has no standardised command formats and a planned enhancement would be to standardize them so that the order is consistent.
 
