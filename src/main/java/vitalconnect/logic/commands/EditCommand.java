@@ -23,7 +23,7 @@ public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the identification details of a person"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the identification details of a person. "
             + "Parameters:\n"
             + PREFIX_NRIC + "NRIC "
             + PREFIX_NAME + "NEW_NAME \n"
