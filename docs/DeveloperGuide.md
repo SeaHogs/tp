@@ -170,11 +170,12 @@ The `Model` component,
 * stores the clinic data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
 * stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` object.
-* does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
 <div style="page-break-after: always;"></div>
+
+The model also does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
 Each `Person` is able to be stored with 3 types of information; [`Identification Information`](https://github.com/AY2324S2-CS2103T-W08-2/tp/tree/master/src/main/java/vitalconnect/model/person/identificationinformation), [`Contact Information`](https://github.com/AY2324S2-CS2103T-W08-2/tp/tree/master/src/main/java/vitalconnect/model/person/contactinformation), `Medical Information`](https://github.com/AY2324S2-CS2103T-W08-2/tp/tree/master/src/main/java/vitalconnect/model/person/medicalinformation).
 And each them can be expanded upon easily for future additions such as emergency contact, etc.
@@ -754,4 +755,5 @@ Deleting a person while all persons are being shown
 5. Currently the system only supports one doctor by forcing the appointments to not overlap and a planned enhancement would be to set multiple doctors so that the clinic can have overlapping appointments
 6. Currently for the timetable, weekends and weekdays between 10pm and 6am the timetable are greyed out, making the users believe that no appointments can be added in those period and a planned enhancement would be to allow users to set their own limits. 
 7. Currently the system has no standardised command formats and a planned enhancement would be to standardize them so that the order is consistent.
+
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
