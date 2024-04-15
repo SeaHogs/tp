@@ -38,7 +38,6 @@ public class Timetable extends UiPart<Region> {
         this.appointmentList = appointmentList;
         calendarView = new CalendarView();
         setUpCalendarView();
-
         // A listener to update the calendar view when the appointment list changes
         appointmentList.addListener((ListChangeListener<Appointment>) change -> {
             while (change.next()) {

@@ -116,6 +116,14 @@ How the parsing works:
 * When called upon to parse a user command, the `ClinicParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `ClinicParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
+### Timetable component
+
+**API** : [`CalendarFx`](https://github.com/dlsc-software-consulting-gmbh/CalendarFX)
+1. The `CalendarFx` library is used to display the appointments in a calendar view.
+2. The timetable class create a CalendarView and display the appointments in the calendar view.
+3. The timetable class listens to changes observableList<Appointment> and observableList<Person> in the model and updates the entries in CalendarView accordingly.
+4. Timetable contains a thread that updates the time pointer of CalendarView every 5 minutes to reflect the latest time.
+
 ### Model component
 **API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
 
