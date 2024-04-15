@@ -63,6 +63,21 @@ public class EditAppointmentCommand extends Command {
 
         Appointment appointmentToEdit = lastShownList.get(index.getZeroBased()).getCopy();
         editedApt = appointmentToEdit.getCopy();
+        updateAppointmentToEdit(dateTime, duration, appointmentToEdit);
+
+        String conflictMessage = isConflict(appointmentToEdit, model);
+        if (!conflictMessage.equals("")) {
+            throw new CommandException("Appointment time conflicts detected:\n" + conflictMessage);
+        }
+        aptReference = appointmentToEdit;
+        model.updateAppointment(index, appointmentToEdit);
+        return new CommandResult(MESSAGE_SUCCESS + "index: " + index.getOneBased()
+          + "\nUpdated appointment detail:\n" + appointmentToEdit.toString(),
+          false, false, CommandResult.Type.SHOW_APPOINTMENTS);
+    }
+
+    private void updateAppointmentToEdit(LocalDateTime dateTime, int duration, Appointment appointmentToEdit)
+            throws CommandException {
         if (dateTime != null && duration > 0) {
             // both updated
             checkAppointmentTime(dateTime);
@@ -86,16 +101,6 @@ public class EditAppointmentCommand extends Command {
             appointmentToEdit.setEndDateTime(endDateTime);
             appointmentToEdit.setDuration(duration);
         }
-
-        String conflictMessage = isConflict(appointmentToEdit, model);
-        if (!conflictMessage.equals("")) {
-            throw new CommandException("Appointment time conflicts detected:\n" + conflictMessage);
-        }
-        aptReference = appointmentToEdit;
-        model.updateAppointment(index, appointmentToEdit);
-        return new CommandResult(MESSAGE_SUCCESS + "index: " + index.getOneBased()
-          + "\nUpdated appointment detail:\n" + appointmentToEdit.toString(),
-          false, false, CommandResult.Type.SHOW_APPOINTMENTS);
     }
 
     private void checkAppointmentTime(LocalDateTime dateTime) throws CommandException {
