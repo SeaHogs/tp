@@ -142,7 +142,7 @@ public class DeleteContactCommandTest {
         public void clearAppointments() {
             throw new AssertionError("This method should not be called.");
         }
-        
+
         @Override
         public List<Appointment> getAppointmentsCopy() {
             throw new AssertionError("This method should not be called.");
