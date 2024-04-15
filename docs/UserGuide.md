@@ -4,11 +4,11 @@ title: User Guide
 ---
 ## Introduction
 
-Welcome to **vitalConnect**, your all-in-one desktop application for efficient clinic management, optimized for both Command Line Interface (CLI) and Graphical User Interface (GUI).
+Welcome to **VitalConnect**, your all-in-one desktop application for efficient clinic management, optimized for both Command Line Interface (CLI) and Graphical User Interface (GUI).
 
 Designed to streamline your clinic management tasks, VitalConnect offers the speed of a CLI with the convenience of a GUI, allowing you to effortlessly organize your patient and appointments with just a few keystrokes.With its intuitive interface and robust features, you can add, delete, and search for appointments, track medical information, as well as check patient contact for communication with ease.
 
-So, whether you're a busy professional juggling multiple appointments, vitalConnect is here to simplify your life. Let's dive in and explore how vitalConnect can revolutionize the way you manage your appointment and patient.
+So, whether you're a busy professional juggling multiple appointments, VitalConnect is here to simplify your life. Let's dive in and explore how VitalConnect can revolutionize the way you manage your appointment and patient.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -39,7 +39,7 @@ For first time users, you can first go through the steps listed under [Installat
         - [Listing all patients](#listing-all-patients--list)
     - [Contact Management](#contact-management)
         - [Adding contact information](#adding-contact-information--addc)
-        - [Editing contact information](#editing-the-contact-information--editc)
+        - [Editing contact information](#editing-contact-information--editc)
         - [Deleting contact information](#deleting-contact-information--deletec)
         - [Listing contact information](#listing-contact-information--listc)
     - [Medical Information Management](#medical-information-management)
@@ -55,7 +55,7 @@ For first time users, you can first go through the steps listed under [Installat
     - [Other features](#other-features)
         - [Locating patients by name](#locating-patients-by-name--find)
         - [Locating appointments by patient](#locating-appointments-by-patient--finda)
-        - [Undoing last command](#undo--undo)
+        - [Undoing last command](#undoing-last-command--undo)
         - [Clearing all entries](#clearing-all-entries--clear)
         - [Exiting the program](#exiting-the-program--exit)
     - [Saving the data](#saving-the-data)
@@ -76,15 +76,18 @@ For first time users, you can first go through the steps listed under [Installat
 
 2. Download the latest `vitalconnect.jar` from [here](https://github.com/AY2324S2-CS2103T-W08-2/tp/releases).
 
-3. Copy the file to the folder you want to use as the _home folder_ for your vitalConnect.
+3. Copy the file to the folder you want to use as the _home folder_ for your VitalConnect.
 
 4. Open a command terminal or learn how to do so [here](https://www.freecodecamp.org/news/command-line-for-beginners/)
 
 5. Type `cd` followed by the location of the folder that you are putting the `vitalconnect.jar` file in. Find out more [here](https://www.wikihow.com/Change-Directories-in-Command-Prompt)
 
-6. Type `java -jar vitalConnect.jar` and press Enter to launch java and run the application. A GUI should appear in a few seconds.
+6. Type `java -jar vitalconnect.jar` and press Enter to launch java and run the application. A GUI should appear in a few seconds. The calendar view will only be shown if the right panel is large enough. You can resize the panel by dragging the divider between the two panels. More instructions can be found in the `Timetable` section. (Note that your application might contain different initial placeholder datas.)
 
-7. Type any command in the command box and press Enter to execute it. e.g. typing `help` and pressing Enter will open the help window.<br>
+![Launch without calendar](images/launch_1.png)
+![Launch with calendar](images/launch_2.png)
+
+Type any command in the command box and press Enter to execute it. e.g. typing `help` and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
     * `list` : Lists all patients.
@@ -150,6 +153,7 @@ Format: `add ic/NRIC n/NAME`
 * The NRIC **must** be a valid NRIC.
 * Names should only contain alphanumeric characters and spaces, and it should not be blank.
 * We currently do not support symbols or other special characters so you will need to omit them from the name.
+* After adding a patient, the current displaying list will be automatically changed to the list of all patients to reflect the changes.
 
 Examples:
 * `add ic/S1234567D n/James Doe`
@@ -164,6 +168,7 @@ Format: `edit ic/NRIC n/NAME`
 
 * The NRIC must be a NRIC of an already existing patient.
 * If you would like to change the NRIC instead of the name, create a new patient using `add` then use `delete` on the outdated version.
+* After editing a patient's identification information, if the patient is currently shown in the displayed list, the information updated will be reflected in the displayed list. If the patient is not currently in the displayed list or the displayed list is appointment list, the changes would be done in the background and not be reflected in the current list. One may want to use `list` command to see all patients and check the changes. Therefore, it is recommended to only take actions on patients that are currently shown in the list to avoid confusion.
 
 Examples:
 * `edit ic/S1234567D n/John Doe`
@@ -179,8 +184,12 @@ Deletes the specified patient from the clinic.
 Format: `delete INDEX`
 
 * Deletes the patient at the specified `INDEX`.
-* The index refers to the index number shown in the displayed patient list.
-* If the panel is currently not showing any patient list (e.g. showing appointment list), the default patient list is the general clinic patient list (which contains all the patients).
+* INDEX reference: The index corresponds to the position of a patient within the **currently displayed patient list**. This list may be:
+  * All patients with non-empty contact information (result of the `listc` command).
+  * All patients with non-empty medical information (result of the `listm` command).
+  * All patients in the system (result of the `list` command).
+* If the display is not currently showing a patient list (for example, it's showing the appointment list), then the index refers to the last patient list viewed before the switch to the appointment list.
+* After successful deletion of the patient, the list shown in the panel will be updated to the one that the index refers to. It is recommended to display the list of patients (run `list`, `listc`, or `listm`) before using the `delete` command to avoid confusion.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
@@ -218,12 +227,13 @@ Format: `addc ic/NRIC [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]`
 <div markdown="block" class="alert alert-info">
 **:information_source: Additional notes about the command format:**<br>
 Items in square brackets are optional.<br>
-  e.g `addc ic/S1234567D p/91234567 e/test@email.com`
+  e.g `[p/91234567]`
 </div>
 
 * The NRIC must be a NRIC of an already existing patient.
 * At least one of the optional fields must be provided.
-* Phone number should be of 3 to 15 digits long.
+* If a prefix (i.e. `p/`, `e/`, `a/`) is included in the command, the value following it should not be empty. If user does not want to add a specific field, do not include its prefix in the command. Otherwise an error message will be shown as empty values for these fields are not allowed.
+* Phone numbers should only contain numeric value without any other characters, and it should be 3 to 15 digits long.
 * Emails should be of the format local-part@domain and adhere to the following constraints:
     1. The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (+_.-). The local-part may not start or end with any special characters, and the special characters should not be adjacent to each other.
     2. This is followed by a '@' and then a domain name. The domain name is made up of domain labels separated by periods.
@@ -232,6 +242,7 @@ Items in square brackets are optional.<br>
         - have each domain label start and end with alphanumeric characters
         - have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
 * Address has a max length of 50 characters, and it should not be empty upon adding. Although in particular cases, the address can be larger than the current limit, 50 characters is able to suffice the needs in most situations. For long addresses that exceeds the 50 character limit, the compromise is to use shorforms, such as b123 instead of block 123.
+* After adding a patient's contact information, if the patient is currently shown in the displayed list, the information updated will be reflected in the displayed list. If the patient is not currently in the displayed list or the displayed list is appointment list, the changes would be done in the background and not be reflected in the current list. One may want to use `list` command to see all patients and check the changes. Therefore, it is recommended to only take actions on patients that are currently shown in the list to avoid confusion.
 
 Examples:
 * `addc ic/S1234567D p/91234567`
@@ -251,13 +262,23 @@ Format: `editc ic/NRIC [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]`
 <div markdown="block" class="alert alert-info">
 **:information_source: Additional notes about the command format:**<br>
 Items in square brackets are optional.<br>
-  e.g `addc ic/S1234567D p/91234567 e/test@email.com`
+  e.g `[p/91234567]`
 </div>
 
 * At least one of the `optional fields` must be provided.
 * To delete an `optional field`, leave the `VALUE` part empty.
 * If the `VALUE` part is not empty, the corresponding patient contact's field will either be updated or added with the new value.
 * If all three fields of contact information (phone, email, and address) become empty, the contact information of the patient will be considered deleted. If one want to add a new contact information, please use `addc` command.
+* Phone numbers should only contain numeric value without any other characters, and it should be 3 to 15 digits long.
+* Emails should be of the format local-part@domain and adhere to the following constraints:
+    1. The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (+_.-). The local-part may not start or end with any special characters, and the special characters should not be adjacent to each other.
+    2. This is followed by a '@' and then a domain name. The domain name is made up of domain labels separated by periods.
+       The domain name must:
+        - end with a domain label at least 2 characters long
+        - have each domain label start and end with alphanumeric characters
+        - have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
+* Address has a max length of 50 characters, and it should not be empty upon adding. Although in particular cases, the address can be larger than the current limit, 50 characters is able to suffice the needs in most situations. For long addresses that exceeds the 50 character limit, the compromise is to use shorforms, such as b123 instead of block 123.
+* After editing a patient's contact information, if the patient is currently shown in the displayed list, the information updated will be reflected in the displayed list. If the patient is not currently in the displayed list or the displayed list is appointment list, the changes would be done in the background and not be reflected in the current list. One may want to use `list` command to see all patients and check the changes. Therefore, it is recommended to only take actions on patients that are currently shown in the list to avoid confusion.
 
 Examples:
 * `editc ic/S1234567D p/91234567` will result in the phone number of the patient with NRIC `S1234567D` being updated to `91234567`.
@@ -271,7 +292,7 @@ Deletes the contact information of a patient in the clinic.
 
 Format: `deletec ic/NRIC`
 
-* After deletion of a patient's contact information, the patient will disappear from the current showing list panel as the current list panel is only displaying patients with non-empty contact information. If one wants to see the full list of patients, please use `list` command afterwards.
+* After deleting a patient's contact information, if the patient is currently shown in the displayed list, the information updated will be reflected in the displayed list. If the patient is not currently in the displayed list or the displayed list is appointment list, the changes would be done in the background and not be reflected in the current list. One may want to use `list` command to see all patients and check the changes. Therefore, it is recommended to only take actions on patients that are currently shown in the list to avoid confusion.
 
 Examples:
 * `deletec ic/S1234567D` will result in the deletion of the contact information of the patient with the NRIC `S1234567D`.
@@ -295,8 +316,10 @@ Adds the medical information to a patient in the clinic.
 Format: `addm ic/NRIC h/HEIGHT w/WEIGHT [t/ALLERGY]…​`
 
 * The NRIC must be a NRIC of an already existing patient.
-* The value HEIGHT and WEIGHT should be positive alphanumerical values.
+* The value HEIGHT should only contain alphanumerical measured in cm, and should be bigger than 0 and smaller than 300.
+* The value WEIGHT should only contain alphanumerical measured in kg, and should be bigger than 0 and smaller than 650.
 * The allergy tag should be a single word of alphanumeric characters and no space.
+* After adding a patient's medical information, if the patient is currently shown in the displayed list, the information updated will be reflected in the displayed list. If the patient is not currently in the displayed list or the displayed list is appointment list, the changes would be done in the background and not be reflected in the current list. One may want to use `list` command to see all patients and check the changes. Therefore, it is recommended to only take actions on patients that are currently shown in the list to avoid confusion.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 Tag word which is longer than 45 characters (longest english word) may not be displayed properly as it cut out by the UI.
@@ -332,10 +355,12 @@ Edit the medical information of an existing person.
 Format: `editm ic/NRIC [h/HEIGHT] [w/WEIGHT] [-o] [at/ALLERGY…​]`
 
 * At least one of the optional fields must be provided.
-* The value HEIGHT and WEIGHT should be positive alphanumerical values.
+* The value HEIGHT should only contain alphanumerical measured in cm, and should be bigger than 0 and smaller than 300.
+* The value WEIGHT should only contain alphanumerical measured in kg, and should be bigger than 0 and smaller than 650.
 * The overwrite notation `-o` should only appear once.
 * `-o` can be placed at any position in the command.
 * All allergy tag should be a single word of alphanumeric characters and no space.
+* After editing a patient's medical information, if the patient is currently shown in the displayed list, the information updated will be reflected in the displayed list. If the patient is not currently in the displayed list or the displayed list is appointment list, the changes would be done in the background and not be reflected in the current list. One may want to use `list` command to see all patients and check the changes. Therefore, it is recommended to only take actions on patients that are currently shown in the list to avoid confusion.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 Tag word which is longer than 45 characters (longest english word) may not be displayed properly as it cut out by the UI.
@@ -373,7 +398,7 @@ Deletes the medical information of a patient in the clinic.
 
 Format: `deletem ic/NRIC`
 
-* After deletion of a patient's medical information, the patient will disappear from the current showing list panel as the current list panel is only displaying patients with non-empty medical information. If one wants to see the full list of patients, please use `list` command afterwards.
+* After deleting a patient's medical information, if the patient is currently shown in the displayed list, the information updated will be reflected in the displayed list. If the patient is not currently in the displayed list or the displayed list is appointment list, the changes would be done in the background and not be reflected in the current list. One may want to use `list` command to see all patients and check the changes. Therefore, it is recommended to only take actions on patients that are currently shown in the list to avoid confusion.
 
 Examples:
 * `deletec ic/S1234567D` will result in the deletion of the medical information of the patient with the NRIC `S1234567D`.
@@ -563,17 +588,17 @@ Format: `exit`
 
 ### Saving the data
 
-Clinic data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+Clinic data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually. All of the data is saved automatically as JSON files `[JAR file location]/data/clinic.json` and `[JAR file location]/data/appointments.json`. The data is saved into two JSON files, one for patient data and one for appointment data.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If you exit the program through other means, your data will still be saved. Refer to [here](https://se-education.org/addressbook-level3/UserGuide.html#saving-the-data) for more info.
+If you exit the program through other means, your data will still be saved. If you are transfering data, be mindful that there are two JSON files with data.
 </div>
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
 ### Editing the data file
 
-Clinic data are saved automatically as a JSON file `[JAR file location]/data/clinic.json`. Advanced users are welcome to update data directly by editing that data file.
+Advanced users are welcome to update data directly by editing the following JSON files, `[JAR file location]/data/clinic.json` or `[JAR file location]/data/appointments.json`.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 Incorrect or certain edits can cause the Clinic to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
@@ -586,11 +611,15 @@ Incorrect or certain edits can cause the Clinic to behave in unexpected ways (e.
 --------------------------------------------------------------------------------------------------------------------
 ## Timetable
 
+![Timetable1](images/timetable1.png)
+
 This feature allows the user to visualise the appointment throughout the day.
 
-The timetable has an auto adjustment feature, if window size is larger enough(larger than 700 pixel), the timetable will show an extra calendar view with agenda on the left side of the timetable.
+The right part of the timetable (marked by green box) is a visual representation of the appointment for today. Each appointment is represented by a blue box with patient's name and nric. If the box is large enough, it will also display the appointment's start time. The height of the box represents the time length of the appointment.
 
-The three buttons on the top left of the timetable allows user to adjust which day to look at using mouse.
+The left part of the timetable (marked by purple box) is a calendar view with agendas for the current day. The complete information for the apopintment can be found in the agenda view, including the patient's name, nric, and the start time and end time of the appointments.
+
+The three buttons on the top left of the timetable (marked by yellow box) allows user to adjust which day to look at using mouse.
 1. `Today` button will show the timetable of the current day.
 2. `<` button will show the timetable of the previous day.
 3. `>` button will show the timetable of the next day.
@@ -599,6 +628,14 @@ The timetable also support changing the view using keyboard shortcuts.
 1. `Ctrl + P` will show the timetable of the previous day.
 2. `Ctrl + N` will show the timetable of the next day.
 3. `Ctrl + T` will show the timetable of the today.
+
+It is worth noting that the left calendar view (marked by purple box in the above image) is only shown when the left panel size is large enough (i.e. larger than 700 pixels). If the calendar is not currently showing, users can resize the panel by dragging the divider in the middle of the application. The divider is highlighted in **green color** in the following two images below.
+
+![Timetable without calendar](images/timetable3.png)
+
+After dragging the divider to the left, the calendar view will be shown.
+
+![Timetable with calendar](images/timetable2.png)
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
@@ -615,9 +652,6 @@ The timetable also support changing the view using keyboard shortcuts.
 ## Known issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
-2. **Regarding the edit command**, the appointment does not reflect an edited person's name correctly
-3. **Regarding the undo command**, the undo command does not undo the deleted appointments associated to a person
-4. **Regarding the appointments**, the deletion of patient data via 'delete' does not clear the data for the appointments.
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 

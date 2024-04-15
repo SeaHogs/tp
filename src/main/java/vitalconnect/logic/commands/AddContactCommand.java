@@ -7,7 +7,6 @@ import static vitalconnect.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static vitalconnect.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static vitalconnect.logic.parser.CliSyntax.PREFIX_NRIC;
 import static vitalconnect.logic.parser.CliSyntax.PREFIX_PHONE;
-import static vitalconnect.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import vitalconnect.logic.commands.exceptions.CommandException;
 import vitalconnect.model.Model;
@@ -60,7 +59,7 @@ public class AddContactCommand extends Command {
         }
         // add the contact information to the person
         model.updatePersonContactInformation(nric, contactInformation);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredPersonList(model.getCurrentPredicate());
         // update the person to the model
         return new CommandResult(MESSAGE_SUCCESS);
     }

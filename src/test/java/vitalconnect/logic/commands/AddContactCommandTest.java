@@ -90,7 +90,7 @@ public class AddContactCommandTest {
 
         @Override
         public Predicate<Person> getCurrentPredicate() {
-            throw new AssertionError("This method should not be called.");
+            return null;
         }
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {

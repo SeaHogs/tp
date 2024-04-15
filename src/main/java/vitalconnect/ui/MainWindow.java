@@ -152,7 +152,7 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        timetable = new Timetable(logic.getFilteredAppointmentList());
+        timetable = new Timetable(logic.getFilteredAppointmentList(), logic.getFilteredPersonList());
         calendarViewPlaceholder.getChildren().add(timetable.getCalendarView());
         calendarViewPlaceholder.addEventFilter(MouseEvent.MOUSE_DRAGGED , new EventHandler<MouseEvent>() {
             @Override
