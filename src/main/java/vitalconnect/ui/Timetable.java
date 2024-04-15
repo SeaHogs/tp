@@ -16,6 +16,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import vitalconnect.model.Appointment;
+import vitalconnect.model.person.Person;
 
 /**
  * A custom UI component representing a timetable view with appointments displayed using a calendar view.
@@ -28,9 +29,11 @@ public class Timetable extends UiPart<Region> {
 
     /**
      * Constructs a new Timetable instance.
-     * @param appointmentList The list of appointments to be displayed in the timetable.
+     *
+     * @param appointmentList    The list of appointments to be displayed in the timetable.
+     * @param personList        The list of persons to be displayed in the timetable.
      */
-    public Timetable(ObservableList<Appointment> appointmentList) {
+    public Timetable(ObservableList<Appointment> appointmentList, ObservableList<Person> personList) {
         super(FXML);
         this.appointmentList = appointmentList;
         calendarView = new CalendarView();
@@ -48,13 +51,29 @@ public class Timetable extends UiPart<Region> {
                     for (Appointment removedAppointment : change.getRemoved()) {
                         removeAppointmentFromCalendar(removedAppointment);
                     }
-                } else if (change.wasUpdated()) {
-                    // dummy code to test where edit is going
-                    // edita does not go through model as expected
-                    // calendarView.getCalendarSources().get(0).getCalendars().get(0).clear();
-                    // for (Appointment updatedAppointment : appointmentList) {
-                        // addAppointmentToCalendar(updatedAppointment);
-                    // }
+                } else if (change.wasReplaced() || change.wasUpdated()
+                        || change.wasPermutated() || change.wasUpdated()) {
+                    calendarView.getCalendarSources().get(0).getCalendars().get(0).clear();
+                    for (Appointment updatedAppointment : appointmentList) {
+                        addAppointmentToCalendar(updatedAppointment);
+                    }
+                }
+            }
+        });
+
+        // A listener to update the calendar view when the person list changes
+        // because someone's code need lista to update appointment list  (ಠ_ಠ)
+        personList.addListener((ListChangeListener<Person>) change -> {
+            while (change.next()) {
+                if (change.wasReplaced()) {
+                    for (Person person : change.getAddedSubList()) {
+                        calendarView.getCalendarSources().get(0).getCalendars().get(0)
+                                .findEntries(person.getIdentificationInformation().getNric().nric)
+                                .forEach(entry -> {
+                                    entry.setTitle(person.getIdentificationInformation().getName().fullName
+                                            + " " + person.getIdentificationInformation().getNric().nric);
+                                });
+                    }
                 }
             }
         });
@@ -160,8 +179,6 @@ public class Timetable extends UiPart<Region> {
             entry.changeEndDate(app.getDateTime().toLocalDate());
             entry.changeStartTime(app.getDateTime().toLocalTime());
             entry.changeEndTime(app.getDateTime().toLocalTime().plusMinutes(app.getDuration() * 15L));
-            System.out.println(app.getDateTime().toLocalTime());
-            System.out.println(entry);
             appointmentOfTheDay.addEntries(entry);
         }
     }
