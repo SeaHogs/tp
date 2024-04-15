@@ -28,7 +28,6 @@ public class DeleteCommand extends Command {
             "Deleted Person: %1$s, and this patient's appointments.";
 
     private final Index targetIndex;
-    private Person deletedPerson;
     private ReadOnlyClinic deletedClinic;
     private List<Appointment> deletedAppointments;
 
@@ -49,7 +48,6 @@ public class DeleteCommand extends Command {
         deletedAppointments = model.getAppointmentsCopy();
 
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
-        deletedPerson = personToDelete.copyPerson();
         model.deletePerson(personToDelete);
 
         List<Appointment> aptToDelete =
