@@ -4,11 +4,11 @@ title: User Guide
 ---
 ## Introduction
 
-Welcome to **vitalConnect**, your all-in-one desktop application for efficient clinic management, optimized for both Command Line Interface (CLI) and Graphical User Interface (GUI).
+Welcome to **VitalConnect**, your all-in-one desktop application for efficient clinic management, optimized for both Command Line Interface (CLI) and Graphical User Interface (GUI).
 
 Designed to streamline your clinic management tasks, VitalConnect offers the speed of a CLI with the convenience of a GUI, allowing you to effortlessly organize your patient and appointments with just a few keystrokes.With its intuitive interface and robust features, you can add, delete, and search for appointments, track medical information, as well as check patient contact for communication with ease.
 
-So, whether you're a busy professional juggling multiple appointments, vitalConnect is here to simplify your life. Let's dive in and explore how vitalConnect can revolutionize the way you manage your appointment and patient.
+So, whether you're a busy professional juggling multiple appointments, VitalConnect is here to simplify your life. Let's dive in and explore how VitalConnect can revolutionize the way you manage your appointment and patient.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -39,7 +39,7 @@ For first time users, you can first go through the steps listed under [Installat
         - [Listing all patients](#listing-all-patients--list)
     - [Contact Management](#contact-management)
         - [Adding contact information](#adding-contact-information--addc)
-        - [Editing contact information](#editing-the-contact-information--editc)
+        - [Editing contact information](#editing-contact-information--editc)
         - [Deleting contact information](#deleting-contact-information--deletec)
         - [Listing contact information](#listing-contact-information--listc)
     - [Medical Information Management](#medical-information-management)
@@ -55,7 +55,7 @@ For first time users, you can first go through the steps listed under [Installat
     - [Other features](#other-features)
         - [Locating patients by name](#locating-patients-by-name--find)
         - [Locating appointments by patient](#locating-appointments-by-patient--finda)
-        - [Undoing last command](#undo--undo)
+        - [Undoing last command](#undoing-last-command--undo)
         - [Clearing all entries](#clearing-all-entries--clear)
         - [Exiting the program](#exiting-the-program--exit)
     - [Saving the data](#saving-the-data)
@@ -76,18 +76,18 @@ For first time users, you can first go through the steps listed under [Installat
 
 2. Download the latest `vitalconnect.jar` from [here](https://github.com/AY2324S2-CS2103T-W08-2/tp/releases).
 
-3. Copy the file to the folder you want to use as the _home folder_ for your vitalConnect.
+3. Copy the file to the folder you want to use as the _home folder_ for your VitalConnect.
 
 4. Open a command terminal or learn how to do so [here](https://www.freecodecamp.org/news/command-line-for-beginners/)
 
 5. Type `cd` followed by the location of the folder that you are putting the `vitalconnect.jar` file in. Find out more [here](https://www.wikihow.com/Change-Directories-in-Command-Prompt)
 
-6. Type `java -jar vitalConnect.jar` and press Enter to launch java and run the application. A GUI should appear in a few seconds. The calendar view will only be shown if the right panel is large enough. You can resize the panel by dragging the divider between the two panels. More instructions can be found in the `Timetable` section. (Note that your application might contain different initial placeholder datas.)
+6. Type `java -jar vitalconnect.jar` and press Enter to launch java and run the application. A GUI should appear in a few seconds. The calendar view will only be shown if the right panel is large enough. You can resize the panel by dragging the divider between the two panels. More instructions can be found in the `Timetable` section. (Note that your application might contain different initial placeholder datas.)
 
 ![Launch without calendar](images/launch_1.png)
 ![Launch with calendar](images/launch_2.png)
 
-7. Type any command in the command box and press Enter to execute it. e.g. typing `help` and pressing Enter will open the help window.<br>
+Type any command in the command box and press Enter to execute it. e.g. typing `help` and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
     * `list` : Lists all patients.
@@ -316,7 +316,8 @@ Adds the medical information to a patient in the clinic.
 Format: `addm ic/NRIC h/HEIGHT w/WEIGHT [t/ALLERGY]…​`
 
 * The NRIC must be a NRIC of an already existing patient.
-* The value HEIGHT and WEIGHT should be positive alphanumerical values.
+* The value HEIGHT should only contain alphanumerical measured in cm, and should be bigger than 0 and smaller than 300.
+* The value WEIGHT should only contain alphanumerical measured in kg, and should be bigger than 0 and smaller than 650.
 * The allergy tag should be a single word of alphanumeric characters and no space.
 * After adding a patient's medical information, if the patient is currently shown in the displayed list, the information updated will be reflected in the displayed list. If the patient is not currently in the displayed list or the displayed list is appointment list, the changes would be done in the background and not be reflected in the current list. One may want to use `list` command to see all patients and check the changes. Therefore, it is recommended to only take actions on patients that are currently shown in the list to avoid confusion.
 
@@ -345,7 +346,8 @@ Edit the medical information of an existing person.
 Format: `editm ic/NRIC [h/HEIGHT] [w/WEIGHT] [-o] [at/ALLERGY…​]`
 
 * At least one of the optional fields must be provided.
-* The value HEIGHT and WEIGHT should be positive alphanumerical values.
+* The value HEIGHT should only contain alphanumerical measured in cm, and should be bigger than 0 and smaller than 300.
+* The value WEIGHT should only contain alphanumerical measured in kg, and should be bigger than 0 and smaller than 650.
 * The overwrite notation `-o` should only appear once.
 * `-o` can be placed at any position in the command.
 * All allergy tag should be a single word of alphanumeric characters and no space.
@@ -572,17 +574,17 @@ Format: `exit`
 
 ### Saving the data
 
-Clinic data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+Clinic data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually. All of the data is saved automatically as JSON files `[JAR file location]/data/clinic.json` and `[JAR file location]/data/appointments.json`. The data is saved into two JSON files, one for patient data and one for appointment data.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If you exit the program through other means, your data will still be saved. Refer to [here](https://se-education.org/addressbook-level3/UserGuide.html#saving-the-data) for more info.
+If you exit the program through other means, your data will still be saved. If you are transfering data, be mindful that there are two JSON files with data.
 </div>
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
 ### Editing the data file
 
-Clinic data are saved automatically as a JSON file `[JAR file location]/data/clinic.json`. Advanced users are welcome to update data directly by editing that data file.
+Advanced users are welcome to update data directly by editing the following JSON files, `[JAR file location]/data/clinic.json` or `[JAR file location]/data/appointments.json`.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 Incorrect or certain edits can cause the Clinic to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
@@ -636,9 +638,6 @@ After dragging the divider to the left, the calendar view will be shown.
 ## Known issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
-2. **Regarding the edit command**, the appointment does not reflect an edited person's name correctly
-3. **Regarding the undo command**, the undo command does not undo the deleted appointments associated to a person
-4. **Regarding the appointments**, the deletion of patient data via 'delete' does not clear the data for the appointments.
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
