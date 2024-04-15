@@ -175,10 +175,7 @@ public class Timetable extends UiPart<Region> {
 
         for (Appointment app : filteredAppointments) {
             Entry<String> entry = new Entry<>(app.getPatientName() + " " + app.getPatientIc());
-            entry.changeStartDate(app.getDateTime().toLocalDate());
-            entry.changeEndDate(app.getDateTime().toLocalDate());
-            entry.changeStartTime(app.getDateTime().toLocalTime());
-            entry.changeEndTime(app.getDateTime().toLocalTime().plusMinutes(app.getDuration() * 15L));
+            entry.setInterval(app.getDateTime(), app.getDateTime().plusMinutes(app.getDuration() * 15L));
             appointmentOfTheDay.addEntries(entry);
         }
     }
