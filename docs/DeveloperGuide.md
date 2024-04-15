@@ -150,94 +150,106 @@ Classes used by multiple components are in the `vitalConnectbook.commons` packag
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### \[Proposed\] Undo/redo feature
+### Undo feature
 
-#### Proposed Implementation
+The undo mechanism uses polymorphism. Every command implements the execute and undo methods. Upon execution, the command is stored in a stack. If the user performs a undo command, the command at the top of the stack is popped and the undo method of the command is executed. If the command contains a way for undoing, then it will perform the undo. If it doesn't, such as the `List` or `Help` command, then it will pop and repeat the process on the next item on the stack until there are no longer any items.
+The `CommandHistoryManager` is a singleton that manages a history of the user commands.
 
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
+Given below is an example usage scenario and how the undo mechanism behaves at each step.
 
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
+Step 1. The user launches the application for the first time. The `CommandHistoryManager` will be initialized with no commands.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+Step 2. The user executes the `delete` command to delete the 2th person in the address book. The `delete` command attempts to execute and upon executing successfully, it is then pushed into the command history stack via `CommandHistoryManager.getInstance().pushCommandToHistory()`. Note that only successful executions will be pushed.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+Step 3. The user then executes the `undo` command which will pop the latest command via `CommandHistoryManager.getInstance().popCommandToHistory()`. The latest command will then execute their undo method which in this case is the `delete` command. 
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+## **Implementation of Appointments**
 
-![UndoRedoState0](images/UndoRedoState0.png)
+This section provides details on how the appointment-related functionalities are implemented in the application.
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+### **Creating Appointments**
 
-![UndoRedoState1](images/UndoRedoState1.png)
+The feature for creating appointments allows users to schedule new appointments by providing a patient's NRIC, start time, and duration. The implementation ensures that the appointment does not conflict with existing appointments and that it is set in the future.
 
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Here's how it works:
+- **Model Interaction**: The `CreateAptCommand` interacts with the model to check if the patient exists and whether the proposed time conflicts with existing appointments.
+- **Validation**: Checks include validating the time format, ensuring the time is not in the past, and that the appointment duration is within allowable limits.
+- **State Saving**: Upon successful creation, the appointment state is saved in the model, allowing for future queries or modifications.
 
-![UndoRedoState2](images/UndoRedoState2.png)
+#### Example Usage Scenario
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+1. The user inputs the command to create an appointment with specific details.
+2. The system validates the input, checks for conflicts, and if all checks pass, the appointment is added to the system.
+3. The user receives confirmation that the appointment has been successfully scheduled.
 
-</div>
+### **Editing Appointments**
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Users can edit existing appointments by specifying the appointment index along with new time and/or duration. This functionality ensures that any modifications do not cause scheduling conflicts.
 
-![UndoRedoState3](images/UndoRedoState3.png)
+Steps involved:
+- **Fetch and Modify**: The command fetches the existing appointment from the model using the provided index, then modifies the specified fields.
+- **Conflict Check**: Before finalizing the changes, the system checks for any potential conflicts with other appointments.
+- **Commit Changes**: If no conflicts are found, the changes are committed to the model.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
+#### Example Usage Scenario
 
-</div>
+1. The user issues a command to edit an appointment.
+2. The application retrieves the appointment, applies the changes, and checks for conflicts.
+3. If no conflicts are detected, the changes are saved, and the user is informed of the successful update.
 
-The following sequence diagram shows how an undo operation goes through the `Logic` component:
+### **Finding Appointments**
 
-![UndoSequenceDiagram](images/UndoSequenceDiagram-Logic.png)
+This feature allows users to find all appointments associated with a particular patient by their NRIC. It serves as a quick access point to view all related appointments.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+Implementation specifics:
+- **Query Execution**: The command queries the model for appointments using the patient's NRIC.
+- **Result Presentation**: The appointments, if any, are formatted and presented to the user.
 
-</div>
+#### Example Usage Scenario
 
-Similarly, how an undo operation goes through the `Model` component is shown below:
+1. A user requests to view appointments for a specific patient using their NRIC.
+2. The system retrieves all matching appointments and displays them.
+3. If no appointments are found, a message indicating this is shown to the user.
 
-![UndoSequenceDiagram](images/UndoSequenceDiagram-Model.png)
 
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+### **Deleting Appointments**
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+The feature for deleting appointments allows users to remove scheduled appointments by specifying their index within the list of all appointments. This functionality ensures that appointments are accurately identified and removed without affecting other entries.
 
-</div>
+#### Implementation Details
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+- **Command Usage**: The `DeleteAptCommand` accepts an index, which corresponds to the position of the appointment in the list as displayed in the UI.
+- **Validation**: The system checks if the index provided is within the valid range of existing appointments.
+- **Deletion Process**: If the index is valid, the specified appointment is removed from the model.
+- **Update UI**: Post deletion, the UI updates to reflect the changes, removing the appointment from the displayed list.
 
-![UndoRedoState4](images/UndoRedoState4.png)
+#### Example Usage Scenario
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
-
-![UndoRedoState5](images/UndoRedoState5.png)
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<img src="images/CommitActivityDiagram.png" width="250" />
+1. **User Action**: The user issues a command to delete an appointment by specifying its index.
+2. **System Processing**: The application checks the validity of the index and, upon confirmation, deletes the appointment.
+3. **Feedback**: The user is notified of the successful deletion, and the appointment list is updated to exclude the deleted appointment.
 
 #### Design considerations:
 
-**Aspect: How undo & redo executes:**
+**Aspect: How undo executes:**
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 :** Saves the entire address book.
   * Pros: Easy to implement.
   * Cons: May have performance issues in terms of memory usage.
 
-* **Alternative 2:** Individual command knows how to undo/redo by
+* **Alternative 2 (current choice):** Individual command knows how to undo/redo by
   itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+  * Pros: Will use less memory (e.g. for `add`, just save the person being added).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
-_{more aspects and alternatives to be added}_
+**Aspect: Handling Overlapping Appointments**
 
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
-
+* **Alternative 1 (current choice):** Prevent any overlapping appointments.
+  * Pros: Simplifies management of appointments, clear schedule.
+  * Cons: Less flexibility for users.
+* **Alternative 2:** Allow overlaps under certain conditions.
+  * Pros: More flexibility for users.
+  * Cons: Increases complexity in managing schedules.
 
 
 ## **Implementation of Appointments**
@@ -530,6 +542,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (good
 * 1b. The specific information is invalid.
   * 1b1. vitalconnect displays a warning message.
     </br>Use case ends.
+
+**Use case: UC9 - Undoing the deletion**
+
+**MSS**
+1.  User accidentally deletes the incorrect patient by using the wrong index.
+2.  vitalconnect displays the updated specific information of the patient.
+3.  User requests an undo via the undo command.
+4.  vitalconnect reverts and displays the previous information of the patient.
+</br>Use case ends.
 
 ### Non-Functional Requirements
 

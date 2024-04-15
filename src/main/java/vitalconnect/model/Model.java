@@ -72,6 +72,9 @@ public interface Model {
     /** Returns a copy of the Clinic */
     ReadOnlyClinic getClinicCopy();
 
+    /** Returns a copy of the Appointments */
+    List<Appointment> getAppointmentsCopy();
+
     /**
      * Returns true if a person with the same identity as {@code person} exists in the clinic.
      */
@@ -123,6 +126,7 @@ public interface Model {
     ObservableList<Appointment> getFoundAppointmentList();
     List<Appointment> findAppointmentsByNric(Nric nric);
     void deleteAppointment(Appointment appointment);
+    void clearAppointments();
     Person findPersonByNric(IdentificationInformation nric);
     Person findPersonByNric(Nric nric);
     void updatePersonContactInformation(Nric nric, ContactInformation contactInformation);
