@@ -162,9 +162,10 @@ How the parsing works:
 
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2324S2-CS2103T-W08-2/tp/tree/master/src/main/java/vitalconnect/model/Model.java)
-<img src="images/ModelClassDiagram.png" width="450" />
-The `Model` component,
 
+<img src="images/ModelClassDiagram.png" width="450" />
+
+The `Model` component,
 * stores the clinic data i.e., all `Person` objects (contained in a `UniquePersonList` object).
 * stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` object.
