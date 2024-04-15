@@ -237,7 +237,7 @@ The feature for deleting appointments allows users to remove scheduled appointme
   * Pros: Easy to implement.
   * Cons: May have performance issues in terms of memory usage.
 
-* **Alternative 2 (current choice):** Individual command knows how to undo/redo by
+* **Alternative 2 (current choice):** Individual command knows how to undo by
   itself.
   * Pros: Will use less memory (e.g. for `add`, just save the person being added).
   * Cons: We must ensure that the implementation of each individual command are correct.
@@ -250,7 +250,6 @@ The feature for deleting appointments allows users to remove scheduled appointme
 * **Alternative 2:** Allow overlaps under certain conditions.
   * Pros: More flexibility for users.
   * Cons: Increases complexity in managing schedules.
-
 
 This section outlines the technical and functional aspects of the appointment features, providing clarity on how they 
 are implemented and interact with the overall system. Additional enhancements like undo/redo capabilities further refine user interactions, making the application robust and user-friendly.
