@@ -53,18 +53,16 @@ public class Timetable extends UiPart<Region> {
                     }
                 } else if (change.wasReplaced() || change.wasUpdated()
                         || change.wasPermutated() || change.wasUpdated()) {
-                    // dummy code to test where edit is going
-                    // edita does not go through model as expected
-                     calendarView.getCalendarSources().get(0).getCalendars().get(0).clear();
-                     for (Appointment updatedAppointment : appointmentList) {
-                         addAppointmentToCalendar(updatedAppointment);
-                     }
+                    calendarView.getCalendarSources().get(0).getCalendars().get(0).clear();
+                    for (Appointment updatedAppointment : appointmentList) {
+                        addAppointmentToCalendar(updatedAppointment);
+                    }
                 }
             }
         });
 
         // A listener to update the calendar view when the person list changes
-        // because someone's code need lista to update appointment list
+        // because someone's code need lista to update appointment list  (ಠ_ಠ)
         personList.addListener((ListChangeListener<Person>) change -> {
             while (change.next()) {
                 System.out.println("Person list changed");
@@ -75,7 +73,7 @@ public class Timetable extends UiPart<Region> {
                                 .findEntries(person.getIdentificationInformation().getNric().nric)
                                 .forEach(entry -> {
                                     entry.setTitle(person.getIdentificationInformation().getName().fullName
-                                    + " " + person.getIdentificationInformation().getNric().nric);
+                                            + " " + person.getIdentificationInformation().getNric().nric);
                                 });
                     }
                 }
