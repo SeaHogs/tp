@@ -321,6 +321,15 @@ Format: `addm ic/NRIC h/HEIGHT w/WEIGHT [t/ALLERGY]…​`
 * The allergy tag should be a single word of alphanumeric characters and no space.
 * After adding a patient's medical information, if the patient is currently shown in the displayed list, the information updated will be reflected in the displayed list. If the patient is not currently in the displayed list or the displayed list is appointment list, the changes would be done in the background and not be reflected in the current list. One may want to use `list` command to see all patients and check the changes. Therefore, it is recommended to only take actions on patients that are currently shown in the list to avoid confusion.
 
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+Tag word which is longer than 45 characters (longest english word) may not be displayed properly as it cut out by the UI.
+It is recommended to use short and concise tag word.
+</div>
+
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
+
+<div style="page-break-after: always;"></div>
+
 <div markdown="block" class="alert alert-info">
 
 **:information_source: Additional notes about the command format:**<br>
@@ -352,6 +361,11 @@ Format: `editm ic/NRIC [h/HEIGHT] [w/WEIGHT] [-o] [at/ALLERGY…​]`
 * `-o` can be placed at any position in the command.
 * All allergy tag should be a single word of alphanumeric characters and no space.
 * After editing a patient's medical information, if the patient is currently shown in the displayed list, the information updated will be reflected in the displayed list. If the patient is not currently in the displayed list or the displayed list is appointment list, the changes would be done in the background and not be reflected in the current list. One may want to use `list` command to see all patients and check the changes. Therefore, it is recommended to only take actions on patients that are currently shown in the list to avoid confusion.
+
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+Tag word which is longer than 45 characters (longest english word) may not be displayed properly as it cut out by the UI.
+It is recommended to use short and concise tag word.
+</div>
 
 <div markdown="block" class="alert alert-info">
 **:information_source: Additional notes about the command format:**<br>

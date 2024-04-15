@@ -239,6 +239,85 @@ _{more aspects and alternatives to be added}_
 _{Explain here how the data archiving feature will be implemented}_
 
 
+
+## **Implementation of Appointments**
+
+This section provides details on how the appointment-related functionalities are implemented in the application.
+
+### **Creating Appointments**
+
+The feature for creating appointments allows users to schedule new appointments by providing a patient's NRIC, start time, and duration. The implementation ensures that the appointment does not conflict with existing appointments and that it is set in the future.
+
+Here's how it works:
+- **Model Interaction**: The `CreateAptCommand` interacts with the model to check if the patient exists and whether the proposed time conflicts with existing appointments.
+- **Validation**: Checks include validating the time format, ensuring the time is not in the past, and that the appointment duration is within allowable limits.
+- **State Saving**: Upon successful creation, the appointment state is saved in the model, allowing for future queries or modifications.
+
+#### Example Usage Scenario
+
+1. The user inputs the command to create an appointment with specific details.
+2. The system validates the input, checks for conflicts, and if all checks pass, the appointment is added to the system.
+3. The user receives confirmation that the appointment has been successfully scheduled.
+
+### **Editing Appointments**
+
+Users can edit existing appointments by specifying the appointment index along with new time and/or duration. This functionality ensures that any modifications do not cause scheduling conflicts.
+
+Steps involved:
+- **Fetch and Modify**: The command fetches the existing appointment from the model using the provided index, then modifies the specified fields.
+- **Conflict Check**: Before finalizing the changes, the system checks for any potential conflicts with other appointments.
+- **Commit Changes**: If no conflicts are found, the changes are committed to the model.
+
+#### Example Usage Scenario
+
+1. The user issues a command to edit an appointment.
+2. The application retrieves the appointment, applies the changes, and checks for conflicts.
+3. If no conflicts are detected, the changes are saved, and the user is informed of the successful update.
+
+### **Finding Appointments**
+
+This feature allows users to find all appointments associated with a particular patient by their NRIC. It serves as a quick access point to view all related appointments.
+
+Implementation specifics:
+- **Query Execution**: The command queries the model for appointments using the patient's NRIC.
+- **Result Presentation**: The appointments, if any, are formatted and presented to the user.
+
+#### Example Usage Scenario
+
+1. A user requests to view appointments for a specific patient using their NRIC.
+2. The system retrieves all matching appointments and displays them.
+3. If no appointments are found, a message indicating this is shown to the user.
+
+
+### **Deleting Appointments**
+
+The feature for deleting appointments allows users to remove scheduled appointments by specifying their index within the list of all appointments. This functionality ensures that appointments are accurately identified and removed without affecting other entries.
+
+#### Implementation Details
+
+- **Command Usage**: The `DeleteAptCommand` accepts an index, which corresponds to the position of the appointment in the list as displayed in the UI.
+- **Validation**: The system checks if the index provided is within the valid range of existing appointments.
+- **Deletion Process**: If the index is valid, the specified appointment is removed from the model.
+- **Update UI**: Post deletion, the UI updates to reflect the changes, removing the appointment from the displayed list.
+
+#### Example Usage Scenario
+
+1. **User Action**: The user issues a command to delete an appointment by specifying its index.
+2. **System Processing**: The application checks the validity of the index and, upon confirmation, deletes the appointment.
+3. **Feedback**: The user is notified of the successful deletion, and the appointment list is updated to exclude the deleted appointment.
+
+
+### **Design Considerations**
+
+- **Aspect: Handling Overlapping Appointments**
+    - **Alternative 1 (current choice):** Prevent any overlapping appointments.
+        - **Pros:** Simplifies management of appointments, clear schedule.
+        - **Cons:** Less flexibility for users.
+    - **Alternative 2:** Allow overlaps under certain conditions.
+        - **Pros:** More flexibility for users.
+        - **Cons:** Increases complexity in managing schedules.
+
+This section outlines the technical and functional aspects of the appointment features, providing clarity on how they are implemented and interact with the overall system. Additional enhancements like undo/redo capabilities further refine user interactions, making the application robust and user-friendly.
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -502,21 +581,24 @@ testers are expected to do more *exploratory* testing.
 </div>
 
 ### Launch and shutdown
+**Initial launch**
+1. Ensure you have Java `11` or above installed in your Computer. You can learn how to do so [here](https://www.java.com/en/download/help/download_options.html)
 
-1. Initial launch
+2. Download the latest `vitalconnect.jar` from [here](https://github.com/AY2324S2-CS2103T-W08-2/tp/releases).
 
-   1. Download the jar file and copy into an empty folder
+3. Copy the file to the folder you want to use as the _home folder_ for your vitalConnect.
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+4. Open a command terminal or learn how to do so [here](https://www.freecodecamp.org/news/command-line-for-beginners/)
 
-1. Saving window preferences
+5. Type `cd` followed by the location of the folder that you are putting the `vitalconnect.jar` file in. Find out more [here](https://www.wikihow.com/Change-Directories-in-Command-Prompt)
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+6. Type `java -jar vitalConnect.jar` and press Enter to launch java and run the application. A GUI should appear in a few seconds.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+**Shutdown**
+- Type `exit` in the command box to close the application 
+- OR click the `File` button and select `Exit` from the dropdown menu.
+
 
 ### Deleting a person
 
@@ -535,10 +617,3 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
-### Saving data
-
-1. Dealing with missing/corrupted data files
-
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
-
-1. _{ more test cases …​ }_
