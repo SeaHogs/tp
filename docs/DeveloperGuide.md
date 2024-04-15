@@ -37,11 +37,11 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 The ***Architecture Diagram*** given above explains the high-level design of the App.
 
-Given below is a quick overview of main components and how they interact with each other.
+Below is a quick overview of the main components and how they interact with each other.
 
 **Main components of the architecture**
 
-**`Main`** (consisting of classes [`Main`](https://github.com/AY2324S2-CS2103T-W08-2/tp/tree/master/src/main/java/vitalconnect/Main.java) and [`MainApp`](https://github.com/AY2324S2-CS2103T-W08-2/tp/blob/master/src/main/java/vitalconnect/MainApp.java)) is in charge of the app launch and shut down.
+**`Main`** (consisting of classes [`Main`](https://github.com/AY2324S2-CS2103T-W08-2/tp/tree/master/src/main/java/vitalconnect/Main.java) and [`MainApp`](https://github.com/AY2324S2-CS2103T-W08-2/tp/blob/master/src/main/java/vitalconnect/MainApp.java)) is in charge of the app launch and shutdown.
 * At app launch, it initializes the other components in the correct sequence, and connects them up with each other.
 * At shut down, it shuts down the other components and invokes cleanup methods where necessary.
 
@@ -65,7 +65,7 @@ Each of the four main components (also shown in the diagram above),
 * defines its *API* in an `interface` with the same name as the Component.
 * implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point.
 
-For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
+For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside components from being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
 <img src="images/ComponentManagers.png" width="300" />
 
@@ -79,7 +79,7 @@ The **API** of this component is specified in [`Ui.java`](https://github.com/AY2
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2324S2-CS2103T-W08-2/tp/tree/master/src/main/java/vitalconnect/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2324S2-CS2103T-W08-2/tp/tree/master/src/main/resources/view/MainWindow.fxml)
+The `UI` component uses the JavaFx UI framework. The layouts of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2324S2-CS2103T-W08-2/tp/tree/master/src/main/java/vitalconnect/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2324S2-CS2103T-W08-2/tp/tree/master/src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 
@@ -100,7 +100,7 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 
 ![Interactions Inside the Logic Component for the `delete 1` Command](images/DeleteSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of the diagram.
 </div>
 
 How the `Logic` component works:
@@ -128,7 +128,7 @@ The `Model` component,
 
 * stores the clinic data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
 * stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
+* stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` object.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
 
@@ -149,13 +149,13 @@ Classes used by multiple components are in the `vitalConnectbook.commons` packag
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Implementation**
+## **Implementation of Undo**
 
 This section describes some noteworthy details on how certain features are implemented.
 
 ### Undo feature
 
-The undo mechanism uses polymorphism. Every command implements the execute and undo methods. Upon execution, the command is stored in a stack. If the user performs a undo command, the command at the top of the stack is popped and the undo method of the command is executed. If the command contains a way for undoing, then it will perform the undo. If it doesn't, such as the `List` or `Help` command, then it will pop and repeat the process on the next item on the stack until there are no longer any items.
+The undo mechanism uses polymorphism. Every command implements the execute and undo methods. Upon execution, the command is stored in a stack. If the user performs an `Undo` command, the command at the top of the stack is popped and the undo method of the command is executed. If the command contains a way for undoing, then it will perform the undo. If it doesn't, such as the `List` or `Help` command, then it will pop and repeat the process on the next item on the stack until there are no longer any items.
 The `CommandHistoryManager` is a singleton that manages a history of the user commands.
 
 Given below is an example usage scenario and how the undo mechanism behaves at each step.
@@ -164,7 +164,20 @@ Step 1. The user launches the application for the first time. The `CommandHistor
 
 Step 2. The user executes the `delete 2` command to delete the 2nd person in the clinic. The `delete 2` command attempts to execute and upon executing successfully, it is then pushed into the command history stack via `CommandHistoryManager.getInstance().pushCommandToHistory()`. Note that only successful executions will be pushed.
 
-Step 3. The user then executes the `undo` command which will pop the latest command via `CommandHistoryManager.getInstance().popCommandToHistory()`. The latest command will then execute their undo method which in this case is the `delete 2` command. 
+Step 3. The user then executes the `Undo` command which will pop the latest command via `CommandHistoryManager.getInstance().popCommandToHistory()`. The latest command will then execute their undo method which in this case is the `delete 2` command. 
+
+### Design considerations:
+
+**Aspect: How undo executes:**
+
+* **Alternative 1 :** Saves the entire clinic data.
+  * Pros: Easy to implement.
+  * Cons: May have performance issues in terms of memory usage.
+
+* **Alternative 2 (current choice):** Individual command knows how to undo by
+  itself.
+  * Pros: Will use less memory (e.g. for `add`, just save the person being added).
+  * Cons: We must ensure that the implementation of each individual command is correct.
 
 ## **Implementation of Appointments**
 
@@ -190,7 +203,7 @@ Here's how it works:
 Users can edit existing appointments by specifying the appointment index along with new time and/or duration. This functionality ensures that any modifications do not cause scheduling conflicts.
 
 Steps involved:
-- **Fetch and Modify**: The command fetches the existing appointment from the model using the provided index, then modifies the specified fields.
+- **Fetch and Modify**: The command fetches the existing appointment from the model using the provided index, and then modifies the specified fields.
 - **Conflict Check**: Before finalizing the changes, the system checks for any potential conflicts with other appointments.
 - **Commit Changes**: If no conflicts are found, the changes are committed to the model.
 
@@ -232,18 +245,7 @@ The feature for deleting appointments allows users to remove scheduled appointme
 2. **System Processing**: The application checks the validity of the index and, upon confirmation, deletes the appointment.
 3. **Feedback**: The user is notified of the successful deletion, and the appointment list is updated to exclude the deleted appointment.
 
-#### Design considerations:
-
-**Aspect: How undo executes:**
-
-* **Alternative 1 :** Saves the entire clinic data.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
-
-* **Alternative 2 (current choice):** Individual command knows how to undo by
-  itself.
-  * Pros: Will use less memory (e.g. for `add`, just save the person being added).
-  * Cons: We must ensure that the implementation of each individual command are correct.
+### **Design considerations**
 
 **Aspect: Handling Overlapping Appointments**
 
@@ -254,8 +256,6 @@ The feature for deleting appointments allows users to remove scheduled appointme
   * Pros: More flexibility for users.
   * Cons: Increases complexity in managing schedules.
 
-This section outlines the technical and functional aspects of the appointment features, providing clarity on how they 
-are implemented and interact with the overall system. Additional enhancements like undo/redo capabilities further refine user interactions, making the application robust and user-friendly.
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -303,10 +303,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (good
 | `* * *`  | user              | add the basic information of my patient into the database                                                                     | so that I can better identify who the patient is                                                 |
 | `* * *`  | user              | delete patient                                                                                                                | free storage resources                                                                           |
 | `* * *`  | user              | list out all of the information about a particular patient                                                                    | see the detailed information of the patient                                                      |
-| `* * *`  | user              | add the contact information of my patient into the database                                                                   | get in touch with them when needed or under emergency situation                                  |
+| `* * *`  | user              | add the contact information of my patient into the database                                                                   | get in touch with them when needed or under an emergency situation                                  |
 | `* * *`  | user              | delete the contact information for a particular patient when the information is outdated                                      | free storage resources                                                                           |
 | `* * *`  | user              | list out all of the patients and their contact information                                                                    |                                                                                                  |
-| `* * *`  | intermediate user | add appointment information for a patient                                                                                     | easily schedule an appointment and find free time slot for it                                    |
+| `* * *`  | intermediate user | add appointment information for a patient                                                                                     | easily schedule an appointment and find a free time slot for it                                    |
 | `* * *`  | intermediate user | delete appointment for a patient                                                                                              | free up slots if the patient is unable to attend                                                 |
 | `* * *`  | intermediate user | list out all of the appointments                                                                                              |                                                                                                  |
 | `* * *`  | user              | list out all of the information about a particular patient                                                                    | see the detailed information of the patient                                                      |
@@ -326,7 +326,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (good
 | `* *`    | intermediate user | list out specifically the past illnesses of the patient                                                                       | assist in the diagnosis process                                                                  |
 | `* *`    | intermediate user | modify the patient's past illnesses upon the previous appointment                                                             |                                                                                                  |
 | `* *`    | expert user       | have short forms of existing commands                                                                                         | save time on typing the commands                                                                 |
-| `*`      | new user          | have the ability to switch to a more simplified and beginner friendly UI                                                      | more effectively learn the basics                                                                |
+| `*`      | new user          | have the ability to switch to a more simplified and beginner-friendly UI                                                      | more effectively learn the basics                                                                |
 | `*`      | new user          | have interactive elements in the user guide                                                                                   | easily understand the app's capabilities                                                         |
 | `*`      | new user          | be given command suggestions for mistyped commands                                                                            | type the intended command without needing to refer to the user guide                             |
 | `*`      | user              | add a reminder for an appointment                                                                                             | be aware of the appointment while busy with work                                                 |
@@ -339,7 +339,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (good
 | `*`      | intermediate user | have an efficient way to export and backup patient data                                                                       | ensure the safety and accessibility of important information                                     |
 | `*`      | intermediate user | export selected patient's information                                                                                         | give the information to the doctor or the patient when needed                                    |
 | `*`      | intermediate user | export selected medical instructions                                                                                          | easily share the instructions to the patient                                                     |
-| `*`      | doctor            | be able to set a set of instructions for the assistants for special cases such as performing lung capacity tests for asmatics | make my assistants aware of the procedures to go through before my consultation with the patient |
+| `*`      | doctor            | be able to set a set of instructions for the assistants for special cases such as performing lung capacity tests for asthmatics | make my assistants aware of the procedures to go through before my consultation with the patient |
 
 ### Use cases
 
@@ -365,7 +365,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (good
 
 **MSS**
 1.  User requests to delete a patient by specifying the index of the patient in the patient list.
-2.  vitalconnect deletes the patient from patient list.
+2.  vitalconnect deletes the patient from the patient list.
 3.  vitalconnect displays the updated patient list with the patient removed.
 </br>Use case ends.
 
@@ -388,8 +388,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (good
 * 1b. The assigned patient doesn't exist in the database.
   * 1b1. vitalconnect displays a warning message.
     </br>Use case ends.
-* 1c. The appointment time overlaps with existing appointment time.
-  * 1c1. vitalconnect displays a warning message and shows all the appointments with overlapping time.
+* 1c. The appointment time overlaps with an existing appointment time.
+  * 1c1. vitalconnect displays a warning message and shows all the appointments with overlapping times.
     </br>Use case ends.
 
 **Use case: UC4 - Delete an appointment**
@@ -410,20 +410,20 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (good
 **MSS**
 1.  User requests to modify an appointment for a patient by specifying the index of the appointment in the appointment list.
 2.  vitalconnect saves the new appointment information.
-3.  vitalconnect displays the updated detail of the appointment modified.
+3.  vitalconnect displays the updated details of the appointment modified.
 </br>Use case ends.
 
 **Extensions**
 * 1a. The appointment referred by the index doesn't exist in the database.
   * 1a1. vitalconnect displays an error message.
     </br>Use case ends.
-* 1b. The id is not a valid number.
+* 1b. The ID is not a valid number.
   * 1b1. vitalconnect displays an error message.
     </br>Use case ends.
 * 1c. The new information is in invalid form.
   * 1c1. vitalconnect displays an error message.
     </br>Use case ends.
-* 1d. The modified appointment time overlaps with existing appointment time.
+* 1d. The modified appointment time overlaps with an existing appointment time.
   * 1d1. vitalconnect displays an error message and shows all the conflicting appointments.
     </br>Use case ends.
 
@@ -431,7 +431,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (good
 
 **MSS**
 1.  User requests to add specific information for a patient by specifying the patient's NRIC and the information to be added.
-2.  vitalconnect save the specific information to the database.
+2.  vitalconnect saves the specific information to the database.
 </br>Use case ends.
 
 **Extensions**
@@ -446,7 +446,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (good
 
 **MSS**
 1. User requests to delete specific information for a patient by specifying the patient's NRIC.
-2. vitalconnect remove the specific information to the database.
+2. vitalconnect removes the specific information from the database.
 </br>Use case ends.
 
 **Extensions**
@@ -488,20 +488,20 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (good
 2. The system should respond within 3 seconds.
 
 #### Quality Requirements
-1. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+1. A user with above-average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 2. System should be robust for any form of data file crashes and invalid user input.
 
 #### Scope
 1. The product will <strong>NOT</strong> enforce any form of protection of the generated data file containing patients' information. The organization should be responsible for ensuring the safety of their patient's data.
 
 #### Process Requirements
-1. The project is expected to grow in breadth-first iterative process.
+1. The project is expected to grow in a breadth-first iterative process.
 
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **CLI**: Acronym for Command Line Interface, a text-based interface where users interact with the application by typing commands.
-* **vitalconnect**: The system being described, representing the medical management application.
+* **vitalconnect**: The system being described, represents the medical management application.
 * **Use Case**: A specific scenario or situation in which a user interacts with the vitalconnect system to achieve a specific goal.
 * **MSS (Main Success Scenario)**: The primary sequence of steps in a use case that represents the successful accomplishment of the user's goal.
 * **Extensions**: Additional scenarios that may occur during the execution of a use case, usually describing alternative paths or error-handling situations.
@@ -529,7 +529,7 @@ testers are expected to do more *exploratory* testing.
 
 ### Launch and shutdown
 **Initial launch**
-1. Ensure you have Java `11` or above installed in your Computer. You can learn how to do so [here](https://www.java.com/en/download/help/download_options.html)
+1. Ensure you have Java `11` or above installed on your Computer. You can learn how to do so [here](https://www.java.com/en/download/help/download_options.html)
 
 2. Download the latest `vitalconnect.jar` from [here](https://github.com/AY2324S2-CS2103T-W08-2/tp/releases).
 
@@ -539,7 +539,7 @@ testers are expected to do more *exploratory* testing.
 
 5. Type `cd` followed by the location of the folder that you are putting the `vitalconnect.jar` file in. Find out more [here](https://www.wikihow.com/Change-Directories-in-Command-Prompt)
 
-6. Type `java -jar vitalConnect.jar` and press Enter to launch java and run the application. A GUI should appear in a few seconds.
+6. Type `java -jar vitalConnect.jar` and press Enter to launch Java and run the application. A GUI should appear in a few seconds.
 
 
 **Shutdown**
@@ -561,6 +561,4 @@ testers are expected to do more *exploratory* testing.
 
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
-
-1. _{ more test cases …​ }_
 
