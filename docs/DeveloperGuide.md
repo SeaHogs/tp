@@ -16,11 +16,15 @@ title: Developer Guide
 * Libraries used: [JavaFX](https://openjfx.io/), [Jackson](https://github.com/FasterXML/jackson), [JUnit5](https://github.com/junit-team/junit5), [CalendarFx](https://github.com/dlsc-software-consulting-gmbh/CalendarFX)
 * This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org).
 
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Setting up and getting started
 
 Refer to the guide [_Setting up and getting started_](SettingUp.md).
+
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -30,6 +34,8 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 :bulb: **Tip:** The `.puml` files used to create diagrams in this document `docs/diagrams` folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
 </div>
+
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
 
 ### Architecture
 
@@ -71,6 +77,8 @@ For example, the `Logic` component defines its API in the `Logic.java` interface
 
 The sections below give more details of each component.
 
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
+
 ### UI component
 
 The **API** of this component is specified in [`Ui.java`](https://github.com/AY2324S2-CS2103T-W08-2/tp/tree/master/src/main/java/vitalconnect/ui/Ui.java)
@@ -87,6 +95,8 @@ The `UI` component,
 * listens for changes to `Model` data so that the UI can be updated with the modified data.
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
 * depends on some classes in the `Model` component, as it displays `Person` object residing in the `Model`.
+
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
 
 ### Logic component
 
@@ -119,6 +129,8 @@ How the parsing works:
 * When called upon to parse a user command, the `ClinicParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `ClinicParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
+
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2324S2-CS2103T-W08-2/tp/tree/master/src/main/java/vitalconnect/model/Model.java)
 
@@ -133,6 +145,8 @@ The `Model` component,
 * each `Person` has 3 types of information, the [`Identification Information`](https://github.com/AY2324S2-CS2103T-W08-2/tp/tree/master/src/main/java/vitalconnect/model/person/identificationinformation), the [`Contact Information`](https://github.com/AY2324S2-CS2103T-W08-2/tp/tree/master/src/main/java/vitalconnect/model/person/contactinformation) and the [`Medical Information`](https://github.com/AY2324S2-CS2103T-W08-2/tp/tree/master/src/main/java/vitalconnect/model/person/medicalinformation).
 * each of the information can be expanded upon easily to add future additions such as emergency contact, etc.
 
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
+
 ### Storage component
 
 **API** : [`Storage.java`](https://github.com/AY2324S2-CS2103T-W08-2/tp/tree/master/src/main/java/vitalconnect/storage/Storage.java)
@@ -144,9 +158,13 @@ The `Storage` component,
 * inherits from both `ClinicStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
+
 ### Common classes
 
 Classes used by multiple components are in the `vitalConnectbook.commons` package.
+
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -169,6 +187,8 @@ Step 2. The user executes the `delete 2` command to delete the 2nd person in the
 
 Step 3. The user then executes the `Undo` command which will pop the latest command via `CommandHistoryManager.getInstance().popCommandToHistory()`. The latest command will then execute their undo method which in this case is the `delete 2` command. 
 
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
+
 ### Design considerations:
 
 **Aspect: How undo executes:**
@@ -182,9 +202,13 @@ Step 3. The user then executes the `Undo` command which will pop the latest comm
   * Pros: Will use less memory (e.g. for `add`, just save the person being added).
   * Cons: We must ensure that the implementation of each individual command is correct.
 
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
+
 ## **Implementation of Appointments**
 
 This section provides details on how the appointment-related functionalities are implemented in the application.
+
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
 
 ### **Creating Appointments**
 
@@ -195,11 +219,15 @@ Here's how it works:
 - **Validation**: Checks include validating the time format, ensuring the time is not in the past, and that the appointment duration is within allowable limits.
 - **State Saving**: Upon successful creation, the appointment state is saved in the model, allowing for future queries or modifications.
 
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
+
 #### Example Usage Scenario
 
 1. The user inputs the command to create an appointment with specific details.
 2. The system validates the input, checks for conflicts, and if all checks pass, the appointment is added to the system.
 3. The user receives confirmation that the appointment has been successfully scheduled.
+
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
 
 ### **Editing Appointments**
 
@@ -210,11 +238,15 @@ Steps involved:
 - **Conflict Check**: Before finalizing the changes, the system checks for any potential conflicts with other appointments.
 - **Commit Changes**: If no conflicts are found, the changes are committed to the model.
 
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
+
 #### Example Usage Scenario
 
 1. The user issues a command to edit an appointment.
 2. The application retrieves the appointment, applies the changes, and checks for conflicts.
 3. If no conflicts are detected, the changes are saved, and the user is informed of the successful update.
+
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
 
 ### **Finding Appointments**
 
@@ -224,16 +256,21 @@ Implementation specifics:
 - **Query Execution**: The command queries the model for appointments using the patient's NRIC.
 - **Result Presentation**: The appointments, if any, are formatted and presented to the user.
 
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
+
 #### Example Usage Scenario
 
 1. A user requests to view appointments for a specific patient using their NRIC.
 2. The system retrieves all matching appointments and displays them.
 3. If no appointments are found, a message indicating this is shown to the user.
 
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
 
 ### **Deleting Appointments**
 
 The feature for deleting appointments allows users to remove scheduled appointments by specifying their index within the list of all appointments. This functionality ensures that appointments are accurately identified and removed without affecting other entries.
+
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
 
 #### Implementation Details
 
@@ -242,11 +279,15 @@ The feature for deleting appointments allows users to remove scheduled appointme
 - **Deletion Process**: If the index is valid, the specified appointment is removed from the model.
 - **Update UI**: Post deletion, the UI updates to reflect the changes, removing the appointment from the displayed list.
 
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
+
 #### Example Usage Scenario
 
 1. **User Action**: The user issues a command to delete an appointment by specifying its index.
 2. **System Processing**: The application checks the validity of the index and, upon confirmation, deletes the appointment.
 3. **Feedback**: The user is notified of the successful deletion, and the appointment list is updated to exclude the deleted appointment.
+
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
 
 ### **Design considerations**
 
@@ -259,6 +300,8 @@ The feature for deleting appointments allows users to remove scheduled appointme
   * Pros: More flexibility for users.
   * Cons: Increases complexity in managing schedules.
 
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -268,6 +311,8 @@ The feature for deleting appointments allows users to remove scheduled appointme
 * [Logging guide](Logging.md)
 * [Configuration guide](Configuration.md)
 * [DevOps guide](DevOps.md)
+
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -294,6 +339,7 @@ vitalconnect aims to provide a robust and user-friendly platform for medical pro
 
 * CLI Efficiency: The application caters to users who prefer typing commands over graphical interfaces, enabling faster and more precise data entry.
 
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
 
 ### User stories
 
@@ -343,6 +389,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (good
 | `*`      | intermediate user | export selected patient's information                                                                                         | give the information to the doctor or the patient when needed                                    |
 | `*`      | intermediate user | export selected medical instructions                                                                                          | easily share the instructions to the patient                                                     |
 | `*`      | doctor            | be able to set a set of instructions for the assistants for special cases such as performing lung capacity tests for asthmatics | make my assistants aware of the procedures to go through before my consultation with the patient |
+
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
 
 ### Use cases
 
@@ -509,6 +557,8 @@ Use case ends.
 
 Use case ends.
 
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
+
 ### Non-Functional Requirements
 
 #### Technical Requirements
@@ -527,6 +577,8 @@ Use case ends.
 
 #### Process Requirements
 1. The project is expected to grow in a breadth-first iterative process.
+
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
 
 ### Glossary
 
@@ -547,6 +599,8 @@ Use case ends.
 * **Valid Data Entry**: Information entered by the user that meets the required format or criteria.
 * **Tooltip**: A common graphical user interface element in which, when hovering over a screen element or component, a text box displays information about that element.
 
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Instructions for manual testing**
@@ -557,6 +611,8 @@ Given below are instructions to test the app manually.
 testers are expected to do more *exploratory* testing.
 
 </div>
+
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
 
 ### Launch and shutdown
 **Initial launch**
@@ -577,6 +633,7 @@ testers are expected to do more *exploratory* testing.
 - Type `exit` in the command box to close the application 
 - OR click the `File` button and select `Exit` from the dropdown menu.
 
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
 
 ### Deleting a person
 
