@@ -161,10 +161,6 @@ public class ModelManager implements Model {
     }
     @Override
     public ObservableList<Appointment> getFoundAppointmentList() {
-        System.out.println("found apt list");
-        for (Appointment a: foundApt) {
-            System.out.println(a);
-        }
         FXCollections.sort(foundApt, Comparator.comparing(Appointment::getDateTime));
         return foundApt;
     }

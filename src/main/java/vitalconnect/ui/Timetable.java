@@ -65,9 +65,7 @@ public class Timetable extends UiPart<Region> {
         // because someone's code need lista to update appointment list  (ಠ_ಠ)
         personList.addListener((ListChangeListener<Person>) change -> {
             while (change.next()) {
-                System.out.println("Person list changed");
                 if (change.wasReplaced()) {
-                    System.out.println("Person list replaced");
                     for (Person person : change.getAddedSubList()) {
                         calendarView.getCalendarSources().get(0).getCalendars().get(0)
                                 .findEntries(person.getIdentificationInformation().getNric().nric)
@@ -181,8 +179,6 @@ public class Timetable extends UiPart<Region> {
             entry.changeEndDate(app.getDateTime().toLocalDate());
             entry.changeStartTime(app.getDateTime().toLocalTime());
             entry.changeEndTime(app.getDateTime().toLocalTime().plusMinutes(app.getDuration() * 15L));
-            System.out.println(app.getDateTime().toLocalTime());
-            System.out.println(entry);
             appointmentOfTheDay.addEntries(entry);
         }
     }
