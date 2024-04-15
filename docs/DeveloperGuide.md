@@ -54,7 +54,7 @@ Below is a quick overview of the main components and how they interact with each
 
 **`Main`** (consisting of classes [`Main`](https://github.com/AY2324S2-CS2103T-W08-2/tp/tree/master/src/main/java/vitalconnect/Main.java) and [`MainApp`](https://github.com/AY2324S2-CS2103T-W08-2/tp/blob/master/src/main/java/vitalconnect/MainApp.java)) is in charge of the app launch and shutdown.
 * At app launch, it initializes the other components in the correct sequence, and connects them up with each other.
-* At shut down, it shuts down the other components and invokes cleanup methods where necessary.
+* At shutdown, it shuts down the other components and invokes cleanup methods where necessary.
 
 The bulk of the app's work is done by the following four components:
 
@@ -68,8 +68,6 @@ The bulk of the app's work is done by the following four components:
 **How the architecture components interact with each other**
 
 The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
-
-<div style="page-break-after: always;"></div>
 
 <img src="images/ArchitectureSequenceDiagram.png" width="574" />
 
@@ -95,6 +93,8 @@ The **API** of this component is specified in [`Ui.java`](https://github.com/AY2
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
 The `UI` component uses the JavaFx UI framework. The layouts of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2324S2-CS2103T-W08-2/tp/tree/master/src/main/java/vitalconnect/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2324S2-CS2103T-W08-2/tp/tree/master/src/main/resources/view/MainWindow.fxml)
+
+<div style="page-break-after: always;"></div>
 
 The `UI` component,
 
@@ -153,6 +153,8 @@ How the parsing works:
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2324S2-CS2103T-W08-2/tp/tree/master/src/main/java/vitalconnect/model/Model.java)
 
+<div style="page-break-after: always;"></div>
+
 <img src="images/ModelClassDiagram.png" width="450" />
 
 The `Model` component,
@@ -161,8 +163,7 @@ The `Model` component,
 * stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` object.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
-* each `Person` has 3 types of information, the [`Identification Information`](https://github.com/AY2324S2-CS2103T-W08-2/tp/tree/master/src/main/java/vitalconnect/model/person/identificationinformation), the [`Contact Information`](https://github.com/AY2324S2-CS2103T-W08-2/tp/tree/master/src/main/java/vitalconnect/model/person/contactinformation) and the [`Medical Information`](https://github.com/AY2324S2-CS2103T-W08-2/tp/tree/master/src/main/java/vitalconnect/model/person/medicalinformation).
-* each of the information can be expanded upon easily to add future additions such as emergency contact, etc.
+* stores each `Person` with 3 types of information; [`Identification Information`](https://github.com/AY2324S2-CS2103T-W08-2/tp/tree/master/src/main/java/vitalconnect/model/person/identificationinformation), [`Contact Information`](https://github.com/AY2324S2-CS2103T-W08-2/tp/tree/master/src/main/java/vitalconnect/model/person/contactinformation), `Medical Information`](https://github.com/AY2324S2-CS2103T-W08-2/tp/tree/master/src/main/java/vitalconnect/model/person/medicalinformation), and each them can be expanded upon easily for future additions such as emergency contact, etc.
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
@@ -209,8 +210,9 @@ Step 2. The user executes the `delete 2` command to delete the 2nd person in the
 Step 3. The user then executes the `Undo` command which will pop the latest command via `CommandHistoryManager.getInstance().popCommandToHistory()`. The latest command will then execute their undo method which in this case is the `delete 2` command. 
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
+<div style="page-break-after: always;"></div>
 
-### Design considerations:
+### **Design considerations**
 
 **Aspect: How undo executes:**
 
@@ -224,8 +226,6 @@ Step 3. The user then executes the `Undo` command which will pop the latest comm
   * Cons: We must ensure that the implementation of each individual command is correct.
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
-
-<div style="page-break-after: always;"></div>
 
 ## **Implementation of Appointments**
 
@@ -244,6 +244,8 @@ Here's how it works:
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
+<div style="page-break-after: always;"></div>
+
 #### Example Usage Scenario
 
 1. The user inputs the command to create an appointment with specific details.
@@ -251,8 +253,6 @@ Here's how it works:
 3. The user receives confirmation that the appointment has been successfully scheduled.
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
-
-<div style="page-break-after: always;"></div>
 
 ### **Editing Appointments**
 
@@ -333,25 +333,25 @@ The feature for deleting appointments allows users to remove scheduled appointme
 
 The timetable feature allows users to view all appointments scheduled for a specific day. This feature provides a consolidated view of the day's appointments, aiding in planning and organization.
 
-### Calendar View Integration:
+### Calendar View Integration
 1. The class uses the [CalendarFX](https://github.com/dlsc-software-consulting-gmbh/CalendarFX) library to implement the calendar view.
 2. The setUpCalendarView() method configures various aspects of the CalendarView, such as styling, toolbars, search functionality, and context menus.
 
-### Appointment List Management:
+### Appointment List Management
 1. The Timetable class observes changes in the ObservableList of appointments (appointmentList). It updates the calendar view accordingly when appointments are added, removed, replaced, or updated.
 2. The addAppointmentToCalendar() method adds a new appointment to the calendar view by creating an Entry object with appropriate details and adding it to the calendar.
 
-### Person List Integration:
+### Person List Integration
 1. Although not directly related to appointments, the class also observes changes in the ObservableList of persons (personList). This is because the UI needs to update when person details change.
 2. When a person's details change, the corresponding entries in the calendar view are updated to reflect the changes. Since appointments only change when user use 'lista' command, and the calendar view can not wait for 'lista' command.
 
 <div style="page-break-after: always;"></div>
 
-### Real-time Clock Update:
+### Real-time Clock Update
 1. The class includes a background thread (updateTimeThread) that continuously updates the current date and time displayed in the calendar view every 30 seconds.
 2. This ensures that the calendar view always displays the current date and time without requiring manual refresh.
 
-### Example Usage Scenario:
+### Example Usage Scenario
 1. The user navigates to the timetable view to see all appointments scheduled for the day.
 2. The calendar view displays a list of appointments with details such as patient name, appointment time, and duration.
 3. The user can interact with the calendar view to view additional details, modify appointments, or add new appointments.
@@ -626,8 +626,6 @@ Use case ends.
 4.  vitalconnect reverts and displays the previous information of the patient.
 
 Use case ends.
-
-[<span style="font-size: small;">Back to table of contents</span>](#toc)
 
 ### Non-Functional Requirements
 
