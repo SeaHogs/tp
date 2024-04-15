@@ -76,6 +76,10 @@ Each of the four main components (also shown in the diagram above),
 * defines its *API* in an `interface` with the same name as the Component.
 * implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point.
 
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
+
+<div style="page-break-after: always;"></div>
+
 For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside components from being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
 <img src="images/ComponentManagers.png" width="300" />
@@ -83,6 +87,8 @@ For example, the `Logic` component defines its API in the `Logic.java` interface
 The sections below give more details of each component.
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
+
+<div style="page-break-after: always;"></div>
 
 ### UI component
 
@@ -93,8 +99,6 @@ The **API** of this component is specified in [`Ui.java`](https://github.com/AY2
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
 The `UI` component uses the JavaFx UI framework. The layouts of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2324S2-CS2103T-W08-2/tp/tree/master/src/main/java/vitalconnect/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2324S2-CS2103T-W08-2/tp/tree/master/src/main/resources/view/MainWindow.fxml)
-
-<div style="page-break-after: always;"></div>
 
 The `UI` component,
 
@@ -116,6 +120,10 @@ Here's a (partial) class diagram of the `Logic` component:
 <img src="images/LogicClassDiagram.png" width="550"/>
 
 The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("delete 1")` API call as an example.
+
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
+
+<div style="page-break-after: always;"></div>
 
 ![Interactions Inside the Logic Component for the `delete 1` Command](images/DeleteSequenceDiagram.png)
 
@@ -155,7 +163,7 @@ How the parsing works:
 
 <div style="page-break-after: always;"></div>
 
-<img src="images/ModelClassDiagram.png" width="450" />
+<img src="images/ModelClassDiagram.png" width="400" />
 
 The `Model` component,
 
@@ -343,7 +351,7 @@ The timetable feature allows users to view all appointments scheduled for a spec
 
 ### Person List Integration
 1. Although not directly related to appointments, the class also observes changes in the ObservableList of persons (personList). This is because the UI needs to update when person details change.
-2. When a person's details change, the corresponding entries in the calendar view are updated to reflect the changes. Since appointments only change when user use 'lista' command, and the calendar view can not wait for 'lista' command.
+2. When a person's details change, the corresponding entries in the calendar view are updated to reflect the changes. Since appointments only change when the user use 'lista' command, and the calendar view can not wait for 'lista' command.
 
 <div style="page-break-after: always;"></div>
 
@@ -355,8 +363,8 @@ The timetable feature allows users to view all appointments scheduled for a spec
 1. The user navigates to the timetable view to see all appointments scheduled for the day.
 2. The calendar view displays a list of appointments with details such as patient name, appointment time, and duration.
 3. The user can interact with the calendar view to view additional details, modify appointments, or add new appointments.
-4. The calendar view automatically updates in real-time to reflect any changes made to appointments or patient details.
-5. If enough pixels are available, the calendar view will display a agenda.
+4. The calendar view automatically updates in real time to reflect any changes made to appointments or patient details.
+5. If enough pixels are available, the calendar view will display an agenda.
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
@@ -493,6 +501,8 @@ Use case ends.
 
 Use case ends.
 
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
+
 <div style="page-break-after: always;"></div>
 
 **Use case: UC3 - Add an appointment**
@@ -532,6 +542,8 @@ Use case ends.
 
 Use case ends.
 
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
+
 <div style="page-break-after: always;"></div>
 
 **Use case: UC5 - Modify an appointment**
@@ -561,6 +573,8 @@ Use case ends.
 
 	Use case ends.
 
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
+
 <div style="page-break-after: always;"></div>
 
 **Use case: UC6 - Add specific information (contact/medical information) for a patient**
@@ -581,6 +595,8 @@ Use case ends.
   * 1b1. vitalconnect displays a warning message.
 
 	Use case ends.
+
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
 
 <div style="page-break-after: always;"></div>
 
@@ -615,6 +631,9 @@ Use case ends.
   * 1b1. vitalconnect displays a warning message.
 
 	Use case ends.
+
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
+
 <div style="page-break-after: always;"></div>
 
 **Use case: UC9 - Undoing the deletion**
@@ -721,3 +740,12 @@ testers are expected to do more *exploratory* testing.
       Expected: Similar to previous.
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
+
+## **Appendix: Planned Enhancements**
+1. Currently the commands are switching the view upon execution and a planned enhancement would be to standarize the view switching.
+2. Currently the constraints for names are limited and a planned enhancement would be to widen the constraints for special characters to account for other languages as well.
+3. Currently the constraints for allergy tags are limited and do not account for the size and a planned enhancement would be to adjust the constraints for the size and special characters to account for allergies with multiple words.
+4. Currently the system requires several commands to add all of the information to a patient and a planned enhancement would be to have a global add function, allowing the user to add all of the information in one singular command.
+5. Currently the system only supports one doctor by forcing the appointments to not overlap and a planned enhancement would be to set multiple doctors so that the clinic can have overlapping appointments
+6. Currently for the timetable, weekends and weekdays between 10pm and 6am the timetable are greyed out, making the users believe that no appointments can be added in those period and a planned enhancement would be to allow users to set their own limits. 
+7. Currently the system has no standardised command formats and a planned enhancement would be to standardize them so that the order is consistent.
