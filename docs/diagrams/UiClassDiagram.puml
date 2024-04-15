@@ -12,7 +12,9 @@ Class MainWindow
 Class HelpWindow
 Class ResultDisplay
 Class PersonListPanel
-Class PersonCard
+Class AppointmentListPanel
+Class PersonListCard
+Class AppointmentListCard
 Class StatusBarFooter
 Class CommandBox
 Class Timetable
@@ -39,32 +41,38 @@ UiManager -down-> "1" MainWindow
 MainWindow *-down->  "1" CommandBox
 MainWindow *-down-> "1" ResultDisplay
 MainWindow *-down-> "1" PersonListPanel
+MainWindow *-down-> "1" AppointmentListPanel
 MainWindow *-down-> "1" StatusBarFooter
 MainWindow *-down-> "1" Timetable
 MainWindow --> "0..1" HelpWindow
 
-PersonListPanel -down-> "*" PersonCard
+PersonListPanel -down-> "*" PersonListCard
+AppointmentListPanel -down-> "*" AppointmentListCard
 
 MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
 PersonListPanel --|> UiPart
-PersonCard --|> UiPart
+PersonListCard --|> UiPart
+AppointmentListCard --|> UiPart
 StatusBarFooter --|> UiPart
-Timetable --|> UiPart
 HelpWindow --|> UiPart
+Timetable --|> UiPart
 
-PersonCard ..> Model
+PersonListCard ..> Model
+AppointmentListCard ..> Model
 Timetable ..|> CalendarView
 UiManager -right-> Logic
 MainWindow -left-> Logic
+Timetable -right-> Logic
 
 PersonListPanel -[hidden]left- HelpWindow
+AppointmentListPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
-StatusBarFooter -[hidden]left- Timetable
+StatusBarFooter -[hidden]left- HelpWindow
 
 MainWindow -[hidden]-|> UiPart
 @enduml
