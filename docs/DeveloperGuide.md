@@ -2,7 +2,6 @@
 layout: page
 title: Developer Guide
 ---
-<div style="page-break-after: always;"></div>
 
 ## TOC
 
@@ -10,6 +9,8 @@ title: Developer Guide
 {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
+
+<div style="page-break-after: always;"></div>
 
 ## Acknowledgements
 
@@ -39,6 +40,8 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
+<div style="page-break-after: always;"></div>
+
 ### Architecture
 
 <img src="images/ArchitectureDiagram.png" width="280" />
@@ -65,6 +68,8 @@ The bulk of the app's work is done by the following four components:
 **How the architecture components interact with each other**
 
 The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+
+<div style="page-break-after: always;"></div>
 
 <img src="images/ArchitectureSequenceDiagram.png" width="574" />
 
@@ -100,6 +105,8 @@ The `UI` component,
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
+<div style="page-break-after: always;"></div>
+
 ### Logic component
 
 **API** : [`Logic.java`](https://github.com/AY2324S2-CS2103T-W08-2/tp/tree/master/src/main/java/vitalconnect/logic/Logic.java)
@@ -131,6 +138,8 @@ How the parsing works:
 * When called upon to parse a user command, the `ClinicParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `ClinicParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
+<div style="page-break-after: always;"></div>
+
 ### Timetable component
 
 **API** : [`CalendarFx`](https://github.com/dlsc-software-consulting-gmbh/CalendarFX)
@@ -157,6 +166,8 @@ The `Model` component,
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
+<div style="page-break-after: always;"></div>
+
 ### Storage component
 
 **API** : [`Storage.java`](https://github.com/AY2324S2-CS2103T-W08-2/tp/tree/master/src/main/java/vitalconnect/storage/Storage.java)
@@ -176,7 +187,7 @@ Classes used by multiple components are in the `vitalConnectbook.commons` packag
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
---------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## **Implementation of Undo**
 
@@ -214,6 +225,8 @@ Step 3. The user then executes the `Undo` command which will pop the latest comm
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
+<div style="page-break-after: always;"></div>
+
 ## **Implementation of Appointments**
 
 This section provides details on how the appointment-related functionalities are implemented in the application.
@@ -239,6 +252,8 @@ Here's how it works:
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
+<div style="page-break-after: always;"></div>
+
 ### **Editing Appointments**
 
 Users can edit existing appointments by specifying the appointment index along with new time and/or duration. This functionality ensures that any modifications do not cause scheduling conflicts.
@@ -258,6 +273,8 @@ Steps involved:
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
+<div style="page-break-after: always;"></div>
+
 ### **Finding Appointments**
 
 This feature allows users to find all appointments associated with a particular patient by their NRIC. It serves as a quick access point to view all related appointments.
@@ -275,6 +292,8 @@ Implementation specifics:
 3. If no appointments are found, a message indicating this is shown to the user.
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
+
+<div style="page-break-after: always;"></div>
 
 ### **Deleting Appointments**
 
@@ -324,7 +343,9 @@ The timetable feature allows users to view all appointments scheduled for a spec
 
 ### Person List Integration:
 1. Although not directly related to appointments, the class also observes changes in the ObservableList of persons (personList). This is because the UI needs to update when person details change.
-2. When a person's details change, the corresponding entries in the calendar view are updated to reflect the changes. Since appointments only change when user use 'lista' command(surprising?), and the calendar view can not wait for 'lista' command.
+2. When a person's details change, the corresponding entries in the calendar view are updated to reflect the changes. Since appointments only change when user use 'lista' command, and the calendar view can not wait for 'lista' command.
+
+<div style="page-break-after: always;"></div>
 
 ### Real-time Clock Update:
 1. The class includes a background thread (updateTimeThread) that continuously updates the current date and time displayed in the calendar view every 30 seconds.
@@ -351,7 +372,7 @@ The timetable feature allows users to view all appointments scheduled for a spec
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
---------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## **Appendix: Requirements**
 
@@ -377,6 +398,8 @@ vitalconnect aims to provide a robust and user-friendly platform for medical pro
 * CLI Efficiency: The application caters to users who prefer typing commands over graphical interfaces, enabling faster and more precise data entry.
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
+
+<div style="page-break-after: always;"></div>
 
 ### User stories
 
@@ -429,6 +452,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (good
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
+<div style="page-break-after: always;"></div>
+
 ### Use cases
 
 (For all use cases below, the **System** is the `vitalconnect` and the **Actor** is the `user`, unless specified otherwise)
@@ -468,6 +493,8 @@ Use case ends.
 
 Use case ends.
 
+<div style="page-break-after: always;"></div>
+
 **Use case: UC3 - Add an appointment**
 **MSS**
 1.  User requests to add an appointment for a patient by providing the patient's NRIC, appointment start time, and duration.
@@ -503,8 +530,9 @@ Use case ends.
 * 1a. The appointment doesn't exist in the database.
   * 1a1. vitalconnect displays a warning message.
 
-
 Use case ends.
+
+<div style="page-break-after: always;"></div>
 
 **Use case: UC5 - Modify an appointment**
 
@@ -533,6 +561,8 @@ Use case ends.
 
 	Use case ends.
 
+<div style="page-break-after: always;"></div>
+
 **Use case: UC6 - Add specific information (contact/medical information) for a patient**
 
 **MSS**
@@ -551,6 +581,8 @@ Use case ends.
   * 1b1. vitalconnect displays a warning message.
 
 	Use case ends.
+
+<div style="page-break-after: always;"></div>
 
 **Use case: UC7 - Delete specific information (contact/medical information) for a patient**
 
@@ -583,6 +615,7 @@ Use case ends.
   * 1b1. vitalconnect displays a warning message.
 
 	Use case ends.
+<div style="page-break-after: always;"></div>
 
 **Use case: UC9 - Undoing the deletion**
 
@@ -616,6 +649,7 @@ Use case ends.
 1. The project is expected to grow in a breadth-first iterative process.
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
+<div style="page-break-after: always;"></div>
 
 ### Glossary
 
@@ -638,7 +672,7 @@ Use case ends.
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
 
---------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## **Appendix: Instructions for manual testing**
 
@@ -671,6 +705,7 @@ testers are expected to do more *exploratory* testing.
 - OR click the `File` button and select `Exit` from the dropdown menu.
 
 [<span style="font-size: small;">Back to table of contents</span>](#toc)
+<div style="page-break-after: always;"></div>
 
 ### Deleting a person
 
@@ -687,3 +722,4 @@ testers are expected to do more *exploratory* testing.
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
+[<span style="font-size: small;">Back to table of contents</span>](#toc)
