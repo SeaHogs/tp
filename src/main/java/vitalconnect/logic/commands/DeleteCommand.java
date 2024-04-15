@@ -44,7 +44,7 @@ public class DeleteCommand extends Command {
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-        
+
         deletedClinic = model.getClinicCopy();
         deletedAppointments = model.getAppointmentsCopy();
 
