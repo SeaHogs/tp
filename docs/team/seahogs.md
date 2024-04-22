@@ -46,6 +46,7 @@ __TimeTable__:
 * **Code contributed**: [vitalConnect](https://github.com/AY2324S2-CS2103T-W08-2/tp)
 * **Project management**: Helped releases `v1.2` - `v1.4` (2 releases) on GitHub
 
+---
 
 ### **Documentation**:
 * **User Guide**:
@@ -54,12 +55,12 @@ __TimeTable__:
 * **Developer Guide**:
     * Added Glossary. [\#36]()
 
+---
+
 ### **Community Contributions**:
 * PRs reviewed (with non-trivial review comments): [\#47](), [\#81](), [\#96](), [\#166](), [\#172]()
 
+---
+
 ### **Tools**:
 * Integrated a third-party library (CalenderFx) into the project [\#108]()
-
-
-
-
